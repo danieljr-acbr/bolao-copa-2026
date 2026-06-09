@@ -544,17 +544,17 @@
   <div class="container">
     <header>
       <div>
-        <h1>🏆 Palpites Copa 2026 <span class="version-pill">JSON oficial</span></h1>
-        <p>Preencha seus palpites da fase de grupos e baixe seu arquivo JSON para enviar ao organizador.</p>
+        <h1>🏆 Palpites Copa 2026 <span class="version-pill">Bolão oficial</span></h1>
+        <p>Faça sua aposta da fase de grupos e gere o arquivo oficial do seu bolão.</p>
       </div>
     </header>
 
     <section class="card hero">
       <div class="hero-badge">⚽ Bolão Copa 2026 · Fase de grupos</div>
-      <h1>Gere seu JSON de palpites</h1>
+      <h1>Faça sua aposta</h1>
       <p>
         Esta página funciona online, direto no navegador. Seus dados ficam salvos apenas neste dispositivo
-        até você baixar o arquivo JSON.
+até você baixar o arquivo do seu bolão.
       </p>
       <div class="notice">
         O mata-mata será preenchido em uma segunda etapa, depois que os confrontos oficiais forem definidos.
@@ -572,9 +572,11 @@
         </div>
 
         <div class="sticky-actions">
-          <button type="button" onclick="downloadJson()">💾 Baixar JSON</button>
-          <a class="button-link secondary" href="./index.html">📊 Ver ranking</a>
-        </div>
+  <button type="button" onclick="downloadJson()">💾 Baixar Bolão</button>
+  <button type="button" class="secondary" onclick="openSendModal()">📤 Enviar Bolão</button>
+  <a class="button-link secondary" href="./index.html">📊 Ver ranking</a>
+</div>
+        
       </div>
     </section>
 
@@ -648,12 +650,13 @@
     </section>
 
     <section class="card">
-      <h2>💾 Finalizar</h2>
-      <p>Depois de preencher seus palpites, baixe o JSON e envie ao organizador do bolão.</p>
-      <div class="grid">
-        <button type="button" onclick="downloadJson()">💾 Baixar meu JSON oficial</button>
-        <button type="button" class="danger" onclick="clearDraft()">🗑 Limpar rascunho deste navegador</button>
-      </div>
+      <h2>💾 Finalizar sua aposta</h2>
+<p>Depois de preencher seus palpites, baixe o arquivo do seu bolão e envie pelo formulário oficial.</p>
+<div class="grid">
+  <button type="button" onclick="downloadJson()">💾 Baixar meu Bolão</button>
+  <button type="button" class="secondary" onclick="openSendModal()">📤 Enviar pelo formulário</button>
+  <button type="button" class="danger" onclick="clearDraft()">🗑 Limpar rascunho deste navegador</button>
+</div>
       <div id="downloadStatus"></div>
     </section>
 
