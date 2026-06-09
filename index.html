@@ -5415,7 +5415,19 @@ const originalExportData = typeof exportData === 'function' ? exportData : null;
 exportData = function() {
   return blockDirectEdit('Exportação individual de palpites');
 };
+const originalRenderKnockoutBracket = typeof renderKnockoutBracket === 'function' ? renderKnockoutBracket : null;
 
+renderKnockoutBracket = function() {
+  const knockoutSection = document.getElementById('knockoutSection');
+  if (!knockoutSection) return;
+
+  knockoutSection.style.display = 'block';
+  knockoutSection.innerHTML = `
+    <h2>🏆 Mata-mata</h2>
+    <p>Os palpites do mata-mata serão abertos em uma segunda etapa, depois que os confrontos oficiais forem definidos.</p>
+    <p class="small">Assim, ninguém aposta em uma chave hipotética. O ranking continuará sendo único, somando fase de grupos, premiações e, futuramente, o mata-mata.</p>
+  `;
+};
 render();
 restoreBolaoTab();
 carregarDadosConsolidados().then(applyFormsOnlyMode).catch(applyFormsOnlyMode);
