@@ -5077,7 +5077,7 @@ const CONSOLIDATED_JSON_URL = 'https://script.google.com/macros/s/AKfycbzSBTdEtc
 
 async function carregarDadosConsolidados() {
   try {
-    const response = await fetch(CONSOLIDATED_JSON_URL + '&t=' + Date.now(), {
+    const separator = CONSOLIDATED_JSON_URL.includes('?') ? '&' : '?'; const response = await fetch(CONSOLIDATED_JSON_URL + separator + 't=' + Date.now(), {
       cache: 'no-store'
     });
 
