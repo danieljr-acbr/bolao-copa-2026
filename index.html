@@ -5105,18 +5105,27 @@
       const intro = document.querySelector('#tab-bolao .tab-section-intro');
       if (intro) intro.innerHTML = '<strong>⚽ Bolão</strong>Visualização pública dos palpites recebidos pelo formulário oficial. Inserções diretas nesta página estão bloqueadas.';
 
-      [
-        '#tab-bolao section.grid',
-        '#fifaAwardsSection',
-        '#knockoutSection',
-        '#productionExportsSection',
-        '#officialAwardsSection',
-        '#tab-dados section.card:last-of-type'
-      ].forEach(selector => {
-        document.querySelectorAll(selector).forEach(el => {
-          if (el) el.style.display = 'none';
-        });
-      });
+    [
+  '#tab-bolao section.grid',
+  '#fifaAwardsSection',
+  '#productionExportsSection',
+  '#officialAwardsSection',
+  '#tab-dados section.card:last-of-type'
+].forEach(selector => {
+  document.querySelectorAll(selector).forEach(el => {
+    if (el) el.style.display = 'none';
+  });
+});
+
+const knockoutSection = document.getElementById('knockoutSection');
+if (knockoutSection) {
+  knockoutSection.style.display = 'block';
+  knockoutSection.innerHTML = `
+    <h2>🏆 Mata-mata</h2>
+    <p>Os palpites do mata-mata serão abertos em uma segunda etapa, depois que os confrontos oficiais forem definidos.</p>
+    <p class="small">Assim, ninguém aposta em uma chave hipotética. O ranking continuará sendo único, somando fase de grupos, premiações e, futuramente, o mata-mata.</p>
+  `;
+}
 
       const betsCard = document.querySelector('#betsArea')?.closest('.card');
       if (betsCard) {
@@ -5353,7 +5362,7 @@ function applyFormsOnlyMode() {
       <h2>Enviar palpites</h2>
       <p>Os palpites não são preenchidos diretamente nesta página.</p>
       <p class="small">Use o formulário oficial para participar ou alterar seus palpites.</p>
-      <button type="button" onclick="alert('Cole aqui depois o link público do Google Forms.')">📝 Abrir formulário oficial</button>
+      <button type="button" onclick="window.open('https://forms.gle/vno4T9cUzwhmKzL98', '_blank')">📝 Abrir formulário oficial</button>
     `;
   });
 }
