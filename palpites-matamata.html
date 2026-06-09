@@ -762,7 +762,8 @@
       Exemplo:
       m073: { teamA: 'México', teamB: 'Canadá' }
     */
-    const OFFICIAL_KNOCKOUT_BRACKET = {
+    const KNOCKOUT_BRACKET_URL = 'https://script.google.com/macros/s/AKfycbzSBTdEtcguwXwkP1JrlwMII_1UON048l9BXc0iFZ62lfuyzFsl_5zBdE4l0qkbz2vjwg/exec?type=knockout';  let officialKnockoutBracket = null;
+    officialKnockoutBracket = OFFICIAL_KNOCKOUT_BRACKET;
       status: 'waiting',
       updatedAt: '',
       source: 'manual_future_update',
@@ -860,11 +861,11 @@
     let draft = loadDraft();
 
     function isStageOpen() {
-      return OFFICIAL_KNOCKOUT_BRACKET.status === 'open';
+      return officialKnockoutBracket.status === 'open';
     }
 
     function getMatchTeams(gameId) {
-      return OFFICIAL_KNOCKOUT_BRACKET.matches[gameId] || { teamA: '', teamB: '' };
+      return officialKnockoutBracket.matches[gameId] || { teamA: '', teamB: '' };
     }
 
     function isPlaceholderTeam(teamName) {
@@ -1219,7 +1220,7 @@
         data: {
           participants: [participant],
           knockoutBets,
-          officialKnockoutBracket: OFFICIAL_KNOCKOUT_BRACKET,
+          officialKnockoutBracket: officialKnockoutBracket,
           games: knockoutGames.map(game => {
             const teams = getMatchTeams(game.id);
             return {
@@ -1345,14 +1346,60 @@
       document.getElementById('participantEmail').value = draft.participant.email || '';
     }
 
-    function init() {
-      restoreDraftToFields();
-      updateHero();
-      renderMatches();
-      updateSummary();
-    }
+    function carregarChaveMataMata() {
+  return new Promise((resolve) => {
+    const callbackName = `bolaoKnockoutCallback_${Date.now()}`;
 
-    init();
+    window[callbackName] = function(data) {
+      try {
+        if (data && data.matches) {
+          officialKnockoutBracket = {
+            status: data.status || 'waiting',
+            updatedAt: data.updatedAt || '',
+            source: data.source || 'apps_script',
+            matches: {
+              ...(OFFICIAL_KNOCKOUT_BRACKET.matches || {}),
+              ...(data.matches || {})
+            }
+          };
+        }
+      } catch (error) {
+        console.warn('Erro ao aplicar chave do mata-mata.', error);
+      } finally {
+        delete window[callbackName];
+        script.remove();
+        resolve();
+      }
+    };
+
+    const script = document.createElement('script');
+    script.src = `${KNOCKOUT_BRACKET_URL}&callback=${callbackName}&_=${Date.now()}`;
+    script.onerror = function() {
+      console.warn('Não foi possível carregar a chave do mata-mata. Usando chave local de segurança.');
+      delete window[callbackName];
+      script.remove();
+      resolve();
+    };
+
+    document.body.appendChild(script);
+  });
+}
+
+async function init() {
+  restoreDraftToFields();
+
+  updateHero();
+  renderMatches();
+  updateSummary();
+
+  await carregarChaveMataMata();
+
+  updateHero();
+  renderMatches();
+  updateSummary();
+}
+
+init();
   </script>
 </body>
 </html>
