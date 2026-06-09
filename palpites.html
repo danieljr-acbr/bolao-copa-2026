@@ -3,8 +3,9 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
   <title>Enviar Palpites | Bolão Copa 2026</title>
-  <meta name="description" content="Envie seus palpites oficiais para o Bolão Copa do Mundo 2026." />
+  <meta name="description" content="Preencha seus palpites da fase de grupos do Bolão Copa do Mundo 2026 e gere o JSON oficial para envio." />
 
   <style>
     :root {
@@ -14,6 +15,7 @@
       --text: #f8fafc;
       --muted: #94a3b8;
       --accent: #22c55e;
+      --danger: #ef4444;
       --warning: #f59e0b;
       --border: #334155;
     }
@@ -22,46 +24,74 @@
 
     body {
       margin: 0;
-      min-height: 100vh;
       font-family: Arial, Helvetica, sans-serif;
       background:
-        radial-gradient(circle at top left, rgba(34, 197, 94, .16), transparent 34%),
-        radial-gradient(circle at bottom right, rgba(245, 158, 11, .14), transparent 32%),
+        radial-gradient(circle at top left, rgba(34, 197, 94, .16), transparent 32%),
+        radial-gradient(circle at bottom right, rgba(245, 158, 11, .14), transparent 30%),
         linear-gradient(135deg, #020617, #0f172a);
       color: var(--text);
-      display: flex;
-      align-items: center;
-      justify-content: center;
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
       padding: 24px;
     }
 
-    .page {
-      width: 100%;
-      max-width: 760px;
+    header {
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      align-items: center;
+      flex-wrap: wrap;
+      margin-bottom: 20px;
+    }
+
+    h1, h2, h3 { margin: 0 0 12px; }
+
+    p {
+      color: var(--muted);
+      line-height: 1.5;
+    }
+
+    .version-pill {
+      display: inline-block;
+      vertical-align: middle;
+      font-size: 12px;
+      color: #bbf7d0;
+      background: #064e3b;
+      border: 1px solid rgba(187, 247, 208, .25);
+      border-radius: 999px;
+      padding: 4px 8px;
+      margin-left: 8px;
+    }
+
+    .card {
+      background: rgba(17, 24, 39, .94);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 20px;
+      margin-bottom: 18px;
+      box-shadow: 0 12px 30px rgba(0,0,0,.25);
     }
 
     .hero {
-      border: 1px solid rgba(34, 197, 94, .38);
       border-top: 5px solid var(--accent);
-      border-radius: 28px;
-      padding: 34px;
-      background: rgba(17, 24, 39, .94);
-      box-shadow: 0 24px 60px rgba(0,0,0,.36);
-      overflow: hidden;
       position: relative;
+      overflow: hidden;
     }
 
     .hero::after {
       content: "⚽";
       position: absolute;
-      right: -22px;
-      top: -34px;
-      font-size: 148px;
+      right: -18px;
+      top: -36px;
+      font-size: 140px;
       opacity: .06;
       pointer-events: none;
     }
 
-    .badge {
+    .hero-badge {
       display: inline-flex;
       align-items: center;
       gap: 8px;
@@ -72,108 +102,85 @@
       color: #bbf7d0;
       font-size: 13px;
       font-weight: 800;
-      margin-bottom: 18px;
+      margin-bottom: 14px;
     }
 
-    h1 {
-      margin: 0;
-      font-size: clamp(34px, 7vw, 58px);
-      line-height: .98;
-      letter-spacing: -1.4px;
+    .hero h1 {
+      font-size: clamp(32px, 5vw, 54px);
+      line-height: 1;
+      letter-spacing: -1px;
     }
 
-    .subtitle {
-      margin: 18px 0 0;
-      color: var(--muted);
-      font-size: 18px;
-      line-height: 1.55;
-      max-width: 620px;
-    }
-
-    .steps {
+    .grid {
       display: grid;
-      gap: 12px;
-      margin: 26px 0;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 16px;
     }
 
-    .step {
-      display: grid;
-      grid-template-columns: 42px 1fr;
-      gap: 12px;
-      align-items: start;
-      padding: 14px;
-      border: 1px solid var(--border);
-      border-radius: 18px;
-      background: rgba(15, 23, 42, .72);
-    }
-
-    .step-icon {
-      width: 42px;
-      height: 42px;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      border-radius: 14px;
-      background: #0f172a;
-      font-size: 22px;
-    }
-
-    .step strong {
+    label {
       display: block;
-      margin-bottom: 4px;
+      margin: 10px 0 6px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    input, select, button {
+      width: 100%;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      padding: 12px;
       font-size: 15px;
     }
 
-    .step span {
-      color: var(--muted);
-      font-size: 14px;
-      line-height: 1.4;
+    input, select {
+      background: #020617;
+      color: var(--text);
     }
 
-    .cta {
-      display: grid;
-      gap: 12px;
-      margin-top: 22px;
+    input:focus, select:focus {
+      outline: 2px solid rgba(34, 197, 94, .45);
+      border-color: rgba(34, 197, 94, .65);
     }
 
-    .button {
+    button, .button-link {
+      background: var(--accent);
+      color: #052e16;
+      font-weight: 800;
+      cursor: pointer;
+      border: none;
+      margin-top: 12px;
+      text-decoration: none;
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      gap: 10px;
-      width: 100%;
-      padding: 17px 20px;
-      border-radius: 18px;
-      background: var(--accent);
-      color: #052e16;
-      text-decoration: none;
-      font-weight: 950;
-      font-size: 18px;
-      box-shadow: 0 14px 30px rgba(34, 197, 94, .22);
+      gap: 8px;
       transition: transform .16s ease, filter .16s ease;
     }
 
-    .button:hover {
-      transform: translateY(-2px);
+    button:hover, .button-link:hover {
+      transform: translateY(-1px);
       filter: brightness(1.05);
     }
 
-    .secondary-link {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      color: #cbd5e1;
-      text-decoration: none;
-      font-size: 14px;
-      padding: 12px;
-      border-radius: 14px;
-      background: rgba(51, 65, 85, .55);
+    button.secondary, .button-link.secondary {
+      background: #334155;
+      color: var(--text);
+    }
+
+    button.danger {
+      background: var(--danger);
+      color: #fff;
+    }
+
+    .small {
+      font-size: 13px;
+      color: var(--muted);
     }
 
     .notice {
-      margin-top: 18px;
+      margin-top: 14px;
       padding: 14px;
-      border-radius: 18px;
+      border-radius: 16px;
       border: 1px solid rgba(245, 158, 11, .38);
       background: rgba(245, 158, 11, .09);
       color: #fde68a;
@@ -181,77 +188,1215 @@
       line-height: 1.45;
     }
 
-    footer {
-      margin-top: 18px;
-      text-align: center;
+    .success {
+      margin-top: 14px;
+      padding: 14px;
+      border-radius: 16px;
+      border: 1px solid rgba(34, 197, 94, .38);
+      background: rgba(34, 197, 94, .09);
+      color: #bbf7d0;
+      font-size: 14px;
+      line-height: 1.45;
+    }
+
+    .sticky-bar {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      background: rgba(15, 23, 42, .96);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 14px 16px;
+      margin-bottom: 18px;
+      box-shadow: 0 12px 28px rgba(0,0,0,.35);
+      backdrop-filter: blur(8px);
+    }
+
+    .sticky-content {
+      display: flex;
+      gap: 14px;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .sticky-info {
+      flex: 1;
+      min-width: 240px;
+    }
+
+    .sticky-info strong {
+      display: block;
+      margin-bottom: 4px;
+    }
+
+    .sticky-actions {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .sticky-actions button,
+    .sticky-actions a {
+      width: auto;
+      min-width: 180px;
+      margin-top: 0;
+      padding: 12px 14px;
+      border-radius: 12px;
+    }
+
+    .progress-wrap {
+      margin-top: 8px;
+      width: 100%;
+      height: 10px;
+      background: #020617;
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      overflow: hidden;
+    }
+
+    .progress-bar {
+      height: 100%;
+      width: 0%;
+      background: var(--accent);
+      transition: width .25s ease;
+    }
+
+    .awards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+      gap: 14px;
+      margin-top: 12px;
+    }
+
+    .award-card {
+      background: rgba(15, 23, 42, .74);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 14px;
+    }
+
+    .award-card strong {
+      display: block;
+      margin-bottom: 6px;
+    }
+
+    .award-points {
+      display: inline-block;
+      margin-bottom: 8px;
+      color: #fde68a;
+      font-size: 12px;
+    }
+
+    .view-controls {
+      display: flex;
+      gap: 10px;
+      align-items: end;
+      flex-wrap: wrap;
+      margin-bottom: 14px;
+    }
+
+    .view-controls > div {
+      flex: 1;
+      min-width: 220px;
+    }
+
+    .group-block {
+      margin: 18px 0 26px;
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      overflow: hidden;
+      background: rgba(15, 23, 42, .45);
+    }
+
+    .group-title {
+      margin: 0;
+      padding: 14px 16px;
+      background: #0f172a;
+      color: #f8fafc;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      align-items: center;
+      flex-wrap: wrap;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .group-title span {
+      color: var(--muted);
+      font-size: 13px;
+      font-weight: normal;
+    }
+
+    .group-content.collapsed {
+      display: none;
+    }
+
+    .match-cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 14px;
+      padding: 14px;
+    }
+
+    .match-card {
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      background: rgba(15, 23, 42, .72);
+      padding: 14px;
+      box-shadow: 0 10px 22px rgba(0,0,0,.18);
+    }
+
+    .match-card.bet-complete {
+      border-color: rgba(34, 197, 94, .55);
+      background: rgba(34, 197, 94, .07);
+    }
+
+    .match-card.brazil-match {
+      border-color: rgba(34, 197, 94, .85);
+      box-shadow: 0 0 0 1px rgba(34,197,94,.16), 0 12px 26px rgba(0,0,0,.24);
+    }
+
+    .match-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+
+    .match-stage {
+      font-size: 12px;
+      color: #cbd5e1;
+      background: #1e293b;
+      border-radius: 999px;
+      padding: 4px 9px;
+    }
+
+    .match-number {
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .teams-line {
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      align-items: center;
+      gap: 10px;
+      margin: 12px 0;
+    }
+
+    .team {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      min-width: 0;
+      font-weight: 800;
+    }
+
+    .team.away {
+      justify-content: flex-end;
+      text-align: right;
+    }
+
+    .team-name {
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .versus {
+      color: var(--muted);
+      font-weight: 800;
+    }
+
+    .flag-img {
+      width: 26px;
+      height: 18px;
+      object-fit: cover;
+      border-radius: 3px;
+      box-shadow: 0 0 0 1px rgba(255,255,255,.18);
+      flex: 0 0 auto;
+    }
+
+    .placeholder-flag {
+      width: 26px;
+      height: 18px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 3px;
+      background: #334155;
+      font-size: 13px;
+      flex: 0 0 auto;
+    }
+
+    .match-meta {
+      display: grid;
+      gap: 4px;
+      margin: 8px 0 12px;
       color: var(--muted);
       font-size: 13px;
     }
 
-    @media (max-width: 620px) {
-      body { padding: 14px; align-items: flex-start; }
-      .hero { padding: 24px; border-radius: 24px; }
-      .step { grid-template-columns: 1fr; }
-      .step-icon { width: 38px; height: 38px; }
+    .card-score-area {
+      border-top: 1px solid var(--border);
+      padding-top: 12px;
+      margin-top: 10px;
+    }
+
+    .score-inputs {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .score-inputs input {
+      max-width: 76px;
+      text-align: center;
+    }
+
+    .status-line {
+      margin-top: 8px;
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .validation-warning {
+      margin-top: 8px;
+      padding: 8px 10px;
+      border: 1px solid rgba(245, 158, 11, .45);
+      background: rgba(245, 158, 11, .10);
+      color: #fde68a;
+      border-radius: 10px;
+      font-size: 12px;
+      line-height: 1.35;
+    }
+
+    .summary-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+      gap: 14px;
+      margin-top: 14px;
+    }
+
+    .summary-card {
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 14px;
+      background: rgba(15, 23, 42, .74);
+    }
+
+    .summary-card strong {
+      display: block;
+      color: #bbf7d0;
+      font-size: 24px;
+      margin-top: 4px;
+    }
+
+    .app-footer {
+      margin: 28px 0 6px;
+      padding: 20px;
+      border: 1px solid rgba(34, 197, 94, .30);
+      border-radius: 20px;
+      background: rgba(15, 23, 42, .76);
+      color: var(--muted);
+      text-align: center;
+      font-size: 13px;
+    }
+
+    @media (max-width: 700px) {
+      .container { padding: 14px; }
+      .sticky-bar {
+        margin-left: -14px;
+        margin-right: -14px;
+        border-radius: 0 0 18px 18px;
+      }
+      .sticky-actions {
+        width: 100%;
+      }
+      .sticky-actions button,
+      .sticky-actions a {
+        width: 100%;
+        min-width: 0;
+      }
+      .match-cards {
+        grid-template-columns: 1fr;
+        padding: 10px;
+      }
+      .teams-line {
+        grid-template-columns: 1fr;
+        text-align: left;
+      }
+      .team.away {
+        justify-content: flex-start;
+        text-align: left;
+      }
+      .versus {
+        display: none;
+      }
     }
   </style>
 </head>
 
 <body>
-  <main class="page">
-    <section class="hero">
-      <div class="badge">🏆 Bolão Copa 2026 · Fase de grupos</div>
+  <div class="container">
+    <header>
+      <div>
+        <h1>🏆 Palpites Copa 2026 <span class="version-pill">JSON oficial</span></h1>
+        <p>Preencha seus palpites da fase de grupos e baixe seu arquivo JSON para enviar ao organizador.</p>
+      </div>
+    </header>
 
-      <h1>Envie seus palpites oficiais</h1>
-
-      <p class="subtitle">
-        Preencha o formulário oficial do Bolão Copa 2026. Os palpites enviados por aqui serão consolidados automaticamente no ranking.
+    <section class="card hero">
+      <div class="hero-badge">⚽ Bolão Copa 2026 · Fase de grupos</div>
+      <h1>Gere seu JSON de palpites</h1>
+      <p>
+        Esta página funciona online, direto no navegador. Seus dados ficam salvos apenas neste dispositivo
+        até você baixar o arquivo JSON.
       </p>
-
-      <div class="steps">
-        <div class="step">
-          <div class="step-icon">📝</div>
-          <div>
-            <strong>1. Abra o formulário</strong>
-            <span>Informe seu nome e registre seus palpites da fase de grupos.</span>
-          </div>
-        </div>
-
-        <div class="step">
-          <div class="step-icon">🔒</div>
-          <div>
-            <strong>2. Envio oficial</strong>
-            <span>Somente respostas enviadas pelo formulário entram no bolão.</span>
-          </div>
-        </div>
-
-        <div class="step">
-          <div class="step-icon">🏆</div>
-          <div>
-            <strong>3. Mata-mata será depois</strong>
-            <span>A fase eliminatória será preenchida em uma segunda etapa, com os confrontos reais definidos.</span>
-          </div>
-        </div>
-      </div>
-
-      <div class="cta">
-        <a class="button" href="https://forms.gle/vno4T9cUzwhmKzL98" target="_blank" rel="noopener noreferrer">
-          📝 Abrir formulário oficial
-        </a>
-
-        <a class="secondary-link" href="./index.html">
-          📊 Ver ranking e participantes
-        </a>
-      </div>
-
       <div class="notice">
-        Importante: após enviar, aguarde a atualização automática da página principal. O ranking pode levar alguns minutos para refletir novos envios.
+        O mata-mata será preenchido em uma segunda etapa, depois que os confrontos oficiais forem definidos.
       </div>
     </section>
 
-    <footer>
+    <section class="sticky-bar">
+      <div class="sticky-content">
+        <div class="sticky-info">
+          <strong id="stickyTitle">📝 Preenchimento em andamento</strong>
+          <span class="small" id="stickyProgressText">0 de 72 jogos preenchidos.</span>
+          <div class="progress-wrap">
+            <div class="progress-bar" id="progressBar"></div>
+          </div>
+        </div>
+
+        <div class="sticky-actions">
+          <button type="button" onclick="downloadJson()">💾 Baixar JSON</button>
+          <a class="button-link secondary" href="./index.html">📊 Ver ranking</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>👤 Seus dados</h2>
+      <div class="grid">
+        <div>
+          <label for="participantName">Nome ou apelido *</label>
+          <input id="participantName" placeholder="Ex: Daniel" oninput="saveDraft()" />
+        </div>
+        <div>
+          <label for="participantEmail">E-mail opcional</label>
+          <input id="participantEmail" type="email" placeholder="Ex: voce@email.com" oninput="saveDraft()" />
+        </div>
+      </div>
+      <p class="small">Use sempre o mesmo nome/apelido para facilitar a consolidação dos palpites.</p>
+    </section>
+
+    <section class="card" id="summarySection">
+      <h2>📋 Resumo</h2>
+      <div class="summary-grid">
+        <div class="summary-card">
+          <span class="small">Jogos preenchidos</span>
+          <strong id="summaryGames">0/72</strong>
+        </div>
+        <div class="summary-card">
+          <span class="small">Premiações preenchidas</span>
+          <strong id="summaryAwards">0/4</strong>
+        </div>
+        <div class="summary-card">
+          <span class="small">Status</span>
+          <strong id="summaryStatus">Rascunho</strong>
+        </div>
+      </div>
+      <div id="summaryMessage" class="notice">
+        Preencha seu nome e seus palpites. Quando terminar, clique em “Baixar JSON”.
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>🏆 Premiações FIFA 2026</h2>
+      <p>Esses palpites também serão usados no ranking quando os vencedores oficiais forem definidos.</p>
+
+      <datalist id="playersList_chuteiraDeOuro"></datalist>
+      <datalist id="playersList_bolaDeOuro"></datalist>
+      <datalist id="playersList_luvaDeOuro"></datalist>
+      <datalist id="playersList_melhorJovem"></datalist>
+
+      <div class="awards-grid" id="awardsArea"></div>
+    </section>
+
+    <section class="card">
+      <h2>⚽ Palpites da fase de grupos</h2>
+      <p>Preencha os placares dos 72 jogos da fase de grupos. O mata-mata será feito depois.</p>
+
+      <div class="view-controls">
+        <div>
+          <label for="gameFilter">Filtrar jogos</label>
+          <input id="gameFilter" placeholder="Ex: Brasil, Grupo C, México" oninput="renderGames()" />
+        </div>
+        <div>
+          <label for="viewMode">Visualização</label>
+          <select id="viewMode" onchange="renderGames()">
+            <option value="group">Por grupo</option>
+            <option value="date">Por data</option>
+          </select>
+        </div>
+      </div>
+
+      <div id="gamesArea"></div>
+    </section>
+
+    <section class="card">
+      <h2>💾 Finalizar</h2>
+      <p>Depois de preencher seus palpites, baixe o JSON e envie ao organizador do bolão.</p>
+      <div class="grid">
+        <button type="button" onclick="downloadJson()">💾 Baixar meu JSON oficial</button>
+        <button type="button" class="danger" onclick="clearDraft()">🗑 Limpar rascunho deste navegador</button>
+      </div>
+      <div id="downloadStatus"></div>
+    </section>
+
+    <footer class="app-footer">
       Desenvolvido por Daniel S. A. Junior · Bolão Copa do Mundo 2026
     </footer>
-  </main>
+  </div>
+
+  <script>
+    const APP_VERSION = '2.1-palpite-online';
+    const STORAGE_KEY = 'bolaoCopa2026PalpitesOnlineDraftV1';
+
+    const FIFA_AWARDS = {
+      chuteiraDeOuro: { label: '⚽ Chuteira de Ouro', description: 'Maior artilheiro da Copa', points: 10 },
+      bolaDeOuro: { label: '🏆 Bola de Ouro', description: 'Melhor jogador da Copa', points: 10 },
+      luvaDeOuro: { label: '🧤 Luva de Ouro', description: 'Melhor goleiro da Copa', points: 8 },
+      melhorJovem: { label: '🌟 Melhor Jogador Jovem', description: 'Melhor atleta jovem da Copa', points: 8 }
+    };
+
+    const PLAYER_CATALOG = [
+      { name: 'Alisson', country: 'Brasil', flag: '🇧🇷', positions: ['goleiro'] },
+      { name: 'Ederson', country: 'Brasil', flag: '🇧🇷', positions: ['goleiro'] },
+      { name: 'Bento', country: 'Brasil', flag: '🇧🇷', positions: ['goleiro'], young: true },
+      { name: 'Marquinhos', country: 'Brasil', flag: '🇧🇷', positions: ['zagueiro'] },
+      { name: 'Gabriel Magalhães', country: 'Brasil', flag: '🇧🇷', positions: ['zagueiro'] },
+      { name: 'Bruno Guimarães', country: 'Brasil', flag: '🇧🇷', positions: ['meia'] },
+      { name: 'Rodrygo', country: 'Brasil', flag: '🇧🇷', positions: ['atacante'], young: true },
+      { name: 'Raphinha', country: 'Brasil', flag: '🇧🇷', positions: ['atacante'] },
+      { name: 'Vinicius Junior', country: 'Brasil', flag: '🇧🇷', positions: ['atacante'] },
+      { name: 'Endrick', country: 'Brasil', flag: '🇧🇷', positions: ['atacante'], young: true },
+
+      { name: 'Emiliano Martínez', country: 'Argentina', flag: '🇦🇷', positions: ['goleiro'] },
+      { name: 'Lionel Messi', country: 'Argentina', flag: '🇦🇷', positions: ['atacante'] },
+      { name: 'Julián Álvarez', country: 'Argentina', flag: '🇦🇷', positions: ['atacante'] },
+      { name: 'Lautaro Martínez', country: 'Argentina', flag: '🇦🇷', positions: ['atacante'] },
+      { name: 'Enzo Fernández', country: 'Argentina', flag: '🇦🇷', positions: ['meia'], young: true },
+      { name: 'Alexis Mac Allister', country: 'Argentina', flag: '🇦🇷', positions: ['meia'] },
+
+      { name: 'Mike Maignan', country: 'França', flag: '🇫🇷', positions: ['goleiro'] },
+      { name: 'Kylian Mbappé', country: 'França', flag: '🇫🇷', positions: ['atacante'] },
+      { name: 'Antoine Griezmann', country: 'França', flag: '🇫🇷', positions: ['meia'] },
+      { name: 'Ousmane Dembélé', country: 'França', flag: '🇫🇷', positions: ['atacante'] },
+      { name: 'Aurélien Tchouaméni', country: 'França', flag: '🇫🇷', positions: ['meia'], young: true },
+      { name: 'Eduardo Camavinga', country: 'França', flag: '🇫🇷', positions: ['meia'], young: true },
+      { name: 'Warren Zaïre-Emery', country: 'França', flag: '🇫🇷', positions: ['meia'], young: true },
+
+      { name: 'Jordan Pickford', country: 'Inglaterra', flag: '🏴', positions: ['goleiro'] },
+      { name: 'Harry Kane', country: 'Inglaterra', flag: '🏴', positions: ['atacante'] },
+      { name: 'Jude Bellingham', country: 'Inglaterra', flag: '🏴', positions: ['meia'], young: true },
+      { name: 'Bukayo Saka', country: 'Inglaterra', flag: '🏴', positions: ['atacante'], young: true },
+      { name: 'Phil Foden', country: 'Inglaterra', flag: '🏴', positions: ['meia'], young: true },
+      { name: 'Kobbie Mainoo', country: 'Inglaterra', flag: '🏴', positions: ['meia'], young: true },
+
+      { name: 'Diogo Costa', country: 'Portugal', flag: '🇵🇹', positions: ['goleiro'], young: true },
+      { name: 'Cristiano Ronaldo', country: 'Portugal', flag: '🇵🇹', positions: ['atacante'] },
+      { name: 'Bruno Fernandes', country: 'Portugal', flag: '🇵🇹', positions: ['meia'] },
+      { name: 'Bernardo Silva', country: 'Portugal', flag: '🇵🇹', positions: ['meia'] },
+      { name: 'Gonçalo Ramos', country: 'Portugal', flag: '🇵🇹', positions: ['atacante'], young: true },
+      { name: 'João Neves', country: 'Portugal', flag: '🇵🇹', positions: ['meia'], young: true },
+
+      { name: 'Unai Simón', country: 'Espanha', flag: '🇪🇸', positions: ['goleiro'] },
+      { name: 'Pedri', country: 'Espanha', flag: '🇪🇸', positions: ['meia'], young: true },
+      { name: 'Gavi', country: 'Espanha', flag: '🇪🇸', positions: ['meia'], young: true },
+      { name: 'Lamine Yamal', country: 'Espanha', flag: '🇪🇸', positions: ['atacante'], young: true },
+      { name: 'Dani Olmo', country: 'Espanha', flag: '🇪🇸', positions: ['meia'] },
+      { name: 'Ferran Torres', country: 'Espanha', flag: '🇪🇸', positions: ['atacante'] },
+
+      { name: 'Manuel Neuer', country: 'Alemanha', flag: '🇩🇪', positions: ['goleiro'] },
+      { name: 'Marc-André ter Stegen', country: 'Alemanha', flag: '🇩🇪', positions: ['goleiro'] },
+      { name: 'Jamal Musiala', country: 'Alemanha', flag: '🇩🇪', positions: ['meia'], young: true },
+      { name: 'Florian Wirtz', country: 'Alemanha', flag: '🇩🇪', positions: ['meia'], young: true },
+      { name: 'Leroy Sané', country: 'Alemanha', flag: '🇩🇪', positions: ['atacante'] },
+
+      { name: 'Thibaut Courtois', country: 'Bélgica', flag: '🇧🇪', positions: ['goleiro'] },
+      { name: 'Kevin De Bruyne', country: 'Bélgica', flag: '🇧🇪', positions: ['meia'] },
+      { name: 'Gianluigi Donnarumma', country: 'Itália', flag: '🇮🇹', positions: ['goleiro'] },
+      { name: 'Nicolò Barella', country: 'Itália', flag: '🇮🇹', positions: ['meia'] },
+      { name: 'Frenkie de Jong', country: 'Holanda', flag: '🇳🇱', positions: ['meia'] },
+      { name: 'Virgil van Dijk', country: 'Holanda', flag: '🇳🇱', positions: ['zagueiro'] },
+      { name: 'Xavi Simons', country: 'Holanda', flag: '🇳🇱', positions: ['meia'], young: true },
+      { name: 'Cody Gakpo', country: 'Holanda', flag: '🇳🇱', positions: ['atacante'] },
+
+      { name: 'Yassine Bounou', country: 'Marrocos', flag: '🇲🇦', positions: ['goleiro'] },
+      { name: 'Achraf Hakimi', country: 'Marrocos', flag: '🇲🇦', positions: ['lateral'] },
+      { name: 'Robert Lewandowski', country: 'Polônia', flag: '🇵🇱', positions: ['atacante'] },
+      { name: 'Christian Pulisic', country: 'Estados Unidos', flag: '🇺🇸', positions: ['atacante'] },
+      { name: 'Yunus Musah', country: 'Estados Unidos', flag: '🇺🇸', positions: ['meia'], young: true },
+      { name: 'Giovanni Reyna', country: 'Estados Unidos', flag: '🇺🇸', positions: ['meia'], young: true },
+      { name: 'Alphonso Davies', country: 'Canadá', flag: '🇨🇦', positions: ['lateral'], young: true },
+      { name: 'Jonathan David', country: 'Canadá', flag: '🇨🇦', positions: ['atacante'], young: true },
+      { name: 'Luis Díaz', country: 'Colômbia', flag: '🇨🇴', positions: ['atacante'] },
+      { name: 'Federico Valverde', country: 'Uruguai', flag: '🇺🇾', positions: ['meia'] },
+      { name: 'Darwin Núñez', country: 'Uruguai', flag: '🇺🇾', positions: ['atacante'] },
+      { name: 'Heung-min Son', country: 'Coreia do Sul', flag: '🇰🇷', positions: ['atacante'] },
+      { name: 'Takefusa Kubo', country: 'Japão', flag: '🇯🇵', positions: ['meia'], young: true },
+      { name: 'Mohamed Salah', country: 'Egito', flag: '🇪🇬', positions: ['atacante'] },
+      { name: 'Victor Osimhen', country: 'Nigéria', flag: '🇳🇬', positions: ['atacante'] },
+      { name: 'Sadio Mané', country: 'Senegal', flag: '🇸🇳', positions: ['atacante'] },
+      { name: 'André Onana', country: 'Camarões', flag: '🇨🇲', positions: ['goleiro'] },
+      { name: 'Erling Haaland', country: 'Noruega', flag: '🇳🇴', positions: ['atacante'] },
+      { name: 'Martin Ødegaard', country: 'Noruega', flag: '🇳🇴', positions: ['meia'] },
+      { name: 'Arda Güler', country: 'Turquia', flag: '🇹🇷', positions: ['meia'], young: true },
+      { name: 'Kenan Yıldız', country: 'Turquia', flag: '🇹🇷', positions: ['atacante'], young: true },
+      { name: 'Luka Modrić', country: 'Croácia', flag: '🇭🇷', positions: ['meia'] },
+      { name: 'Joško Gvardiol', country: 'Croácia', flag: '🇭🇷', positions: ['zagueiro'], young: true }
+    ].sort((a, b) => a.name.localeCompare(b.name, 'pt-BR'));
+
+    const TEAM_FLAG_CODES = {
+      'México': 'mx', 'África do Sul': 'za', 'Coreia do Sul': 'kr', 'República Tcheca': 'cz',
+      'Canadá': 'ca', 'Bósnia e Herzegovina': 'ba', 'Estados Unidos': 'us', 'Paraguai': 'py',
+      'Catar': 'qa', 'Suíça': 'ch', 'Brasil': 'br', 'Marrocos': 'ma', 'Haiti': 'ht', 'Escócia': 'gb-sct',
+      'Austrália': 'au', 'Turquia': 'tr', 'Alemanha': 'de', 'Curaçao': 'cw', 'Holanda': 'nl', 'Japão': 'jp',
+      'Costa do Marfim': 'ci', 'Equador': 'ec', 'Suécia': 'se', 'Tunísia': 'tn', 'Espanha': 'es', 'Cabo Verde': 'cv',
+      'Bélgica': 'be', 'Egito': 'eg', 'Arábia Saudita': 'sa', 'Uruguai': 'uy', 'Irã': 'ir', 'Nova Zelândia': 'nz',
+      'França': 'fr', 'Senegal': 'sn', 'Iraque': 'iq', 'Noruega': 'no', 'Argentina': 'ar', 'Argélia': 'dz',
+      'Áustria': 'at', 'Jordânia': 'jo', 'Portugal': 'pt', 'RD Congo': 'cd', 'Inglaterra': 'gb-eng', 'Croácia': 'hr',
+      'Gana': 'gh', 'Panamá': 'pa', 'Uzbequistão': 'uz', 'Colômbia': 'co'
+    };
+
+    const games = [
+      { id: 'm001', date: '2026-06-11T16:00', stage: 'Grupo A', teamA: 'México', teamB: 'África do Sul', venue: 'Cidade do México, México', match: 1 },
+      { id: 'm002', date: '2026-06-11T23:00', stage: 'Grupo A', teamA: 'Coreia do Sul', teamB: 'República Tcheca', venue: 'Zapopan, México', match: 2 },
+      { id: 'm003', date: '2026-06-12T16:00', stage: 'Grupo B', teamA: 'Canadá', teamB: 'Bósnia e Herzegovina', venue: 'Toronto, Canadá', match: 3 },
+      { id: 'm004', date: '2026-06-12T22:00', stage: 'Grupo D', teamA: 'Estados Unidos', teamB: 'Paraguai', venue: 'Los Angeles, EUA', match: 4 },
+      { id: 'm005', date: '2026-06-13T16:00', stage: 'Grupo B', teamA: 'Catar', teamB: 'Suíça', venue: 'Santa Clara, EUA', match: 5 },
+      { id: 'm006', date: '2026-06-13T19:00', stage: 'Grupo C', teamA: 'Brasil', teamB: 'Marrocos', venue: 'New Jersey, EUA', match: 6 },
+      { id: 'm007', date: '2026-06-13T22:00', stage: 'Grupo C', teamA: 'Haiti', teamB: 'Escócia', venue: 'Foxborough, EUA', match: 7 },
+      { id: 'm008', date: '2026-06-14T01:00', stage: 'Grupo D', teamA: 'Austrália', teamB: 'Turquia', venue: 'Vancouver, Canadá', match: 8 },
+      { id: 'm009', date: '2026-06-14T14:00', stage: 'Grupo E', teamA: 'Alemanha', teamB: 'Curaçao', venue: 'Houston, EUA', match: 9 },
+      { id: 'm010', date: '2026-06-14T17:00', stage: 'Grupo F', teamA: 'Holanda', teamB: 'Japão', venue: 'Arlington, EUA', match: 10 },
+      { id: 'm011', date: '2026-06-14T20:00', stage: 'Grupo E', teamA: 'Costa do Marfim', teamB: 'Equador', venue: 'Philadelphia, EUA', match: 11 },
+      { id: 'm012', date: '2026-06-14T23:00', stage: 'Grupo F', teamA: 'Suécia', teamB: 'Tunísia', venue: 'Guadalupe, México', match: 12 },
+      { id: 'm013', date: '2026-06-15T13:00', stage: 'Grupo H', teamA: 'Espanha', teamB: 'Cabo Verde', venue: 'Atlanta, EUA', match: 13 },
+      { id: 'm014', date: '2026-06-15T16:00', stage: 'Grupo G', teamA: 'Bélgica', teamB: 'Egito', venue: 'Seattle, EUA', match: 14 },
+      { id: 'm015', date: '2026-06-15T19:00', stage: 'Grupo H', teamA: 'Arábia Saudita', teamB: 'Uruguai', venue: 'Miami, EUA', match: 15 },
+      { id: 'm016', date: '2026-06-15T22:00', stage: 'Grupo G', teamA: 'Irã', teamB: 'Nova Zelândia', venue: 'Los Angeles, EUA', match: 16 },
+      { id: 'm017', date: '2026-06-16T16:00', stage: 'Grupo I', teamA: 'França', teamB: 'Senegal', venue: 'New Jersey, EUA', match: 17 },
+      { id: 'm018', date: '2026-06-16T19:00', stage: 'Grupo I', teamA: 'Iraque', teamB: 'Noruega', venue: 'Foxborough, EUA', match: 18 },
+      { id: 'm019', date: '2026-06-16T22:00', stage: 'Grupo J', teamA: 'Argentina', teamB: 'Argélia', venue: 'Kansas City, EUA', match: 19 },
+      { id: 'm020', date: '2026-06-17T01:00', stage: 'Grupo J', teamA: 'Áustria', teamB: 'Jordânia', venue: 'Santa Clara, EUA', match: 20 },
+      { id: 'm021', date: '2026-06-17T14:00', stage: 'Grupo K', teamA: 'Portugal', teamB: 'RD Congo', venue: 'Houston, EUA', match: 21 },
+      { id: 'm022', date: '2026-06-17T17:00', stage: 'Grupo L', teamA: 'Inglaterra', teamB: 'Croácia', venue: 'Arlington, EUA', match: 22 },
+      { id: 'm023', date: '2026-06-17T20:00', stage: 'Grupo L', teamA: 'Gana', teamB: 'Panamá', venue: 'Toronto, Canadá', match: 23 },
+      { id: 'm024', date: '2026-06-17T23:00', stage: 'Grupo K', teamA: 'Uzbequistão', teamB: 'Colômbia', venue: 'Cidade do México, México', match: 24 },
+      { id: 'm025', date: '2026-06-18T13:00', stage: 'Grupo A', teamA: 'República Tcheca', teamB: 'África do Sul', venue: 'Atlanta, EUA', match: 25 },
+      { id: 'm026', date: '2026-06-18T16:00', stage: 'Grupo B', teamA: 'Suíça', teamB: 'Bósnia e Herzegovina', venue: 'Los Angeles, EUA', match: 26 },
+      { id: 'm027', date: '2026-06-18T19:00', stage: 'Grupo B', teamA: 'Canadá', teamB: 'Catar', venue: 'Vancouver, Canadá', match: 27 },
+      { id: 'm028', date: '2026-06-18T22:00', stage: 'Grupo A', teamA: 'México', teamB: 'Coreia do Sul', venue: 'Zapopan, México', match: 28 },
+      { id: 'm029', date: '2026-06-19T16:00', stage: 'Grupo D', teamA: 'Estados Unidos', teamB: 'Austrália', venue: 'Seattle, EUA', match: 29 },
+      { id: 'm030', date: '2026-06-19T19:00', stage: 'Grupo C', teamA: 'Escócia', teamB: 'Marrocos', venue: 'Foxborough, EUA', match: 30 },
+      { id: 'm031', date: '2026-06-19T21:30', stage: 'Grupo C', teamA: 'Brasil', teamB: 'Haiti', venue: 'Philadelphia, EUA', match: 31 },
+      { id: 'm032', date: '2026-06-20T00:00', stage: 'Grupo D', teamA: 'Turquia', teamB: 'Paraguai', venue: 'Santa Clara, EUA', match: 32 },
+      { id: 'm033', date: '2026-06-20T14:00', stage: 'Grupo F', teamA: 'Holanda', teamB: 'Suécia', venue: 'Houston, EUA', match: 33 },
+      { id: 'm034', date: '2026-06-20T17:00', stage: 'Grupo E', teamA: 'Alemanha', teamB: 'Costa do Marfim', venue: 'Toronto, Canadá', match: 34 },
+      { id: 'm035', date: '2026-06-20T21:00', stage: 'Grupo E', teamA: 'Equador', teamB: 'Curaçao', venue: 'Kansas City, EUA', match: 35 },
+      { id: 'm036', date: '2026-06-21T01:00', stage: 'Grupo F', teamA: 'Tunísia', teamB: 'Japão', venue: 'Guadalupe, México', match: 36 },
+      { id: 'm037', date: '2026-06-21T13:00', stage: 'Grupo H', teamA: 'Espanha', teamB: 'Arábia Saudita', venue: 'Atlanta, EUA', match: 37 },
+      { id: 'm038', date: '2026-06-21T16:00', stage: 'Grupo G', teamA: 'Bélgica', teamB: 'Irã', venue: 'Los Angeles, EUA', match: 38 },
+      { id: 'm039', date: '2026-06-21T19:00', stage: 'Grupo H', teamA: 'Uruguai', teamB: 'Cabo Verde', venue: 'Miami, EUA', match: 39 },
+      { id: 'm040', date: '2026-06-21T22:00', stage: 'Grupo G', teamA: 'Nova Zelândia', teamB: 'Egito', venue: 'Vancouver, Canadá', match: 40 },
+      { id: 'm041', date: '2026-06-22T14:00', stage: 'Grupo J', teamA: 'Argentina', teamB: 'Áustria', venue: 'Arlington, EUA', match: 41 },
+      { id: 'm042', date: '2026-06-22T18:00', stage: 'Grupo I', teamA: 'França', teamB: 'Iraque', venue: 'Philadelphia, EUA', match: 42 },
+      { id: 'm043', date: '2026-06-22T21:00', stage: 'Grupo I', teamA: 'Noruega', teamB: 'Senegal', venue: 'Toronto, Canadá', match: 43 },
+      { id: 'm044', date: '2026-06-23T00:00', stage: 'Grupo J', teamA: 'Jordânia', teamB: 'Argélia', venue: 'Santa Clara, EUA', match: 44 },
+      { id: 'm045', date: '2026-06-23T14:00', stage: 'Grupo K', teamA: 'Portugal', teamB: 'Uzbequistão', venue: 'Houston, EUA', match: 45 },
+      { id: 'm046', date: '2026-06-23T17:00', stage: 'Grupo L', teamA: 'Inglaterra', teamB: 'Gana', venue: 'Foxborough, EUA', match: 46 },
+      { id: 'm047', date: '2026-06-23T20:00', stage: 'Grupo L', teamA: 'Panamá', teamB: 'Croácia', venue: 'Foxborough, EUA', match: 47 },
+      { id: 'm048', date: '2026-06-23T23:00', stage: 'Grupo K', teamA: 'Colômbia', teamB: 'RD Congo', venue: 'Zapopan, México', match: 48 },
+      { id: 'm049', date: '2026-06-24T16:00', stage: 'Grupo B', teamA: 'Suíça', teamB: 'Canadá', venue: 'Vancouver, Canadá', match: 49 },
+      { id: 'm050', date: '2026-06-24T16:00', stage: 'Grupo B', teamA: 'Bósnia e Herzegovina', teamB: 'Catar', venue: 'Seattle, EUA', match: 50 },
+      { id: 'm051', date: '2026-06-24T19:00', stage: 'Grupo C', teamA: 'Marrocos', teamB: 'Haiti', venue: 'Atlanta, EUA', match: 51 },
+      { id: 'm052', date: '2026-06-24T19:00', stage: 'Grupo C', teamA: 'Escócia', teamB: 'Brasil', venue: 'Miami, EUA', match: 52 },
+      { id: 'm053', date: '2026-06-24T22:00', stage: 'Grupo A', teamA: 'África do Sul', teamB: 'Coreia do Sul', venue: 'Guadalupe, México', match: 53 },
+      { id: 'm054', date: '2026-06-24T22:00', stage: 'Grupo A', teamA: 'República Tcheca', teamB: 'México', venue: 'Cidade do México, México', match: 54 },
+      { id: 'm055', date: '2026-06-25T17:00', stage: 'Grupo E', teamA: 'Curaçao', teamB: 'Costa do Marfim', venue: 'Philadelphia, EUA', match: 55 },
+      { id: 'm056', date: '2026-06-25T17:00', stage: 'Grupo E', teamA: 'Equador', teamB: 'Alemanha', venue: 'New Jersey, EUA', match: 56 },
+      { id: 'm057', date: '2026-06-25T20:00', stage: 'Grupo F', teamA: 'Tunísia', teamB: 'Holanda', venue: 'Kansas City, EUA', match: 57 },
+      { id: 'm058', date: '2026-06-25T20:00', stage: 'Grupo F', teamA: 'Japão', teamB: 'Suécia', venue: 'Arlington, EUA', match: 58 },
+      { id: 'm059', date: '2026-06-25T23:00', stage: 'Grupo D', teamA: 'Turquia', teamB: 'Estados Unidos', venue: 'Los Angeles, EUA', match: 59 },
+      { id: 'm060', date: '2026-06-25T23:00', stage: 'Grupo D', teamA: 'Paraguai', teamB: 'Austrália', venue: 'Santa Clara, EUA', match: 60 },
+      { id: 'm061', date: '2026-06-26T16:00', stage: 'Grupo I', teamA: 'Noruega', teamB: 'França', venue: 'Foxborough, EUA', match: 61 },
+      { id: 'm062', date: '2026-06-26T16:00', stage: 'Grupo I', teamA: 'Senegal', teamB: 'Iraque', venue: 'Toronto, Canadá', match: 62 },
+      { id: 'm063', date: '2026-06-26T21:00', stage: 'Grupo H', teamA: 'Cabo Verde', teamB: 'Arábia Saudita', venue: 'Houston, EUA', match: 63 },
+      { id: 'm064', date: '2026-06-26T21:00', stage: 'Grupo H', teamA: 'Uruguai', teamB: 'Espanha', venue: 'Zapopan, México', match: 64 },
+      { id: 'm065', date: '2026-06-27T00:00', stage: 'Grupo G', teamA: 'Nova Zelândia', teamB: 'Bélgica', venue: 'Vancouver, Canadá', match: 65 },
+      { id: 'm066', date: '2026-06-27T00:00', stage: 'Grupo G', teamA: 'Egito', teamB: 'Irã', venue: 'Seattle, EUA', match: 66 },
+      { id: 'm067', date: '2026-06-27T18:00', stage: 'Grupo L', teamA: 'Panamá', teamB: 'Inglaterra', venue: 'New Jersey, EUA', match: 67 },
+      { id: 'm068', date: '2026-06-27T18:00', stage: 'Grupo L', teamA: 'Croácia', teamB: 'Gana', venue: 'Philadelphia, EUA', match: 68 },
+      { id: 'm069', date: '2026-06-27T20:30', stage: 'Grupo K', teamA: 'Colômbia', teamB: 'Portugal', venue: 'Miami, EUA', match: 69 },
+      { id: 'm070', date: '2026-06-27T20:30', stage: 'Grupo K', teamA: 'RD Congo', teamB: 'Uzbequistão', venue: 'Atlanta, EUA', match: 70 },
+      { id: 'm071', date: '2026-06-27T23:00', stage: 'Grupo J', teamA: 'Argélia', teamB: 'Áustria', venue: 'Kansas City, EUA', match: 71 },
+      { id: 'm072', date: '2026-06-27T23:00', stage: 'Grupo J', teamA: 'Jordânia', teamB: 'Argentina', venue: 'Arlington, EUA', match: 72 }
+    ];
+
+    let draft = loadDraft();
+    let collapsedGroups = JSON.parse(localStorage.getItem('bolaoCopa2026PalpitesCollapsedGroups') || '{}');
+
+    function loadDraft() {
+      try {
+        const saved = localStorage.getItem(STORAGE_KEY);
+        if (saved) {
+          const parsed = JSON.parse(saved);
+          return {
+            participant: parsed.participant || { name: '', email: '' },
+            bets: parsed.bets || {},
+            awards: parsed.awards || {},
+            createdAt: parsed.createdAt || new Date().toISOString(),
+            updatedAt: parsed.updatedAt || ''
+          };
+        }
+      } catch (_) {}
+
+      return {
+        participant: { name: '', email: '' },
+        bets: {},
+        awards: {},
+        createdAt: new Date().toISOString(),
+        updatedAt: ''
+      };
+    }
+
+    function saveDraft() {
+      const name = document.getElementById('participantName')?.value || '';
+      const email = document.getElementById('participantEmail')?.value || '';
+
+      draft.participant.name = name.trim();
+      draft.participant.email = email.trim();
+      draft.updatedAt = new Date().toISOString();
+
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(draft));
+      updateSummary();
+    }
+
+    function escapeHtml(value) {
+      return String(value ?? '')
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#039;');
+    }
+
+    function normalizeValue(value) {
+      return String(value || '').trim().normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
+    }
+
+    function isNonNegativeIntegerValue(value) {
+      if (value === '' || value === null || value === undefined) return false;
+      const n = Number(value);
+      return Number.isInteger(n) && n >= 0;
+    }
+
+    function getPlayersForAward(key) {
+      if (key === 'luvaDeOuro') return PLAYER_CATALOG.filter(p => p.positions.includes('goleiro'));
+      if (key === 'melhorJovem') return PLAYER_CATALOG.filter(p => p.young);
+      if (key === 'chuteiraDeOuro') return PLAYER_CATALOG.filter(p => p.positions.some(pos => ['atacante', 'meia'].includes(pos)));
+      return PLAYER_CATALOG;
+    }
+
+    function getAwardHint(key) {
+      if (key === 'luvaDeOuro') return 'Somente goleiros aparecem nesta lista.';
+      if (key === 'melhorJovem') return 'Lista limitada a jogadores jovens elegíveis no bolão.';
+      if (key === 'chuteiraDeOuro') return 'Lista focada em atacantes e meias ofensivos.';
+      return 'Qualquer jogador da lista pode ser escolhido.';
+    }
+
+    function getAwardPlaceholder(key) {
+      if (key === 'luvaDeOuro') return 'Pesquisar goleiro...';
+      if (key === 'melhorJovem') return 'Pesquisar jovem elegível...';
+      if (key === 'chuteiraDeOuro') return 'Pesquisar atacante ou meia...';
+      return 'Pesquisar jogador...';
+    }
+
+    function getAwardListId(key) {
+      return `playersList_${key}`;
+    }
+
+    function isAllowedAwardPlayer(key, value) {
+      const normalized = normalizeValue(value);
+      if (!normalized) return true;
+      return getPlayersForAward(key).some(player => normalizeValue(player.name) === normalized);
+    }
+
+    function renderPlayerOptions() {
+      Object.keys(FIFA_AWARDS).forEach(key => {
+        const list = document.getElementById(getAwardListId(key));
+        if (!list) return;
+        list.innerHTML = getPlayersForAward(key)
+          .map(player => `<option value="${escapeHtml(player.name)}" label="${escapeHtml(`${player.flag} ${player.country}`)}"></option>`)
+          .join('');
+      });
+    }
+
+    function saveAward(key, strict = false) {
+      const input = document.getElementById(`award_${key}`);
+      const value = input ? input.value.trim() : '';
+
+      if (!value) {
+        delete draft.awards[key];
+        saveDraft();
+        return;
+      }
+
+      if (!isAllowedAwardPlayer(key, value)) {
+        if (strict) {
+          alert('Escolha um jogador da lista desta categoria.');
+          input.value = draft.awards[key] || '';
+        }
+        saveDraft();
+        return;
+      }
+
+      draft.awards[key] = value;
+      saveDraft();
+    }
+
+    function renderAwards() {
+      const area = document.getElementById('awardsArea');
+      if (!area) return;
+
+      area.innerHTML = Object.entries(FIFA_AWARDS).map(([key, award]) => `
+        <div class="award-card">
+          <strong>${award.label}</strong>
+          <span class="award-points">${award.points} ponto(s) • ${award.description}</span>
+          <span class="small">${getAwardHint(key)}</span>
+          <input
+            id="award_${key}"
+            list="${getAwardListId(key)}"
+            placeholder="${getAwardPlaceholder(key)}"
+            value="${escapeHtml(draft.awards[key] || '')}"
+            oninput="saveAward('${key}', false)"
+            onblur="saveAward('${key}', true)"
+            onchange="saveAward('${key}', true)"
+          />
+        </div>
+      `).join('');
+    }
+
+    function renderFlag(teamName) {
+      const code = TEAM_FLAG_CODES[teamName];
+      if (!code) return '<span class="placeholder-flag">🏆</span>';
+      return `<img class="flag-img" src="https://flagcdn.com/w40/${code}.png" alt="Bandeira ${escapeHtml(teamName)}" loading="lazy" />`;
+    }
+
+    function renderTeam(teamName, side = '') {
+      const nameBlock = `<span class="team-name">${escapeHtml(teamName)}</span>`;
+      const flag = renderFlag(teamName);
+      if (side === 'away') {
+        return `<div class="team away">${nameBlock}${flag}</div>`;
+      }
+      return `<div class="team"><span>${flag}</span>${nameBlock}</div>`;
+    }
+
+    function formatMatchDate(value) {
+      const date = new Date(value);
+      return date.toLocaleDateString('pt-BR') + ' • ' + date.toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' });
+    }
+
+    function isBrazilMatch(game) {
+      return game.teamA === 'Brasil' || game.teamB === 'Brasil';
+    }
+
+    function saveBet(gameId) {
+      const game = games.find(g => g.id === gameId);
+      const aInput = document.getElementById(`bet_${gameId}_A`);
+      const bInput = document.getElementById(`bet_${gameId}_B`);
+      const scoreA = aInput ? aInput.value : '';
+      const scoreB = bInput ? bInput.value : '';
+
+      if (scoreA === '' && scoreB === '') {
+        delete draft.bets[gameId];
+        saveDraft();
+        renderGamesPreservingScroll();
+        return;
+      }
+
+      if (scoreA === '' || scoreB === '') {
+        if (draft.bets[gameId]) {
+          draft.bets[gameId].invalidReason = 'Preencha os dois lados do placar.';
+          draft.bets[gameId].updatedAt = new Date().toISOString();
+        }
+        saveDraft();
+        return;
+      }
+
+      if (!isNonNegativeIntegerValue(scoreA) || !isNonNegativeIntegerValue(scoreB)) {
+        if (draft.bets[gameId]) {
+          draft.bets[gameId].invalidReason = 'Use apenas números inteiros iguais ou maiores que zero.';
+          draft.bets[gameId].updatedAt = new Date().toISOString();
+        }
+        saveDraft();
+        return;
+      }
+
+      draft.bets[gameId] = {
+        scoreA: Number(scoreA),
+        scoreB: Number(scoreB),
+        updatedAt: new Date().toISOString(),
+        invalidReason: ''
+      };
+
+      saveDraft();
+      updateSummary();
+    }
+
+    function clearBet(gameId) {
+      delete draft.bets[gameId];
+      saveDraft();
+      renderGamesPreservingScroll();
+    }
+
+    function getFilteredGames() {
+      const filter = (document.getElementById('gameFilter')?.value || '').trim().toLowerCase();
+      return games.filter(game => {
+        if (!filter) return true;
+        return [game.stage, game.teamA, game.teamB, game.venue, String(game.match || '')]
+          .filter(Boolean)
+          .join(' ')
+          .toLowerCase()
+          .includes(filter);
+      });
+    }
+
+    function getGroupSortKey(stage) {
+      const match = String(stage || '').match(/^Grupo\s+([A-L])/i);
+      if (match) return `0-${match[1].toUpperCase()}`;
+      return `9-${stage || 'Outros'}`;
+    }
+
+    function toggleGroup(label) {
+      collapsedGroups[label] = !collapsedGroups[label];
+      localStorage.setItem('bolaoCopa2026PalpitesCollapsedGroups', JSON.stringify(collapsedGroups));
+      renderGames();
+    }
+
+    function countFilledInGames(list) {
+      return list.filter(game => draft.bets[game.id] && !draft.bets[game.id].invalidReason).length;
+    }
+
+    function renderBetRow(game) {
+      const bet = draft.bets[game.id] || null;
+      const completeClass = bet && !bet.invalidReason ? 'bet-complete' : '';
+      const brazilClass = isBrazilMatch(game) ? 'brazil-match' : '';
+      const date = formatMatchDate(game.date);
+
+      return `
+        <article class="match-card ${completeClass} ${brazilClass}">
+          <div class="match-top">
+            <span class="match-stage">${escapeHtml(game.stage)}</span>
+            <span class="match-number">Jogo ${game.match || ''}</span>
+          </div>
+
+          <div class="teams-line">
+            ${renderTeam(game.teamA, 'home')}
+            <span class="versus">x</span>
+            ${renderTeam(game.teamB, 'away')}
+          </div>
+
+          <div class="match-meta">
+            <span>🕒 ${date}</span>
+            <span>📍 ${escapeHtml(game.venue || '')}</span>
+          </div>
+
+          <div class="card-score-area">
+            <div class="score-inputs">
+              <input id="bet_${game.id}_A" type="number" min="0" value="${bet ? escapeHtml(bet.scoreA) : ''}" oninput="saveBet('${game.id}')" aria-label="Gols ${escapeHtml(game.teamA)}" />
+              <span>x</span>
+              <input id="bet_${game.id}_B" type="number" min="0" value="${bet ? escapeHtml(bet.scoreB) : ''}" oninput="saveBet('${game.id}')" aria-label="Gols ${escapeHtml(game.teamB)}" />
+            </div>
+            ${bet ? `<div class="status-line">Última alteração: ${new Date(bet.updatedAt).toLocaleString('pt-BR')}</div>` : `<div class="status-line">Preencha seu palpite</div>`}
+            ${bet && bet.invalidReason ? `<div class="validation-warning">⚠ ${escapeHtml(bet.invalidReason)}</div>` : ''}
+            ${bet ? `<button type="button" class="secondary" onclick="clearBet('${game.id}')">🗑 Limpar este jogo</button>` : ''}
+          </div>
+        </article>
+      `;
+    }
+
+    function renderGamesTable(list) {
+      return `<div class="match-cards">${list.map(renderBetRow).join('')}</div>`;
+    }
+
+    function renderGamesGrouped(list) {
+      const grouped = list.reduce((acc, game) => {
+        const label = game.stage || 'Outros';
+        if (!acc[label]) acc[label] = [];
+        acc[label].push(game);
+        return acc;
+      }, {});
+
+      return Object.keys(grouped)
+        .sort((a, b) => getGroupSortKey(a).localeCompare(getGroupSortKey(b), 'pt-BR', { numeric: true }))
+        .map(label => {
+          const groupGames = grouped[label].sort((a, b) => new Date(a.date) - new Date(b.date));
+          const filled = countFilledInGames(groupGames);
+          const isCollapsed = !!collapsedGroups[label];
+          const progressText = filled === groupGames.length ? '✅ Completo' : `${filled}/${groupGames.length} preenchidos`;
+
+          return `
+            <div class="group-block">
+              <h3 class="group-title" onclick="toggleGroup('${escapeHtml(label).replace(/'/g, '&#039;')}')">
+                <strong>${isCollapsed ? '▶' : '▼'} ${escapeHtml(label)}</strong>
+                <span>${progressText}</span>
+              </h3>
+              <div class="group-content ${isCollapsed ? 'collapsed' : ''}">
+                ${renderGamesTable(groupGames)}
+              </div>
+            </div>
+          `;
+        })
+        .join('');
+    }
+
+    function renderGames() {
+      const area = document.getElementById('gamesArea');
+      if (!area) return;
+
+      const filtered = getFilteredGames();
+      if (!filtered.length) {
+        area.innerHTML = '<p>Nenhum jogo encontrado para este filtro.</p>';
+        return;
+      }
+
+      const viewMode = document.getElementById('viewMode')?.value || 'group';
+      const sorted = [...filtered].sort((a, b) => new Date(a.date) - new Date(b.date));
+
+      area.innerHTML = viewMode === 'group'
+        ? renderGamesGrouped(sorted)
+        : renderGamesTable(sorted);
+
+      updateSummary();
+    }
+
+    function renderGamesPreservingScroll() {
+      const pageScrollY = window.scrollY;
+      renderGames();
+      requestAnimationFrame(() => window.scrollTo({ top: pageScrollY, left: 0, behavior: 'instant' }));
+    }
+
+    function updateSummary() {
+      const totalGames = games.length;
+      const filledGames = Object.values(draft.bets || {}).filter(bet => bet && !bet.invalidReason).length;
+      const awardFilled = Object.values(draft.awards || {}).filter(Boolean).length;
+      const percent = totalGames ? Math.round((filledGames / totalGames) * 100) : 0;
+
+      const name = draft.participant.name || '';
+
+      const progressText = document.getElementById('stickyProgressText');
+      const progressBar = document.getElementById('progressBar');
+      const stickyTitle = document.getElementById('stickyTitle');
+
+      if (stickyTitle) stickyTitle.innerText = name ? `👤 ${name}` : '📝 Preenchimento em andamento';
+      if (progressText) progressText.innerText = `${filledGames} de ${totalGames} jogos preenchidos.`;
+      if (progressBar) progressBar.style.width = `${percent}%`;
+
+      const summaryGames = document.getElementById('summaryGames');
+      const summaryAwards = document.getElementById('summaryAwards');
+      const summaryStatus = document.getElementById('summaryStatus');
+      const summaryMessage = document.getElementById('summaryMessage');
+
+      if (summaryGames) summaryGames.innerText = `${filledGames}/${totalGames}`;
+      if (summaryAwards) summaryAwards.innerText = `${awardFilled}/4`;
+
+      let status = 'Rascunho';
+      let message = 'Preencha seu nome e seus palpites. Quando terminar, clique em “Baixar JSON”.';
+      let messageClass = 'notice';
+
+      if (!name) {
+        status = 'Falta nome';
+        message = 'Informe seu nome/apelido antes de baixar o JSON.';
+      } else if (filledGames < totalGames) {
+        status = 'Incompleto';
+        message = `Você já preencheu ${filledGames} de ${totalGames} jogos. Pode baixar assim mesmo, mas o ideal é completar todos.`;
+      } else {
+        status = 'Pronto';
+        message = 'Tudo certo. Você já pode baixar seu JSON oficial.';
+        messageClass = 'success';
+      }
+
+      if (summaryStatus) summaryStatus.innerText = status;
+      if (summaryMessage) {
+        summaryMessage.className = messageClass;
+        summaryMessage.innerText = message;
+      }
+    }
+
+    function slugify(value) {
+      return String(value || 'sem-nome')
+        .normalize('NFD')
+        .replace(/[\u0300-\u036f]/g, '')
+        .replace(/[^a-zA-Z0-9]+/g, '-')
+        .replace(/^-+|-+$/g, '')
+        .toLowerCase() || 'sem-nome';
+    }
+
+    function buildExportPayload() {
+      const name = draft.participant.name.trim();
+      const email = draft.participant.email.trim();
+      const now = new Date().toISOString();
+      const participantId = `p_${slugify(name)}`;
+
+      const participant = {
+        id: participantId,
+        name,
+        email,
+        createdAt: draft.createdAt || now,
+        lastSubmissionAt: now,
+        source: 'palpites_html_online',
+        sourcePage: location.href
+      };
+
+      const bets = {};
+      bets[participantId] = {};
+
+      Object.entries(draft.bets || {}).forEach(([gameId, bet]) => {
+        if (!bet || bet.invalidReason) return;
+        bets[participantId][gameId] = {
+          scoreA: Number(bet.scoreA),
+          scoreB: Number(bet.scoreB),
+          updatedAt: bet.updatedAt || now,
+          invalidReason: ''
+        };
+      });
+
+      const awards = {};
+      awards[participantId] = {};
+      Object.entries(draft.awards || {}).forEach(([key, value]) => {
+        if (value) awards[participantId][key] = value;
+      });
+
+      return {
+        schemaVersion: APP_VERSION,
+        exportedAt: now,
+        app: 'Bolao Copa 2026',
+        version: APP_VERSION,
+        source: 'palpites_html_online',
+        data: {
+          participants: [participant],
+          games: games,
+          bets: bets,
+          awards: awards,
+          settings: {
+            exactScorePoints: 3,
+            outcomePoints: 1
+          },
+          metadata: {
+            schemaVersion: APP_VERSION,
+            createdAt: draft.createdAt || now,
+            exportedAt: now,
+            source: 'palpites_html_online'
+          }
+        }
+      };
+    }
+
+    function downloadTextFile(filename, content, type = 'application/json;charset=utf-8') {
+      const blob = new Blob([content], { type });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+
+      a.href = url;
+      a.download = filename;
+      a.style.display = 'none';
+
+      document.body.appendChild(a);
+      a.click();
+
+      setTimeout(() => {
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+      }, 0);
+    }
+
+    function downloadJson() {
+      saveDraft();
+
+      const status = document.getElementById('downloadStatus');
+      const name = draft.participant.name.trim();
+
+      if (!name) {
+        alert('Informe seu nome ou apelido antes de baixar o JSON.');
+        document.getElementById('participantName')?.focus();
+        return;
+      }
+
+      const payload = buildExportPayload();
+      const now = new Date();
+      const datePart = now.toISOString().slice(0, 10);
+      const timePart = now.toTimeString().slice(0, 5).replace(':', '-');
+      const filename = `palpites-${slugify(name)}-${datePart}_${timePart}.json`;
+
+      downloadTextFile(filename, JSON.stringify(payload, null, 2));
+
+      if (status) {
+        status.className = 'success';
+        status.innerText = `JSON gerado com sucesso: ${filename}. Envie este arquivo ao organizador do bolão.`;
+      }
+    }
+
+    function clearDraft() {
+      if (!confirm('Tem certeza que deseja limpar todos os palpites salvos neste navegador?')) return;
+
+      localStorage.removeItem(STORAGE_KEY);
+      localStorage.removeItem('bolaoCopa2026PalpitesCollapsedGroups');
+
+      draft = {
+        participant: { name: '', email: '' },
+        bets: {},
+        awards: {},
+        createdAt: new Date().toISOString(),
+        updatedAt: ''
+      };
+
+      collapsedGroups = {};
+
+      document.getElementById('participantName').value = '';
+      document.getElementById('participantEmail').value = '';
+      document.getElementById('gameFilter').value = '';
+
+      renderAwards();
+      renderGames();
+      updateSummary();
+
+      const status = document.getElementById('downloadStatus');
+      if (status) {
+        status.className = 'notice';
+        status.innerText = 'Rascunho limpo neste navegador.';
+      }
+    }
+
+    function restoreDraftToFields() {
+      document.getElementById('participantName').value = draft.participant.name || '';
+      document.getElementById('participantEmail').value = draft.participant.email || '';
+    }
+
+    function init() {
+      renderPlayerOptions();
+      restoreDraftToFields();
+      renderAwards();
+      renderGames();
+      updateSummary();
+    }
+
+    init();
+  </script>
 </body>
 </html>
