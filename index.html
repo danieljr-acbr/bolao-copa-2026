@@ -5190,80 +5190,226 @@
       renderBetRow = renderBetRowReadOnly;
     }
 
-    const CONSOLIDATED_JSON_URL = 'https://script.google.com/macros/s/AKfycbzSBTdEtcguwXwkP1JrlwMII_1UON048l9BXc0iFZ62lfuyzFsl_5zBdE4l0qkbz2vjwg/exec';
+   const CONSOLIDATED_JSON_URL = 'https://script.google.com/macros/s/AKfycbzSBTdEtcguwXwkP1JrlwMII_1UON048l9BXc0iFZ62lfuyzFsl_5zBdE4l0qkbz2vjwg/exec';
 
-    function carregarDadosConsolidados() {
-      return new Promise((resolve, reject) => {
-        const callbackName = 'receberBolaoConsolidado_' + Date.now();
+const FORMS_ONLY_MODE = true;
 
-        window[callbackName] = function(data) {
-          try {
-            if (!data || !Array.isArray(data.participants)) {
-              throw new Error('JSON consolidado inválido.');
-            }
+function blockDirectEdit(actionName = 'Esta ação') {
+  alert(`${actionName} está bloqueada. Os palpites devem ser enviados exclusivamente pelo formulário oficial.`);
+  return false;
+}
 
-            const previousGames = state.games || defaultGames();
-            const previousSettings = state.settings || { exactScorePoints: 3, outcomePoints: 1 };
-            const previousAwardResults = state.awardResults || {};
-            const previousAwardResultDate = state.awardResultDate || '';
+function carregarDadosConsolidados() {
+  return new Promise((resolve, reject) => {
+    const callbackName = 'receberBolaoConsolidado_' + Date.now();
 
-            state.participants = data.participants || [];
-            state.bets = data.bets || {};
-            state.awards = data.awards || {};
-            state.games = Array.isArray(data.games) && data.games.length ? data.games : previousGames;
-            state.settings = data.settings || previousSettings;
-            state.awardResults = data.awardResults || previousAwardResults;
-            state.awardResultDate = data.awardResultDate || previousAwardResultDate;
-            state.metadata = {
-              ...(state.metadata || {}),
-              googleFormsImportedAt: new Date().toISOString(),
-              googleFormsGeneratedAt: data.generatedAt || '',
-              source: 'google_forms_app_script_jsonp',
-              readOnlyFormsMode: true
-            };
-
-            currentParticipantId = null;
-            localStorage.removeItem('currentParticipantId');
-            localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
-
-            render();
-            applyFormsOnlyMode();
-
-            console.log(`Dados carregados do Google Forms: ${state.participants.length} participante(s).`);
-            cleanup();
-            resolve(data);
-          } catch (error) {
-            cleanup();
-            console.error('Erro ao processar JSONP:', error);
-            alert('Não foi possível processar os dados do Google Forms.');
-            reject(error);
-          }
-        };
-
-        function cleanup() {
-          const script = document.getElementById(callbackName);
-          if (script) script.remove();
-          try { delete window[callbackName]; } catch (_) { window[callbackName] = undefined; }
+    window[callbackName] = function(data) {
+      try {
+        if (!data || !Array.isArray(data.participants)) {
+          throw new Error('JSON consolidado inválido.');
         }
 
-        const script = document.createElement('script');
-        script.id = callbackName;
-        const separator = CONSOLIDATED_JSON_URL.includes('?') ? '&' : '?';
-        script.src = CONSOLIDATED_JSON_URL + separator + 'callback=' + callbackName + '&t=' + Date.now();
-        script.onerror = function() {
-          cleanup();
-          alert('Não foi possível carregar os dados do Google Forms. Verifique se o Apps Script está publicado para qualquer pessoa.');
-          reject(new Error('Falha ao carregar JSONP.'));
-        };
-        document.body.appendChild(script);
-      });
+        const currentGames = Array.isArray(state.games) && state.games.length
+          ? state.games
+          : defaultGames();
+
+        state.participants = data.participants || [];
+        state.bets = data.bets || {};
+        state.awards = data.awards || {};
+        state.games = currentGames;
+
+        state.metadata = state.metadata || {};
+        state.metadata.googleFormsImportedAt = new Date().toISOString();
+        state.metadata.googleFormsGeneratedAt = data.generatedAt || '';
+        state.metadata.source = 'google_forms_apps_script';
+
+        currentParticipantId = null;
+        localStorage.removeItem('currentParticipantId');
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+
+        render();
+        applyFormsOnlyMode();
+
+        console.log(`Dados carregados do Google Forms: ${state.participants.length} participante(s).`);
+
+        cleanup();
+        resolve(data);
+      } catch (error) {
+        cleanup();
+        console.error('Erro ao processar JSONP:', error);
+        alert('Não foi possível processar os dados do Google Forms.');
+        reject(error);
+      }
+    };
+
+    function cleanup() {
+      const script = document.getElementById(callbackName);
+      if (script) script.remove();
+      try {
+        delete window[callbackName];
+      } catch (_) {
+        window[callbackName] = undefined;
+      }
     }
 
+    const script = document.createElement('script');
+    script.id = callbackName;
+
+    const separator = CONSOLIDATED_JSON_URL.includes('?') ? '&' : '?';
+    script.src =
+      CONSOLIDATED_JSON_URL +
+      separator +
+      'callback=' +
+      encodeURIComponent(callbackName) +
+      '&t=' +
+      Date.now();
+
+    script.onerror = function() {
+      cleanup();
+      alert('Não foi possível carregar os dados do Google Forms. Verifique se o Apps Script está publicado para qualquer pessoa.');
+      reject(new Error('Falha ao carregar JSONP.'));
+    };
+
+    document.body.appendChild(script);
+  });
+}
+
+function applyFormsOnlyMode() {
+  document.body.classList.add('forms-only-mode');
+
+  const currentUserBadge = document.getElementById('currentUserBadge');
+  if (currentUserBadge) {
+    currentUserBadge.innerText = 'Modo Forms: somente leitura';
+  }
+
+  const stickySaveBar = document.getElementById('stickySaveBar');
+  if (stickySaveBar) {
+    stickySaveBar.innerHTML = `
+      <div class="sticky-save-content">
+        <div class="participant-summary">
+          <strong>🔒 Palpites somente pelo formulário oficial</strong>
+          <span class="small">Esta página apenas exibe dados enviados via Google Forms. Inserções diretas foram bloqueadas.</span>
+          <div class="progress-wrap" aria-label="Dados carregados">
+            <div class="progress-bar" style="width:100%"></div>
+          </div>
+        </div>
+        <button type="button" onclick="carregarDadosConsolidados()">🔄 Atualizar dados do Forms</button>
+      </div>
+    `;
+  }
+
+  const intro = document.querySelector('#tab-bolao .tab-section-intro');
+  if (intro) {
+    intro.innerHTML = '<strong>⚽ Bolão</strong>Consulta pública do bolão. Para enviar ou alterar palpites, use somente o formulário oficial.';
+  }
+
+  const blockedSelectors = [
+    'input[id="participantName"]',
+    'input[id^="bet_"]',
+    'input[id^="award_"]',
+    'button[onclick^="enterPool"]',
+    'button[onclick^="exportData"]',
+    'button[onclick^="clearBet"]',
+    'button[onclick^="removeParticipant"]',
+    'button[onclick^="openParticipantsFolder"]',
+    'button[onclick*="importFile"]',
+    'button[onclick^="clearAll"]'
+  ];
+
+  document.querySelectorAll(blockedSelectors.join(',')).forEach(el => {
+    if (el.tagName === 'INPUT') {
+      el.disabled = true;
+      el.title = 'Edição bloqueada. Use o formulário oficial.';
+    } else {
+      el.style.display = 'none';
+    }
+  });
+
+  const exportImportCards = Array.from(document.querySelectorAll('.card')).filter(card => {
+    const title = card.querySelector('h2');
+    return title && /Exportar|importar dados/i.test(title.textContent || '');
+  });
+
+  exportImportCards.forEach(card => {
+    card.innerHTML = `
+      <h2>🔒 Dados oficiais do Forms</h2>
+      <p>Importação manual, exportação de palpites individuais e limpeza local foram desativadas.</p>
+      <div class="actions">
+        <button class="secondary" type="button" onclick="carregarDadosConsolidados()">🔄 Atualizar dados do Forms</button>
+        <button class="secondary" type="button" onclick="exportRankingCsv()">📥 Ranking CSV</button>
+        <button class="secondary" type="button" onclick="exportFullReportJson()">📦 Relatório JSON</button>
+      </div>
+      <div id="importSummary" class="diagnostic-log" style="margin-top:12px;">Dados carregados exclusivamente do Google Forms via Apps Script.</div>
+    `;
+  });
+
+  const enterCards = Array.from(document.querySelectorAll('.card')).filter(card => {
+    const title = card.querySelector('h2');
+    return title && /Entrar no bolão/i.test(title.textContent || '');
+  });
+
+  enterCards.forEach(card => {
+    card.innerHTML = `
+      <h2>Enviar palpites</h2>
+      <p>Os palpites não são preenchidos diretamente nesta página.</p>
+      <p class="small">Use o formulário oficial para participar ou alterar seus palpites.</p>
+      <button type="button" onclick="alert('Cole aqui depois o link público do Google Forms.')">📝 Abrir formulário oficial</button>
+    `;
+  });
+}
+
+const originalEnterPool = typeof enterPool === 'function' ? enterPool : null;
+enterPool = function() {
+  return blockDirectEdit('Entrada manual no bolão');
+};
+
+const originalAutoSaveBet = typeof autoSaveBet === 'function' ? autoSaveBet : null;
+autoSaveBet = function(gameId) {
+  const a = document.getElementById(`bet_${gameId}_A`);
+  const b = document.getElementById(`bet_${gameId}_B`);
+  if (a) a.value = '';
+  if (b) b.value = '';
+  return blockDirectEdit('Edição direta de palpites');
+};
+
+const originalClearBet = typeof clearBet === 'function' ? clearBet : null;
+clearBet = function() {
+  return blockDirectEdit('Limpeza de palpite');
+};
+
+const originalRemoveParticipant = typeof removeParticipant === 'function' ? removeParticipant : null;
+removeParticipant = function() {
+  return blockDirectEdit('Remoção de participante');
+};
+
+const originalSaveAwardPrediction = typeof saveAwardPrediction === 'function' ? saveAwardPrediction : null;
+saveAwardPrediction = function() {
+  return blockDirectEdit('Edição direta de premiações');
+};
+
+const originalImportData = typeof importData === 'function' ? importData : null;
+importData = async function() {
+  return blockDirectEdit('Importação manual de JSON');
+};
+
+const originalOpenParticipantsFolder = typeof openParticipantsFolder === 'function' ? openParticipantsFolder : null;
+openParticipantsFolder = async function() {
+  return blockDirectEdit('Importação manual de pasta');
+};
+
+const originalClearAll = typeof clearAll === 'function' ? clearAll : null;
+clearAll = function() {
+  return blockDirectEdit('Limpeza local dos dados');
+};
+
+const originalExportData = typeof exportData === 'function' ? exportData : null;
+exportData = function() {
+  return blockDirectEdit('Exportação individual de palpites');
+};
 
 render();
 restoreBolaoTab();
-applyFormsOnlyMode();
-carregarDadosConsolidados();
+carregarDadosConsolidados().then(applyFormsOnlyMode).catch(applyFormsOnlyMode);
   </script>
 </body>
 </html>
