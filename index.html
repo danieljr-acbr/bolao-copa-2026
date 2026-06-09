@@ -5428,6 +5428,55 @@ renderKnockoutBracket = function() {
     <p class="small">Assim, ninguém aposta em uma chave hipotética. O ranking continuará sendo único, somando fase de grupos, premiações e, futuramente, o mata-mata.</p>
   `;
 };
+
+function limparDadosManuaisLegados() {
+  const saved = localStorage.getItem(STORAGE_KEY);
+
+  if (!saved) return;
+
+  try {
+    const parsed = JSON.parse(saved);
+    const participants = Array.isArray(parsed.participants) ? parsed.participants : [];
+
+    const temParticipanteManual = participants.some(participant => {
+      return participant && participant.source !== 'google_forms';
+    });
+
+    if (temParticipanteManual) {
+      localStorage.removeItem(STORAGE_KEY);
+      localStorage.removeItem('currentParticipantId');
+      localStorage.removeItem('collapsedGroupsBolao2026');
+
+      state = {
+        participants: [],
+        games: defaultGames(),
+        bets: {},
+        awards: {},
+        awardResults: {},
+        settings: {
+          exactScorePoints: 3,
+          outcomePoints: 1
+        },
+        metadata: {
+          schemaVersion: APP_VERSION,
+          createdAt: new Date().toISOString(),
+          source: 'google_forms_only'
+        }
+      };
+
+      currentParticipantId = null;
+
+      console.log('Dados manuais legados removidos do navegador.');
+    }
+  } catch (error) {
+    localStorage.removeItem(STORAGE_KEY);
+    localStorage.removeItem('currentParticipantId');
+    localStorage.removeItem('collapsedGroupsBolao2026');
+    console.warn('LocalStorage antigo inválido removido.', error);
+  }
+}
+
+limparDadosManuaisLegados();
 render();
 restoreBolaoTab();
 carregarDadosConsolidados().then(applyFormsOnlyMode).catch(applyFormsOnlyMode);
