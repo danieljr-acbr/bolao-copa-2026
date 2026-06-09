@@ -505,7 +505,101 @@
       text-align: center;
       font-size: 13px;
     }
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 999;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 18px;
+  background: rgba(2, 6, 23, .78);
+  backdrop-filter: blur(8px);
+}
 
+.modal-backdrop.active {
+  display: flex;
+}
+
+.modal-card {
+  width: 100%;
+  max-width: 560px;
+  position: relative;
+  border: 1px solid rgba(34, 197, 94, .38);
+  border-top: 5px solid var(--accent);
+  border-radius: 24px;
+  padding: 24px;
+  background:
+    radial-gradient(circle at top right, rgba(34, 197, 94, .12), transparent 34%),
+    linear-gradient(180deg, rgba(17, 24, 39, .98), rgba(15, 23, 42, .98));
+  box-shadow: 0 30px 80px rgba(0,0,0,.48);
+}
+
+.modal-close {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  width: 42px;
+  height: 42px;
+  min-width: 0;
+  margin: 0;
+  border-radius: 999px;
+  background: #334155;
+  color: #f8fafc;
+  font-size: 28px;
+  line-height: 1;
+  padding: 0;
+}
+
+.send-steps {
+  display: grid;
+  gap: 10px;
+  margin: 18px 0;
+}
+
+.send-step {
+  padding: 13px 14px;
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  background: rgba(2, 6, 23, .42);
+}
+
+.send-step strong {
+  display: block;
+  margin-bottom: 4px;
+  color: #f8fafc;
+}
+
+.send-step span {
+  display: block;
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.4;
+}
+
+.modal-actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-top: 16px;
+}
+
+.modal-actions button,
+.modal-actions a {
+  margin-top: 0;
+  min-height: 48px;
+  border-radius: 14px;
+}
+
+@media (max-width: 620px) {
+  .modal-actions {
+    grid-template-columns: 1fr;
+  }
+
+  .modal-card {
+    padding: 20px;
+  }
+}
     @media (max-width: 700px) {
       .container { padding: 14px; }
       .sticky-bar {
@@ -659,7 +753,47 @@ até você baixar o arquivo do seu bolão.
 </div>
       <div id="downloadStatus"></div>
     </section>
+<div class="modal-backdrop" id="sendModal" onclick="closeSendModal(event)">
+  <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="sendModalTitle">
+    <button type="button" class="modal-close" onclick="closeSendModal()">×</button>
 
+    <div class="hero-badge">📤 Envio oficial do bolão</div>
+
+    <h2 id="sendModalTitle">Enviar seu Bolão</h2>
+
+    <p>
+      Para participar oficialmente, primeiro baixe o arquivo do seu bolão e depois envie pelo formulário.
+    </p>
+
+    <div class="send-steps">
+      <div class="send-step">
+        <strong>1. Baixe seu Bolão</strong>
+        <span>Clique no botão abaixo para salvar o arquivo no seu dispositivo.</span>
+      </div>
+
+      <div class="send-step">
+        <strong>2. Abra o formulário</strong>
+        <span>Depois, anexe o arquivo baixado no formulário oficial.</span>
+      </div>
+
+      <div class="send-step">
+        <strong>3. Aguarde a atualização</strong>
+        <span>Seu palpite aparecerá no painel após a consolidação dos dados.</span>
+      </div>
+    </div>
+
+    <div class="modal-actions">
+      <button type="button" onclick="downloadJson()">💾 Baixar Bolão</button>
+      <a class="button-link secondary" href="https://forms.gle/vno4T9cUzwhmKzL98" target="_blank" rel="noopener noreferrer">
+        📤 Abrir formulário oficial
+      </a>
+    </div>
+
+    <div class="notice">
+      Dica: depois de baixar, procure pelo arquivo chamado “palpites-seu-nome...” na pasta de downloads do seu celular ou computador.
+    </div>
+  </div>
+</div>
     <footer class="app-footer">
       Desenvolvido por Daniel S. A. Junior · Bolão Copa do Mundo 2026
     </footer>
@@ -1351,7 +1485,7 @@ até você baixar o arquivo do seu bolão.
 
       if (status) {
         status.className = 'success';
-        status.innerText = `JSON gerado com sucesso: ${filename}. Envie este arquivo ao organizador do bolão.`;
+        status.innerText = `Bolão baixado com sucesso: ${filename}. Agora envie este arquivo pelo formulário oficial.`;
       }
     }
 
@@ -1390,7 +1524,29 @@ até você baixar o arquivo do seu bolão.
       document.getElementById('participantName').value = draft.participant.name || '';
       document.getElementById('participantEmail').value = draft.participant.email || '';
     }
+function openSendModal() {
+  const modal = document.getElementById('sendModal');
+  if (modal) modal.classList.add('active');
+}
 
+function closeSendModal(event) {
+  const modal = document.getElementById('sendModal');
+
+  if (!modal) return;
+
+  if (event && event.target !== modal) {
+    return;
+  }
+
+  modal.classList.remove('active');
+}
+
+document.addEventListener('keydown', function(event) {
+  if (event.key === 'Escape') {
+    const modal = document.getElementById('sendModal');
+    if (modal) modal.classList.remove('active');
+  }
+});
     function init() {
       renderPlayerOptions();
       restoreDraftToFields();
