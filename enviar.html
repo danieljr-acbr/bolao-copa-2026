@@ -35,7 +35,7 @@
         <button class="tab" type="button" data-tab="matamata">Mata-Mata</button>
       </div>
 
-      <div id="statusGlobal" class="notice">Esta página já valida os arquivos localmente. Para envio automático ao Google Drive, falta apenas conectar o endpoint <code>doPost</code> do Apps Script.</div>
+      <div id="statusGlobal" class="notice">Envio automático conectado ao Apps Script. Selecione os arquivos e clique em enviar. <code>doPost</code> do Apps Script.</div>
 
       <form id="formGrupos" data-form="grupos">
         <h2>⚽ Cadastro + Fase de Grupos</h2>
@@ -68,7 +68,7 @@
   </div>
 
   <script>
-    const APPS_SCRIPT_UPLOAD_URL = '';
+    const APPS_SCRIPT_UPLOAD_URL = 'https://script.google.com/macros/s/AKfycbzSBTdEtcguwXwkP1JrlwMII_1UON048l9BXc0iFZ62lfuyzFsl_5zBdE4l0qkbz2vjwg/exec';
 
     const tabs = document.querySelectorAll('.tab');
     const formGrupos = document.getElementById('formGrupos');
