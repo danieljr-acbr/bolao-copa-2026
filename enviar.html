@@ -3,65 +3,62 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Envie seus arquivos JSON do Bolão Copa do Mundo 2026: cadastro, fase de grupos e mata-mata." />
+  <meta name="description" content="Envie seus arquivos JSON do Bolão Copa do Mundo 2026." />
   <title>Enviar Palpites - Bolão Copa 2026</title>
   <style>
-    :root{--bg:#020617;--bg2:#0f172a;--card:rgba(15,23,42,.88);--card2:rgba(30,41,59,.75);--text:#f8fafc;--muted:#94a3b8;--line:#334155;--green:#22c55e;--green2:#86efac;--yellow:#facc15;--orange:#f59e0b;--red:#ef4444;--blue:#38bdf8}
-    *{box-sizing:border-box}body{margin:0;font-family:Arial,Helvetica,sans-serif;color:var(--text);min-height:100vh;background:radial-gradient(circle at top left,rgba(34,197,94,.18),transparent 32rem),radial-gradient(circle at top right,rgba(250,204,21,.13),transparent 28rem),linear-gradient(135deg,var(--bg),var(--bg2))}a{color:inherit}.container{width:min(1120px,calc(100% - 32px));margin:0 auto;padding:28px 0 42px}.hero,.card,.step,.upload-box{border:1px solid var(--line);background:var(--card);box-shadow:0 18px 42px rgba(0,0,0,.28)}.hero{position:relative;overflow:hidden;border-radius:30px;padding:clamp(24px,5vw,54px);background:radial-gradient(circle at 86% 20%,rgba(250,204,21,.18),transparent 18rem),linear-gradient(135deg,rgba(15,23,42,.95),rgba(2,6,23,.80))}.hero:after{content:"📨";position:absolute;right:clamp(18px,7vw,78px);top:28px;font-size:clamp(64px,12vw,150px);opacity:.08;transform:rotate(-10deg)}.eyebrow{display:inline-flex;gap:8px;align-items:center;padding:7px 12px;border-radius:999px;background:rgba(34,197,94,.13);border:1px solid rgba(134,239,172,.25);color:var(--green2);font-size:12px;font-weight:900;text-transform:uppercase;letter-spacing:.08em;margin-bottom:14px}h1,h2,h3{margin:0;line-height:1.1}h1{font-size:clamp(32px,5.5vw,60px);letter-spacing:-1.3px}h2{font-size:clamp(24px,3vw,36px);margin-bottom:10px}h3{font-size:19px;margin-bottom:8px}p{color:var(--muted);line-height:1.62;margin:10px 0 0}.actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:22px}.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:46px;padding:12px 17px;border-radius:999px;text-decoration:none;border:1px solid rgba(255,255,255,.10);background:#1e293b;color:#e2e8f0;font-weight:900;cursor:pointer;transition:transform .15s ease,border-color .15s ease}.btn:hover{transform:translateY(-2px);border-color:rgba(134,239,172,.45)}.btn.primary{background:var(--green);color:#052e16}.btn.gold{background:linear-gradient(135deg,var(--orange),var(--yellow));color:#422006}.btn[disabled]{opacity:.55;cursor:not-allowed;transform:none}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px;margin-top:22px}.card{border-radius:26px;padding:clamp(20px,3vw,30px)}.step{border-radius:22px;padding:20px;background:var(--card2)}.step-num{width:38px;height:38px;border-radius:14px;display:inline-flex;align-items:center;justify-content:center;background:rgba(34,197,94,.15);border:1px solid rgba(134,239,172,.26);color:var(--green2);font-weight:950;margin-bottom:12px}.tabs{display:flex;gap:10px;flex-wrap:wrap;margin:22px 0}.tab{border:1px solid rgba(51,65,85,.85);background:rgba(30,41,59,.78);color:#cbd5e1;border-radius:999px;padding:11px 15px;font-weight:900;cursor:pointer}.tab.active{background:var(--green);color:#052e16;border-color:rgba(134,239,172,.7)}form{display:grid;gap:16px}.field{display:grid;gap:7px}label{font-weight:900;color:#e2e8f0}.hint{font-size:13px;color:var(--muted);line-height:1.45}input,select,textarea{width:100%;border:1px solid rgba(51,65,85,.90);border-radius:16px;padding:13px 14px;background:rgba(2,6,23,.48);color:#f8fafc;font:inherit}input[type=file]{padding:12px;background:rgba(15,23,42,.75)}.upload-box{border-radius:20px;padding:18px;background:rgba(2,6,23,.36)}.upload-status{margin-top:8px;font-size:13px;color:var(--muted)}.notice{padding:14px 16px;border-radius:18px;background:rgba(245,158,11,.10);border:1px solid rgba(245,158,11,.34);color:#fde68a;line-height:1.45}.success{background:rgba(34,197,94,.11);border-color:rgba(34,197,94,.35);color:#bbf7d0}.error{background:rgba(239,68,68,.12);border-color:rgba(239,68,68,.35);color:#fecaca}.hidden{display:none!important}.preview{white-space:pre-wrap;word-break:break-word;background:rgba(2,6,23,.58);border:1px solid rgba(51,65,85,.80);border-radius:18px;padding:14px;color:#cbd5e1;font-size:13px;max-height:260px;overflow:auto}.pill{display:inline-flex;align-items:center;gap:6px;padding:6px 10px;border-radius:999px;background:rgba(56,189,248,.12);border:1px solid rgba(56,189,248,.35);color:#bae6fd;font-size:13px;font-weight:900}footer{text-align:center;color:var(--muted);padding:24px 0 4px}@media(max-width:620px){.container{width:min(100% - 22px,1120px);padding-top:12px}.hero{border-radius:24px}.actions .btn{width:100%}.tabs{display:grid}.tab{width:100%}}
+    :root{--bg:#020617;--bg2:#0f172a;--card:#0f172a;--card2:#1e293b;--text:#f8fafc;--muted:#94a3b8;--line:#334155;--green:#22c55e;--green2:#86efac;--yellow:#facc15;--orange:#f59e0b;--red:#ef4444}
+    *{box-sizing:border-box}body{margin:0;font-family:Arial,Helvetica,sans-serif;color:var(--text);background:radial-gradient(circle at top left,rgba(34,197,94,.18),transparent 32rem),linear-gradient(135deg,var(--bg),var(--bg2));min-height:100vh}.container{width:min(1120px,calc(100% - 32px));margin:auto;padding:28px 0 42px}.hero,.card,.step,.upload-box{border:1px solid var(--line);background:rgba(15,23,42,.88);box-shadow:0 18px 42px rgba(0,0,0,.28)}.hero{border-radius:30px;padding:clamp(24px,5vw,54px);position:relative;overflow:hidden}.hero:after{content:"📨";position:absolute;right:clamp(18px,7vw,78px);top:28px;font-size:clamp(64px,12vw,150px);opacity:.08;transform:rotate(-10deg)}.eyebrow{display:inline-flex;padding:7px 12px;border-radius:999px;background:rgba(34,197,94,.13);border:1px solid rgba(134,239,172,.25);color:var(--green2);font-size:12px;font-weight:900;text-transform:uppercase;letter-spacing:.08em;margin-bottom:14px}h1,h2,h3{margin:0;line-height:1.1}h1{font-size:clamp(32px,5.5vw,60px)}h2{font-size:clamp(24px,3vw,36px);margin-bottom:10px}h3{font-size:19px;margin-bottom:8px}p{color:var(--muted);line-height:1.62;margin:10px 0 0}a{color:inherit}.actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:22px}.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:46px;padding:12px 17px;border-radius:999px;text-decoration:none;border:1px solid rgba(255,255,255,.10);background:#1e293b;color:#e2e8f0;font-weight:900;cursor:pointer}.btn:hover{border-color:rgba(134,239,172,.45)}.btn.primary{background:var(--green);color:#052e16}.btn.gold{background:linear-gradient(135deg,var(--orange),var(--yellow));color:#422006}.btn[disabled]{opacity:.55;cursor:not-allowed}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px;margin-top:22px}.card{border-radius:26px;padding:clamp(20px,3vw,30px);margin-top:22px}.step{border-radius:22px;padding:20px;background:rgba(30,41,59,.75)}.step-num{width:38px;height:38px;border-radius:14px;display:inline-flex;align-items:center;justify-content:center;background:rgba(34,197,94,.15);border:1px solid rgba(134,239,172,.26);color:var(--green2);font-weight:950;margin-bottom:12px}.tabs{display:flex;gap:10px;flex-wrap:wrap;margin:22px 0}.tab{border:1px solid rgba(51,65,85,.85);background:rgba(30,41,59,.78);color:#cbd5e1;border-radius:999px;padding:11px 15px;font-weight:900;cursor:pointer}.tab.active{background:var(--green);color:#052e16}form{display:grid;gap:16px}.field{display:grid;gap:7px}label{font-weight:900;color:#e2e8f0}.hint{font-size:13px;color:var(--muted)}input{width:100%;border:1px solid rgba(51,65,85,.90);border-radius:16px;padding:13px 14px;background:rgba(2,6,23,.48);color:#f8fafc;font:inherit}input[type=file]{padding:12px;background:rgba(15,23,42,.75)}.upload-box{border-radius:20px;padding:18px;background:rgba(2,6,23,.36)}.upload-status{margin-top:8px;font-size:13px;color:var(--muted)}.notice{padding:14px 16px;border-radius:18px;background:rgba(245,158,11,.10);border:1px solid rgba(245,158,11,.34);color:#fde68a;line-height:1.45}.success{background:rgba(34,197,94,.11);border-color:rgba(34,197,94,.35);color:#bbf7d0}.error{background:rgba(239,68,68,.12);border-color:rgba(239,68,68,.35);color:#fecaca}.hidden{display:none!important}.preview{white-space:pre-wrap;word-break:break-word;background:rgba(2,6,23,.58);border:1px solid rgba(51,65,85,.80);border-radius:18px;padding:14px;color:#cbd5e1;font-size:13px;max-height:260px;overflow:auto}.pill{display:inline-flex;padding:6px 10px;border-radius:999px;background:rgba(56,189,248,.12);border:1px solid rgba(56,189,248,.35);color:#bae6fd;font-size:13px;font-weight:900}footer{text-align:center;color:var(--muted);padding:24px 0 4px}@media(max-width:620px){.container{width:min(100% - 22px,1120px);padding-top:12px}.hero{border-radius:24px}.actions .btn{width:100%}.tabs{display:grid}.tab{width:100%}}
   </style>
 </head>
 <body>
   <div class="container">
     <header class="hero">
-      <span class="eyebrow">📨 Envio de arquivos</span>
+      <span class="eyebrow">Envio conectado</span>
       <h1>Enviar Palpites</h1>
-      <p>Envie seu cadastro, comprovante e arquivo JSON da fase de grupos. Depois, quando chegar a hora, envie também o JSON do mata-mata usando o mesmo e-mail.</p>
+      <p>Envie o JSON da fase de grupos com seu cadastro e comprovante PIX. Depois, use o mesmo e-mail para enviar o JSON do mata-mata.</p>
       <div class="actions">
         <a class="btn" href="index.html">🏠 Central</a>
         <a class="btn gold" href="palpites.html">⚽ Gerar JSON Fase de Grupos</a>
         <a class="btn" href="palpites-matamata.html">🏆 Gerar JSON Mata-Mata</a>
+        <a class="btn primary" href="ranking.html">📊 Ver Ranking</a>
       </div>
     </header>
 
     <section class="grid">
-      <div class="step"><div class="step-num">1</div><h3>Gere seu JSON</h3><p>Preencha a ficha correspondente e salve o arquivo JSON no seu computador ou celular.</p></div>
-      <div class="step"><div class="step-num">2</div><h3>Envie pelo formulário</h3><p>Use a aba correta: cadastro + grupos ou mata-mata. No mata-mata, use o mesmo e-mail do cadastro.</p></div>
-      <div class="step"><div class="step-num">3</div><h3>Aguarde validação</h3><p>O pagamento fica como pendente até conferência do PIX. Depois disso, o participante entra como confirmado.</p></div>
+      <div class="step"><div class="step-num">1</div><h3>Gere seu JSON</h3><p>Preencha a ficha correspondente e salve o arquivo JSON.</p></div>
+      <div class="step"><div class="step-num">2</div><h3>Envie os arquivos</h3><p>O sistema salva o JSON e o comprovante no Google Drive automaticamente.</p></div>
+      <div class="step"><div class="step-num">3</div><h3>Aguarde validação</h3><p>O pagamento fica pendente até conferência. Após aprovação, entra no ranking.</p></div>
     </section>
 
-    <main class="card" style="margin-top:22px;">
-      <div class="tabs" role="tablist">
-        <button class="tab active" type="button" data-tab="grupos">Cadastro + Fase de Grupos</button>
-        <button class="tab" type="button" data-tab="matamata">Mata-Mata</button>
-      </div>
+    <main class="card">
+      <div class="tabs"><button class="tab active" type="button" data-tab="grupos">Cadastro + Fase de Grupos</button><button class="tab" type="button" data-tab="matamata">Mata-Mata</button></div>
+      <div id="statusGlobal" class="notice success">Envio automático conectado ao Apps Script. Selecione os arquivos e clique em enviar.</div>
 
-      <div id="statusGlobal" class="notice">Envio automático conectado ao Apps Script. Selecione os arquivos e clique em enviar. <code>doPost</code> do Apps Script.</div>
-
-      <form id="formGrupos" data-form="grupos">
+      <form id="formGrupos">
         <h2>⚽ Cadastro + Fase de Grupos</h2>
-        <div class="field"><label for="nome">Nome para o ranking</label><input id="nome" name="nome" autocomplete="name" required placeholder="Ex.: Daniel Jr." /></div>
-        <div class="field"><label for="email">E-mail</label><input id="email" name="email" type="email" autocomplete="email" required placeholder="seu@email.com" /><div class="hint">Use este mesmo e-mail no envio do mata-mata.</div></div>
-        <div class="field"><label for="jsonGrupos">Arquivo JSON da Fase de Grupos</label><div class="upload-box"><input id="jsonGrupos" name="jsonGrupos" type="file" accept=".json,application/json" required /><div id="jsonGruposStatus" class="upload-status">Nenhum arquivo selecionado.</div></div></div>
-        <div class="field"><label for="comprovante">Comprovante PIX</label><div class="upload-box"><input id="comprovante" name="comprovante" type="file" accept="image/*,.pdf,application/pdf" required /><div id="comprovanteStatus" class="upload-status">Nenhum comprovante selecionado.</div></div></div>
-        <div class="notice">PIX: <strong>danielsajr@gmail.com</strong> · Valor atual: <strong>R$ 30,00</strong></div>
+        <div class="field"><label for="nome">Nome para o ranking</label><input id="nome" required autocomplete="name" placeholder="Ex.: Daniel Jr." /></div>
+        <div class="field"><label for="email">E-mail</label><input id="email" type="email" required autocomplete="email" placeholder="seu@email.com" /><div class="hint">Use este mesmo e-mail no envio do mata-mata.</div></div>
+        <div class="field"><label for="jsonGrupos">Arquivo JSON da Fase de Grupos</label><div class="upload-box"><input id="jsonGrupos" type="file" accept=".json,application/json" required /><div id="jsonGruposStatus" class="upload-status">Nenhum arquivo selecionado.</div></div></div>
+        <div class="field"><label for="comprovante">Comprovante PIX</label><div class="upload-box"><input id="comprovante" type="file" accept="image/*,.pdf,application/pdf" required /><div id="comprovanteStatus" class="upload-status">Nenhum comprovante selecionado.</div></div></div>
+        <div class="notice">PIX: <strong>danielsajr@gmail.com</strong> · Valor: <strong>R$ 30,00</strong></div>
         <div id="previewGrupos" class="preview hidden"></div>
-        <button class="btn primary" type="submit">📨 Validar envio</button>
+        <button class="btn primary" type="submit">📨 Enviar cadastro e palpites</button>
       </form>
 
-      <form id="formMataMata" data-form="matamata" class="hidden">
+      <form id="formMataMata" class="hidden">
         <h2>🏆 Palpites do Mata-Mata</h2>
-        <div class="field"><label for="emailMataMata">E-mail cadastrado</label><input id="emailMataMata" name="emailMataMata" type="email" autocomplete="email" required placeholder="o mesmo e-mail do cadastro" /></div>
-        <div class="field"><label for="jsonMataMata">Arquivo JSON do Mata-Mata</label><div class="upload-box"><input id="jsonMataMata" name="jsonMataMata" type="file" accept=".json,application/json" required /><div id="jsonMataMataStatus" class="upload-status">Nenhum arquivo selecionado.</div></div></div>
+        <div class="field"><label for="emailMataMata">E-mail cadastrado</label><input id="emailMataMata" type="email" required autocomplete="email" placeholder="o mesmo e-mail do cadastro" /></div>
+        <div class="field"><label for="jsonMataMata">Arquivo JSON do Mata-Mata</label><div class="upload-box"><input id="jsonMataMata" type="file" accept=".json,application/json" required /><div id="jsonMataMataStatus" class="upload-status">Nenhum arquivo selecionado.</div></div></div>
         <div class="notice">Não é necessário enviar comprovante novamente. O mata-mata será vinculado ao cadastro pelo e-mail.</div>
         <div id="previewMataMata" class="preview hidden"></div>
-        <button class="btn primary" type="submit">📨 Validar envio do Mata-Mata</button>
+        <button class="btn primary" type="submit">📨 Enviar palpites do Mata-Mata</button>
       </form>
     </main>
 
-    <section class="card" style="margin-top:22px;">
-      <h2>🔌 Próxima conexão</h2>
-      <p>Para transformar esta validação em envio real ao Google Drive, configure no Apps Script uma função <strong>doPost(e)</strong> recebendo os dados em Base64 e gravando os arquivos em uma pasta do Drive. Depois substituímos a constante <strong>APPS_SCRIPT_UPLOAD_URL</strong> nesta página.</p>
-      <div class="actions"><a class="btn" href="ranking.html">📊 Ver Ranking</a></div>
+    <section class="card">
+      <h2>✅ Depois do envio</h2>
+      <p>Os arquivos ficam armazenados no Google Drive e o envio é registrado na planilha de controle. O ranking considera apenas participantes com pagamento aprovado.</p>
+      <div class="actions"><a class="btn primary" href="ranking.html">📊 Acompanhar Ranking</a><a class="btn" href="index.html">🏠 Voltar para Central</a></div>
     </section>
 
     <footer>Bolão Copa do Mundo 2026 · Inscrição: R$ 30,00 · PIX: danielsajr@gmail.com</footer>
@@ -69,139 +66,15 @@
 
   <script>
     const APPS_SCRIPT_UPLOAD_URL = 'https://script.google.com/macros/s/AKfycbzSBTdEtcguwXwkP1JrlwMII_1UON048l9BXc0iFZ62lfuyzFsl_5zBdE4l0qkbz2vjwg/exec';
-
-    const tabs = document.querySelectorAll('.tab');
-    const formGrupos = document.getElementById('formGrupos');
-    const formMataMata = document.getElementById('formMataMata');
-    const statusGlobal = document.getElementById('statusGlobal');
-
-    tabs.forEach(tab => tab.addEventListener('click', () => {
-      tabs.forEach(item => item.classList.remove('active'));
-      tab.classList.add('active');
-      const mode = tab.dataset.tab;
-      formGrupos.classList.toggle('hidden', mode !== 'grupos');
-      formMataMata.classList.toggle('hidden', mode !== 'matamata');
-    }));
-
-    function setStatus(element, message, type) {
-      element.textContent = message;
-      element.className = 'notice ' + (type || '');
-    }
-
-    function fileSize(bytes) {
-      if (!bytes) return '0 KB';
-      if (bytes < 1024 * 1024) return Math.round(bytes / 1024) + ' KB';
-      return (bytes / 1024 / 1024).toFixed(1) + ' MB';
-    }
-
-    function readFileAsText(file) {
-      return new Promise((resolve, reject) => {
-        const reader = new FileReader();
-        reader.onload = () => resolve(String(reader.result || ''));
-        reader.onerror = () => reject(reader.error || new Error('Falha ao ler arquivo.'));
-        reader.readAsText(file, 'UTF-8');
-      });
-    }
-
-    function readFileAsBase64(file) {
-      return new Promise((resolve, reject) => {
-        const reader = new FileReader();
-        reader.onload = () => {
-          const result = String(reader.result || '');
-          resolve(result.includes(',') ? result.split(',')[1] : result);
-        };
-        reader.onerror = () => reject(reader.error || new Error('Falha ao ler arquivo.'));
-        reader.readAsDataURL(file);
-      });
-    }
-
-    async function validateJsonFile(input, statusId, previewId) {
-      const status = document.getElementById(statusId);
-      const preview = document.getElementById(previewId);
-      const file = input.files && input.files[0];
-      preview.classList.add('hidden');
-      preview.textContent = '';
-
-      if (!file) {
-        status.textContent = 'Nenhum arquivo selecionado.';
-        return null;
-      }
-
-      if (!file.name.toLowerCase().endsWith('.json')) {
-        status.textContent = 'Arquivo inválido. Selecione um arquivo .JSON.';
-        return null;
-      }
-
-      try {
-        const text = await readFileAsText(file);
-        const data = JSON.parse(text);
-        status.innerHTML = `<span class="pill">✅ JSON válido</span> ${file.name} · ${fileSize(file.size)}`;
-        preview.textContent = JSON.stringify({ arquivo: file.name, tamanho: fileSize(file.size), resumo: summarizeJson(data) }, null, 2);
-        preview.classList.remove('hidden');
-        return { file, data, text };
-      } catch (error) {
-        status.textContent = 'Não foi possível ler o JSON. Verifique se o arquivo não está corrompido.';
-        return null;
-      }
-    }
-
-    function summarizeJson(data) {
-      const keys = Object.keys(data || {});
-      return {
-        chaves: keys.slice(0, 12),
-        totalChaves: keys.length,
-        participante: data?.participant?.name || data?.nome || data?.name || '',
-        email: data?.participant?.email || data?.email || ''
-      };
-    }
-
-    document.getElementById('jsonGrupos').addEventListener('change', e => validateJsonFile(e.target, 'jsonGruposStatus', 'previewGrupos'));
-    document.getElementById('jsonMataMata').addEventListener('change', e => validateJsonFile(e.target, 'jsonMataMataStatus', 'previewMataMata'));
-    document.getElementById('comprovante').addEventListener('change', e => {
-      const file = e.target.files && e.target.files[0];
-      document.getElementById('comprovanteStatus').textContent = file ? `✅ ${file.name} · ${fileSize(file.size)}` : 'Nenhum comprovante selecionado.';
-    });
-
-    formGrupos.addEventListener('submit', async e => {
-      e.preventDefault();
-      const jsonInfo = await validateJsonFile(document.getElementById('jsonGrupos'), 'jsonGruposStatus', 'previewGrupos');
-      const comprovante = document.getElementById('comprovante').files[0];
-      if (!jsonInfo || !comprovante) return setStatus(statusGlobal, 'Selecione um JSON válido e o comprovante PIX.', 'error');
-      const payload = { type: 'group_stage', nome: document.getElementById('nome').value.trim(), email: document.getElementById('email').value.trim().toLowerCase(), jsonFileName: jsonInfo.file.name, comprovanteFileName: comprovante.name };
-      await maybeSend(payload, jsonInfo.file, comprovante);
-    });
-
-    formMataMata.addEventListener('submit', async e => {
-      e.preventDefault();
-      const jsonInfo = await validateJsonFile(document.getElementById('jsonMataMata'), 'jsonMataMataStatus', 'previewMataMata');
-      if (!jsonInfo) return setStatus(statusGlobal, 'Selecione um JSON válido do mata-mata.', 'error');
-      const payload = { type: 'knockout', email: document.getElementById('emailMataMata').value.trim().toLowerCase(), jsonFileName: jsonInfo.file.name };
-      await maybeSend(payload, jsonInfo.file, null);
-    });
-
-    async function maybeSend(payload, jsonFile, comprovanteFile) {
-      if (!APPS_SCRIPT_UPLOAD_URL) {
-        setStatus(statusGlobal, 'Arquivo validado com sucesso. O envio automático ainda não está conectado ao Apps Script.', 'success');
-        return;
-      }
-
-      setStatus(statusGlobal, 'Enviando arquivos...', '');
-      payload.jsonBase64 = await readFileAsBase64(jsonFile);
-      payload.jsonMimeType = jsonFile.type || 'application/json';
-      if (comprovanteFile) {
-        payload.comprovanteBase64 = await readFileAsBase64(comprovanteFile);
-        payload.comprovanteMimeType = comprovanteFile.type || 'application/octet-stream';
-      }
-
-      const response = await fetch(APPS_SCRIPT_UPLOAD_URL, {
-        method: 'POST',
-        headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-        body: JSON.stringify(payload)
-      });
-      const data = await response.json();
-      if (!data.ok) throw new Error(data.error || 'Falha no envio.');
-      setStatus(statusGlobal, 'Envio realizado com sucesso. Aguarde a validação do pagamento.', 'success');
-    }
+    const tabs=document.querySelectorAll('.tab'),formGrupos=document.getElementById('formGrupos'),formMataMata=document.getElementById('formMataMata'),statusGlobal=document.getElementById('statusGlobal');
+    tabs.forEach(tab=>tab.addEventListener('click',()=>{tabs.forEach(item=>item.classList.remove('active'));tab.classList.add('active');const mode=tab.dataset.tab;formGrupos.classList.toggle('hidden',mode!=='grupos');formMataMata.classList.toggle('hidden',mode!=='matamata')}));
+    function setStatus(msg,type){statusGlobal.textContent=msg;statusGlobal.className='notice '+(type||'')}function fileSize(bytes){return bytes<1048576?Math.round(bytes/1024)+' KB':(bytes/1048576).toFixed(1)+' MB'}
+    function readText(file){return new Promise((res,rej)=>{const r=new FileReader();r.onload=()=>res(String(r.result||''));r.onerror=()=>rej(r.error);r.readAsText(file,'UTF-8')})}function readB64(file){return new Promise((res,rej)=>{const r=new FileReader();r.onload=()=>res(String(r.result||'').split(',')[1]||'');r.onerror=()=>rej(r.error);r.readAsDataURL(file)})}
+    async function validateJson(input,statusId,previewId){const status=document.getElementById(statusId),preview=document.getElementById(previewId),file=input.files&&input.files[0];preview.classList.add('hidden');if(!file){status.textContent='Nenhum arquivo selecionado.';return null}if(!file.name.toLowerCase().endsWith('.json')){status.textContent='Arquivo inválido. Selecione um .JSON.';return null}try{const text=await readText(file),data=JSON.parse(text);status.innerHTML=`<span class="pill">✅ JSON válido</span> ${file.name} · ${fileSize(file.size)}`;preview.textContent=JSON.stringify({arquivo:file.name,tamanho:fileSize(file.size),chaves:Object.keys(data||{}).slice(0,12)},null,2);preview.classList.remove('hidden');return{file,data}}catch(e){status.textContent='JSON inválido ou corrompido.';return null}}
+    document.getElementById('jsonGrupos').addEventListener('change',e=>validateJson(e.target,'jsonGruposStatus','previewGrupos'));document.getElementById('jsonMataMata').addEventListener('change',e=>validateJson(e.target,'jsonMataMataStatus','previewMataMata'));document.getElementById('comprovante').addEventListener('change',e=>{const f=e.target.files&&e.target.files[0];document.getElementById('comprovanteStatus').textContent=f?`✅ ${f.name} · ${fileSize(f.size)}`:'Nenhum comprovante selecionado.'});
+    formGrupos.addEventListener('submit',async e=>{e.preventDefault();const btn=e.submitter;try{btn.disabled=true;const json=await validateJson(document.getElementById('jsonGrupos'),'jsonGruposStatus','previewGrupos'),comp=document.getElementById('comprovante').files[0];if(!json||!comp)return setStatus('Selecione um JSON válido e o comprovante PIX.','error');await sendPayload({type:'group_stage',nome:document.getElementById('nome').value.trim(),email:document.getElementById('email').value.trim().toLowerCase(),jsonFileName:json.file.name,comprovanteFileName:comp.name},json.file,comp)}catch(err){setStatus('Erro no envio: '+String(err.message||err),'error')}finally{btn.disabled=false}});
+    formMataMata.addEventListener('submit',async e=>{e.preventDefault();const btn=e.submitter;try{btn.disabled=true;const json=await validateJson(document.getElementById('jsonMataMata'),'jsonMataMataStatus','previewMataMata');if(!json)return setStatus('Selecione um JSON válido do mata-mata.','error');await sendPayload({type:'knockout',email:document.getElementById('emailMataMata').value.trim().toLowerCase(),jsonFileName:json.file.name},json.file,null)}catch(err){setStatus('Erro no envio: '+String(err.message||err),'error')}finally{btn.disabled=false}});
+    async function sendPayload(payload,jsonFile,comprovanteFile){setStatus('Enviando arquivos...','');payload.jsonBase64=await readB64(jsonFile);payload.jsonMimeType=jsonFile.type||'application/json';if(comprovanteFile){payload.comprovanteBase64=await readB64(comprovanteFile);payload.comprovanteMimeType=comprovanteFile.type||'application/octet-stream'}const response=await fetch(APPS_SCRIPT_UPLOAD_URL,{method:'POST',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify(payload)});const data=await response.json();if(!data.ok)throw new Error(data.error||'Falha no envio.');setStatus('Envio realizado com sucesso. Aguarde a validação do pagamento.','success')}
   </script>
 </body>
 </html>
