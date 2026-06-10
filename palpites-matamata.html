@@ -657,11 +657,11 @@
           <input id="participantName" placeholder="Ex: Daniel" oninput="saveDraft()" />
         </div>
         <div>
-          <label for="participantEmail">E-mail opcional</label>
+          <label for="participantEmail">E-mail</label>
           <input id="participantEmail" type="email" placeholder="Ex: voce@email.com" oninput="saveDraft()" />
         </div>
       </div>
-      <p class="small">Use o mesmo nome/apelido usado na fase de grupos para consolidar corretamente o ranking.</p>
+      <p class="small">Use o mesmo e-mail informado no cadastro da fase de grupos.</p>
     </section>
 
     <section class="card">
@@ -693,10 +693,10 @@
 
     <section class="card">
       <h2>💾 Finalizar sua aposta do mata-mata</h2>
-      <p>Depois que a etapa estiver aberta, baixe o arquivo do seu bolão e envie pelo formulário oficial.</p>
+      <p>Depois que a etapa estiver aberta, baixe o arquivo dos seus palpites e envie pela página oficial de envio.</p>
       <div class="grid">
-        <button type="button" id="downloadButtonBottom" onclick="downloadKnockoutJson()" disabled>💾 Baixar meu Bolão do Mata-mata</button>
-        <button type="button" class="secondary" onclick="openSendModal()">📤 Enviar pelo formulário</button>
+        <button type="button" id="downloadButtonBottom" onclick="downloadKnockoutJson()" disabled>💾 Baixar meus palpites do Mata-Mata</button>
+        <button type="button" class="secondary" onclick="openSendModal()">📤 Enviar pela página de envio</button>
         <button type="button" class="danger" onclick="clearDraft()">🗑 Limpar rascunho deste navegador</button>
       </div>
       <div id="downloadStatus"></div>
@@ -706,23 +706,23 @@
       <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="sendModalTitle">
         <button type="button" class="modal-close" onclick="closeSendModal()">×</button>
 
-        <div class="hero-badge">📤 Envio oficial do mata-mata</div>
+        <div class="hero-badge">📤 Envio oficial dos palpites</div>
 
-        <h2 id="sendModalTitle">Enviar seu Bolão do Mata-mata</h2>
+        <h2 id="sendModalTitle">Enviar palpites do Mata-Mata</h2>
 
         <p>
-          Quando o mata-mata estiver aberto, primeiro baixe o arquivo do seu bolão e depois envie pelo formulário.
+          Quando o mata-mata estiver aberto, primeiro baixe o arquivo dos seus palpites e depois envie pela página de envio.
         </p>
 
         <div class="send-steps">
           <div class="send-step">
-            <strong>1. Baixe seu Bolão</strong>
-            <span>Clique em “Baixar Bolão” para salvar o arquivo no seu dispositivo.</span>
+            <strong>1. Baixe seus palpites</strong>
+            <span>Clique em “Baixar meus palpites” para salvar o arquivo no seu dispositivo.</span>
           </div>
 
           <div class="send-step">
-            <strong>2. Abra o formulário</strong>
-            <span>Anexe o arquivo baixado no formulário oficial do mata-mata.</span>
+            <strong>2. Abra a página de envio</strong>
+            <span>Anexe o arquivo baixado na página de envio.</span>
           </div>
 
           <div class="send-step">
@@ -732,14 +732,14 @@
         </div>
 
         <div class="modal-actions">
-          <button type="button" id="downloadButtonModal" onclick="downloadKnockoutJson()" disabled>💾 Baixar Bolão</button>
-          <a class="button-link secondary" href="https://forms.gle/vno4T9cUzwhmKzL98" target="_blank" rel="noopener noreferrer">
-            📤 Abrir formulário oficial
+          <button type="button" id="downloadButtonModal" onclick="downloadKnockoutJson()" disabled>💾 Baixar meus palpites</button>
+          <a class="button-link secondary" href="enviar.html">
+            📤 Abrir página de envio
           </a>
         </div>
 
         <div class="notice">
-          O formulário do mata-mata poderá ser outro no futuro. Por enquanto, este botão aponta para o formulário oficial atual.
+          Use o mesmo e-mail do cadastro para vincular estes palpites à sua participação.
         </div>
       </div>
     </div>

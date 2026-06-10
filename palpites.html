@@ -4,8 +4,8 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <title>Enviar Palpites | Bolão Copa 2026</title>
-  <meta name="description" content="Preencha seus palpites da fase de grupos do Bolão Copa do Mundo 2026 e gere o JSON oficial para envio." />
+  <title>Palpites da Fase de Grupos | Bolão Copa 2026</title>
+  <meta name="description" content="Preencha seus palpites da fase de grupos do Bolão Copa do Mundo 2026 e salve o arquivo para envio." />
 
   <style>
     :root {
@@ -639,7 +639,7 @@
     <header>
       <div>
         <h1>🏆 Palpites Copa 2026 <span class="version-pill">Bolão oficial</span></h1>
-        <p>Faça sua aposta da fase de grupos e gere o arquivo oficial do seu bolão.</p>
+        <p>Preencha seus palpites da fase de grupos e salve sua ficha do bolão.</p>
       </div>
     </header>
 
@@ -648,7 +648,7 @@
       <h1>Faça sua aposta</h1>
       <p>
         Esta página funciona online, direto no navegador. Seus dados ficam salvos apenas neste dispositivo
-até você baixar o arquivo do seu bolão.
+até você baixar o arquivo dos seus palpites.
       </p>
       <div class="notice">
         O mata-mata será preenchido em uma segunda etapa, depois que os confrontos oficiais forem definidos.
@@ -666,9 +666,9 @@ até você baixar o arquivo do seu bolão.
         </div>
 
         <div class="sticky-actions">
-  <button type="button" onclick="downloadJson()">💾 Baixar Bolão</button>
-  <button type="button" class="secondary" onclick="openSendModal()">📤 Enviar Bolão</button>
-  <a class="button-link secondary" href="./index.html">📊 Ver ranking</a>
+  <button type="button" onclick="downloadJson()">💾 Baixar meus palpites</button>
+  <button type="button" class="secondary" onclick="openSendModal()">📤 Enviar palpites</button>
+  <a class="button-link secondary" href="./ranking.html">📊 Ver ranking</a>
 </div>
         
       </div>
@@ -682,11 +682,11 @@ até você baixar o arquivo do seu bolão.
           <input id="participantName" placeholder="Ex: Daniel" oninput="saveDraft()" />
         </div>
         <div>
-          <label for="participantEmail">E-mail opcional</label>
+          <label for="participantEmail">E-mail</label>
           <input id="participantEmail" type="email" placeholder="Ex: voce@email.com" oninput="saveDraft()" />
         </div>
       </div>
-      <p class="small">Use sempre o mesmo nome/apelido para facilitar a consolidação dos palpites.</p>
+      <p class="small">Use o mesmo nome e e-mail no envio para identificar sua participação.</p>
     </section>
 
     <section class="card" id="summarySection">
@@ -706,7 +706,7 @@ até você baixar o arquivo do seu bolão.
         </div>
       </div>
       <div id="summaryMessage" class="notice">
-        Preencha seu nome e seus palpites. Quando terminar, clique em “Baixar JSON”.
+        Preencha seu nome e seus palpites. Quando terminar, clique em “Baixar meus palpites”.
       </div>
     </section>
 
@@ -745,10 +745,10 @@ até você baixar o arquivo do seu bolão.
 
     <section class="card">
       <h2>💾 Finalizar sua aposta</h2>
-<p>Depois de preencher seus palpites, baixe o arquivo do seu bolão e envie pelo formulário oficial.</p>
+<p>Depois de preencher seus palpites, baixe o arquivo e envie pela página oficial de envio.</p>
 <div class="grid">
-  <button type="button" onclick="downloadJson()">💾 Baixar meu Bolão</button>
-  <button type="button" class="secondary" onclick="openSendModal()">📤 Enviar pelo formulário</button>
+  <button type="button" onclick="downloadJson()">💾 Baixar meus palpites</button>
+  <button type="button" class="secondary" onclick="openSendModal()">📤 Enviar pela página de envio</button>
   <button type="button" class="danger" onclick="clearDraft()">🗑 Limpar rascunho deste navegador</button>
 </div>
       <div id="downloadStatus"></div>
@@ -757,23 +757,23 @@ até você baixar o arquivo do seu bolão.
   <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="sendModalTitle">
     <button type="button" class="modal-close" onclick="closeSendModal()">×</button>
 
-    <div class="hero-badge">📤 Envio oficial do bolão</div>
+    <div class="hero-badge">📤 Envio oficial dos palpites</div>
 
-    <h2 id="sendModalTitle">Enviar seu Bolão</h2>
+    <h2 id="sendModalTitle">Enviar seus palpites</h2>
 
     <p>
-      Para participar oficialmente, primeiro baixe o arquivo do seu bolão e depois envie pelo formulário.
+      Para participar oficialmente, primeiro baixe o arquivo dos seus palpites e depois envie pela página de envio.
     </p>
 
     <div class="send-steps">
       <div class="send-step">
-        <strong>1. Baixe seu Bolão</strong>
+        <strong>1. Baixe seus palpites</strong>
         <span>Clique no botão abaixo para salvar o arquivo no seu dispositivo.</span>
       </div>
 
       <div class="send-step">
-        <strong>2. Abra o formulário</strong>
-        <span>Depois, anexe o arquivo baixado no formulário oficial.</span>
+        <strong>2. Abra a página de envio</strong>
+        <span>Depois, anexe o arquivo baixado na página de envio.</span>
       </div>
 
       <div class="send-step">
@@ -783,14 +783,14 @@ até você baixar o arquivo do seu bolão.
     </div>
 
     <div class="modal-actions">
-      <button type="button" onclick="downloadJson()">💾 Baixar Bolão</button>
-      <a class="button-link secondary" href="https://forms.gle/vno4T9cUzwhmKzL98" target="_blank" rel="noopener noreferrer">
-        📤 Abrir formulário oficial
+      <button type="button" onclick="downloadJson()">💾 Baixar meus palpites</button>
+      <a class="button-link secondary" href="enviar.html">
+        📤 Abrir página de envio
       </a>
     </div>
 
     <div class="notice">
-      Dica: depois de baixar, procure pelo arquivo chamado “palpites-seu-nome...” na pasta de downloads do seu celular ou computador.
+      Dica: depois de baixar, procure o arquivo dos seus palpites na pasta de downloads do seu celular ou computador.
     </div>
   </div>
 </div>
@@ -1354,7 +1354,7 @@ até você baixar o arquivo do seu bolão.
       if (summaryAwards) summaryAwards.innerText = `${awardFilled}/4`;
 
       let status = 'Rascunho';
-      let message = 'Preencha seu nome e seus palpites. Quando terminar, clique em “Baixar JSON”.';
+      let message = 'Preencha seu nome e seus palpites. Quando terminar, clique em “Baixar meus palpites”.';
       let messageClass = 'notice';
 
       if (!name) {
