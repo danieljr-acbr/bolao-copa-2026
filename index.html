@@ -65,13 +65,13 @@
   <script>
     const ENTRY_FEE = 30;
     const CONSOLIDATED_JSON_URL = 'https://script.google.com/macros/s/AKfycbzSBTdEtcguwXwkP1JrlwMII_1UON048l9BXc0iFZ62lfuyzFsl_5zBdE4l0qkbz2vjwg/exec';
-    const BLOCKED_NAMES = new Set(['','vazio','vazi0','participante vazio','sem nome','participante sem nome','teste','test']);
+    const BLOCKED_NAMES = new Set(['','sem nome','participante sem nome']);
     function formatBRL(value){return Number(value||0).toLocaleString('pt-BR',{style:'currency',currency:'BRL'})}
     function setText(id,value){const el=document.getElementById(id);if(el)el.textContent=value}
     function escapeHtml(value){return String(value??'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#039;')}
     function normalizeName(value){return String(value||'').trim().normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().replace(/\s+/g,' ')}
     function getName(participant){return String(participant?.name||participant?.nome||participant?.apelido||'').trim()}
-    function isValidParticipant(participant){const name=getName(participant);const normalized=normalizeName(name);return Boolean(name)&&!BLOCKED_NAMES.has(normalized)&&!/^(vazi[o0]|teste)$/i.test(normalized)}
+    function isValidParticipant(participant){const name=getName(participant);const normalized=normalizeName(name);return Boolean(name)&&!BLOCKED_NAMES.has(normalized)}
     function getValidParticipants(data){return (Array.isArray(data?.participants)?data.participants:[]).filter(isValidParticipant)}
     function normalizarDados(data){return{participants:getValidParticipants(data),bets:data?.bets||{}}}
     function contarPalpites(participant,bets){return Object.keys(bets?.[participant.id]||{}).length}
