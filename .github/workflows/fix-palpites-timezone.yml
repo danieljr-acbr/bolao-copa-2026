@@ -1,0 +1,77 @@
+name: Fix palpites timezone
+
+on:
+  push:
+    paths:
+      - '.github/workflows/fix-palpites-timezone.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  fix-timezone:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Update palpites timezone
+        run: |
+          python3 <<'PY'
+          from pathlib import Path
+          import re
+
+          path = Path('palpites.html')
+          text = path.read_text(encoding='utf-8')
+
+          old = """    function formatMatchDate(value) {
+      const date = new Date(value);
+      return date.toLocaleDateString('pt-BR') + ' • ' + date.toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' });
+    }"""
+          new = """    function parseBrasiliaDate(value) {
+      const raw = String(value || '');
+      if (/Z$|[+-]\\d{2}:?\\d{2}$/.test(raw)) return new Date(raw);
+      return new Date(raw + ':00-03:00');
+    }
+
+    function formatMatchDate(value) {
+      const date = parseBrasiliaDate(value);
+      return date.toLocaleDateString('pt-BR', { timeZone: 'America/Sao_Paulo' }) +
+        ' • ' +
+        date.toLocaleTimeString('pt-BR', { timeZone: 'America/Sao_Paulo', hour: '2-digit', minute: '2-digit' });
+    }"""
+          if old not in text:
+              raise SystemExit('formatMatchDate antigo não encontrado')
+          text = text.replace(old, new)
+
+          text = text.replace(
+              '<p>Preencha os placares dos 72 jogos da fase de grupos. O mata-mata será feito depois.</p>',
+              '<p>Preencha os placares dos 72 jogos da fase de grupos. O mata-mata será feito depois.</p>\n      <div class="notice">🕒 Todos os horários dos jogos estão no Horário de Brasília (UTC-3).</div>'
+          )
+
+          text = text.replace(
+              "new Date(a.date) - new Date(b.date)",
+              "parseBrasiliaDate(a.date) - parseBrasiliaDate(b.date)"
+          )
+          text = text.replace(
+              "new Date(bet.updatedAt).toLocaleString('pt-BR')",
+              "new Date(bet.updatedAt).toLocaleString('pt-BR', { timeZone: 'America/Sao_Paulo' })"
+          )
+
+          text = re.sub(r"date: '(2026-\d{2}-\d{2}T\d{2}:\d{2})'", r"date: '\1:00-03:00'", text)
+
+          path.write_text(text, encoding='utf-8')
+          PY
+      - name: Remove temporary workflow
+        run: rm -f .github/workflows/fix-palpites-timezone.yml
+      - name: Commit changes
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add palpites.html .github/workflows/fix-palpites-timezone.yml
+          if git diff --cached --quiet; then
+            echo "No changes to commit"
+          else
+            git commit -m "Padroniza horarios da primeira fase em Brasilia"
+            git push
+          fi
