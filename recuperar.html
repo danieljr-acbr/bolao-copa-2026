@@ -3,36 +3,165 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Carregar palpites anteriores | Bolão Copa 2026</title>
-  <meta name="description" content="Carregue seus palpites anteriores do Bolão Copa 2026 usando o e-mail cadastrado." />
+  <title>Recuperar palpite | Bolão Copa 2026</title>
+  <meta name="description" content="Recupere seu palpite do Bolão Copa 2026 usando o e-mail cadastrado." />
   <style>
-    :root{--bg:#020617;--card:#111827;--text:#f8fafc;--muted:#94a3b8;--accent:#22c55e;--danger:#ef4444;--warning:#f59e0b;--border:#334155}*{box-sizing:border-box}body{margin:0;font-family:Arial,Helvetica,sans-serif;background:radial-gradient(circle at top left,rgba(34,197,94,.16),transparent 32%),radial-gradient(circle at bottom right,rgba(245,158,11,.14),transparent 30%),linear-gradient(135deg,#020617,#0f172a);color:var(--text);min-height:100vh}.container{max-width:860px;margin:0 auto;padding:24px}h1,h2{margin:0 0 12px}p{color:var(--muted);line-height:1.5}.card{background:rgba(17,24,39,.94);border:1px solid var(--border);border-radius:20px;padding:22px;margin-bottom:18px;box-shadow:0 12px 30px rgba(0,0,0,.25)}.hero{border-top:5px solid var(--accent);position:relative;overflow:hidden}.hero::after{content:"⚽";position:absolute;right:-18px;top:-36px;font-size:140px;opacity:.06;pointer-events:none}.hero-badge{display:inline-flex;align-items:center;gap:8px;padding:7px 12px;border-radius:999px;background:rgba(34,197,94,.12);border:1px solid rgba(34,197,94,.28);color:#bbf7d0;font-size:13px;font-weight:800;margin-bottom:14px}.hero h1{font-size:clamp(30px,5vw,48px);line-height:1;letter-spacing:-1px}label{display:block;margin:10px 0 6px;color:var(--muted);font-size:14px}input,button{width:100%;border-radius:12px;border:1px solid var(--border);padding:13px;font-size:15px}input{background:#020617;color:var(--text)}input:focus{outline:2px solid rgba(34,197,94,.45);border-color:rgba(34,197,94,.65)}button,.button-link{background:var(--accent);color:#052e16;font-weight:800;cursor:pointer;border:none;margin-top:12px;text-decoration:none;display:inline-flex;align-items:center;justify-content:center;gap:8px}.button-link.secondary,button.secondary{background:#334155;color:var(--text)}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:14px}.notice,.success,.error{margin-top:14px;padding:14px;border-radius:16px;font-size:14px;line-height:1.45}.notice{border:1px solid rgba(245,158,11,.38);background:rgba(245,158,11,.09);color:#fde68a}.success{border:1px solid rgba(34,197,94,.38);background:rgba(34,197,94,.09);color:#bbf7d0}.error{border:1px solid rgba(239,68,68,.38);background:rgba(239,68,68,.09);color:#fecaca}.footer{margin:28px 0 6px;text-align:center;color:var(--muted);font-size:13px}
+    :root{--bg:#020617;--card:#111827;--text:#f8fafc;--muted:#94a3b8;--accent:#22c55e;--danger:#ef4444;--warning:#f59e0b;--border:#334155}*{box-sizing:border-box}body{margin:0;font-family:Arial,Helvetica,sans-serif;background:radial-gradient(circle at top left,rgba(34,197,94,.16),transparent 32%),radial-gradient(circle at bottom right,rgba(245,158,11,.14),transparent 30%),linear-gradient(135deg,#020617,#0f172a);color:var(--text);min-height:100vh}.container{max-width:860px;margin:0 auto;padding:24px}h1,h2{margin:0 0 12px}p{color:var(--muted);line-height:1.5}.card{background:rgba(17,24,39,.94);border:1px solid var(--border);border-radius:20px;padding:22px;margin-bottom:18px;box-shadow:0 12px 30px rgba(0,0,0,.25)}.hero{border-top:5px solid var(--accent);position:relative;overflow:hidden}.hero::after{content:"⚽";position:absolute;right:-18px;top:-36px;font-size:140px;opacity:.06;pointer-events:none}.hero-badge{display:inline-flex;align-items:center;gap:8px;padding:7px 12px;border-radius:999px;background:rgba(34,197,94,.12);border:1px solid rgba(34,197,94,.28);color:#bbf7d0;font-size:13px;font-weight:800;margin-bottom:14px}.hero h1{font-size:clamp(30px,5vw,48px);line-height:1;letter-spacing:-1px}label{display:block;margin:10px 0 6px;color:var(--muted);font-size:14px}input,button{width:100%;border-radius:12px;border:1px solid var(--border);padding:13px;font-size:15px}input{background:#020617;color:var(--text)}input:focus{outline:2px solid rgba(34,197,94,.45);border-color:rgba(34,197,94,.65)}button,.button-link{background:var(--accent);color:#052e16;font-weight:800;cursor:pointer;border:none;margin-top:12px;text-decoration:none;display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:46px;border-radius:12px;padding:13px 14px;line-height:1.2}.button-link.secondary,button.secondary{background:#334155;color:var(--text)}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:14px}.notice,.success,.error{margin-top:14px;padding:14px;border-radius:16px;font-size:14px;line-height:1.45}.notice{border:1px solid rgba(245,158,11,.38);background:rgba(245,158,11,.09);color:#fde68a}.success{border:1px solid rgba(34,197,94,.38);background:rgba(34,197,94,.09);color:#bbf7d0}.error{border:1px solid rgba(239,68,68,.38);background:rgba(239,68,68,.09);color:#fecaca}.result-card{display:none}.result-card.active{display:block}.mini-summary{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:12px;margin-top:14px}.mini-box{background:rgba(15,23,42,.74);border:1px solid var(--border);border-radius:16px;padding:14px}.mini-box strong{display:block;color:#bbf7d0;font-size:22px;margin-top:4px}.footer{margin:28px 0 6px;text-align:center;color:var(--muted);font-size:13px}
   </style>
 </head>
 <body>
   <div class="container">
     <section class="card hero">
       <div class="hero-badge">🔁 Bolão Copa 2026</div>
-      <h1>Carregar palpites anteriores</h1>
-      <p>Informe o e-mail usado no bolão. Vamos buscar seus palpites e abrir a ficha já preenchida neste navegador.</p>
-      <div class="notice">Depois de carregar, revise seus palpites na ficha e envie novamente apenas se quiser substituir o arquivo anterior.</div>
+      <h1>Recuperar palpite</h1>
+      <p>Informe o e-mail usado no bolão para buscar o palpite que você já enviou.</p>
+      <div class="notice">Depois de recuperar, baixe o arquivo e abra a ficha atualizada para importar o palpite.</div>
     </section>
+
     <section class="card">
-      <h2>Buscar meus palpites</h2>
+      <h2>Buscar meu palpite</h2>
       <label for="email">E-mail usado no bolão</label>
       <input id="email" type="email" placeholder="Ex: voce@email.com" autocomplete="email" />
-      <button type="button" onclick="loadPreviousBets()">🔁 Carregar e abrir ficha</button>
-      <div class="grid" style="margin-top:12px"><a class="button-link secondary" href="palpites.html">📝 Ir para ficha sem carregar</a><a class="button-link secondary" href="enviar.html">📤 Página de envio</a></div>
+      <button type="button" onclick="loadPreviousBets()">🔁 Buscar palpite</button>
       <div id="status" class="notice">Digite o e-mail cadastrado no envio dos palpites.</div>
     </section>
+
+    <section class="card result-card" id="resultCard">
+      <h2>Palpite encontrado</h2>
+      <p id="resultText">Seu palpite foi localizado. Baixe o arquivo e importe na ficha atualizada.</p>
+      <div class="mini-summary">
+        <div class="mini-box"><span class="small">Participante</span><strong id="resultName">-</strong></div>
+        <div class="mini-box"><span class="small">Jogos no arquivo</span><strong id="resultGames">0</strong></div>
+        <div class="mini-box"><span class="small">Premiações</span><strong id="resultAwards">0</strong></div>
+      </div>
+      <div class="grid" style="margin-top:14px">
+        <button type="button" onclick="downloadRecoveredBet()">💾 Baixar palpite recuperado</button>
+        <a class="button-link secondary" href="palpites-2.html">📝 Abrir ficha atualizada</a>
+      </div>
+      <div class="notice">Na ficha atualizada, clique em <strong>Importar palpite</strong> e selecione o arquivo baixado aqui.</div>
+    </section>
+
+    <section class="card">
+      <h2>Outros caminhos</h2>
+      <div class="grid">
+        <a class="button-link secondary" href="palpites-2.html">📝 Ficha atualizada</a>
+        <a class="button-link secondary" href="enviar.html">📤 Página de envio</a>
+        <a class="button-link secondary" href="ranking.html">📊 Ver ranking</a>
+      </div>
+    </section>
+
     <footer class="footer">Desenvolvido por Daniel S. A. Junior · Bolão Copa do Mundo 2026</footer>
   </div>
+
   <script>
     const APPS_SCRIPT_URL='https://script.google.com/macros/s/AKfycbzSBTdEtcguwXwkP1JrlwMII_1UON048l9BXc0iFZ62lfuyzFsl_5zBdE4l0qkbz2vjwg/exec';
-    const IMPORT_KEY='bolaoCopa2026ImportPayloadV1';
-    function setStatus(message,type='notice'){const el=document.getElementById('status');el.className=type;el.innerText=message}
-    function jsonpRequest(url){return new Promise((resolve,reject)=>{const callbackName='bolaoRecuperarCb_'+Date.now()+'_'+Math.floor(Math.random()*100000);let timeoutId=null;window[callbackName]=data=>{cleanup();resolve(data)};function cleanup(){clearTimeout(timeoutId);const script=document.getElementById(callbackName);if(script)script.remove();try{delete window[callbackName]}catch(_){window[callbackName]=undefined}}const script=document.createElement('script');script.id=callbackName;script.src=url+(url.includes('?')?'&':'?')+'callback='+encodeURIComponent(callbackName);script.onerror=()=>{cleanup();reject(new Error('Não foi possível falar com o servidor agora.'))};timeoutId=setTimeout(()=>{cleanup();reject(new Error('Tempo esgotado. Tente novamente.'))},20000);document.body.appendChild(script)})}
-    async function loadPreviousBets(){const email=document.getElementById('email').value.trim().toLowerCase();if(!email){setStatus('Informe o e-mail usado no bolão.','notice');return}setStatus('Buscando seus palpites anteriores...','notice');try{const response=await jsonpRequest(APPS_SCRIPT_URL+'?action=load_previous_bets&email='+encodeURIComponent(email));if(!response||!response.ok){setStatus(response&&response.error?response.error:'Não foi possível carregar os palpites.','error');return}sessionStorage.setItem(IMPORT_KEY,JSON.stringify({createdAt:new Date().toISOString(),payload:response}));setStatus('Palpites encontrados. Abrindo a ficha preenchida...','success');setTimeout(()=>{window.location.href='palpites.html?import=1'},500)}catch(error){setStatus(String(error.message||error),'error')}}
+    let recoveredPayload=null;
+
+    function setStatus(message,type='notice'){
+      const el=document.getElementById('status');
+      el.className=type;
+      el.innerText=message;
+    }
+
+    function slugify(value){
+      return String(value||'palpite').normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[^a-zA-Z0-9]+/g,'-').replace(/^-+|-+$/g,'').toLowerCase()||'palpite';
+    }
+
+    function jsonpRequest(url){
+      return new Promise((resolve,reject)=>{
+        const callbackName='bolaoRecuperarCb_'+Date.now()+'_'+Math.floor(Math.random()*100000);
+        let timeoutId=null;
+        window[callbackName]=data=>{cleanup();resolve(data)};
+        function cleanup(){
+          clearTimeout(timeoutId);
+          const script=document.getElementById(callbackName);
+          if(script)script.remove();
+          try{delete window[callbackName]}catch(_){window[callbackName]=undefined}
+        }
+        const script=document.createElement('script');
+        script.id=callbackName;
+        script.src=url+(url.includes('?')?'&':'?')+'callback='+encodeURIComponent(callbackName);
+        script.onerror=()=>{cleanup();reject(new Error('Não foi possível falar com o servidor agora.'))};
+        timeoutId=setTimeout(()=>{cleanup();reject(new Error('Tempo esgotado. Tente novamente.'))},20000);
+        document.body.appendChild(script);
+      });
+    }
+
+    function extractData(response){
+      const groupStage=response&&response.groupStage?response.groupStage:{};
+      return groupStage.data||groupStage.payload||groupStage||response.data||response.payload||response||{};
+    }
+
+    function countBets(data){
+      const bets=data&&data.bets?data.bets:{};
+      if(!bets||typeof bets!=='object')return 0;
+      const keys=Object.keys(bets);
+      if(!keys.length)return 0;
+      if(/^m\d{3}$/.test(keys[0]))return keys.length;
+      const first=bets[keys[0]];
+      return first&&typeof first==='object'?Object.keys(first).length:0;
+    }
+
+    function countAwards(data){
+      const awards=data&&data.awards?data.awards:{};
+      if(!awards||typeof awards!=='object')return 0;
+      const keys=Object.keys(awards);
+      if(!keys.length)return 0;
+      const known=['chuteiraDeOuro','bolaDeOuro','luvaDeOuro','melhorJovem'];
+      if(known.includes(keys[0]))return Object.values(awards).filter(Boolean).length;
+      const first=awards[keys[0]];
+      return first&&typeof first==='object'?Object.values(first).filter(Boolean).length:0;
+    }
+
+    async function loadPreviousBets(){
+      const email=document.getElementById('email').value.trim().toLowerCase();
+      if(!email){setStatus('Informe o e-mail usado no bolão.','notice');return}
+      setStatus('Buscando seu palpite...', 'notice');
+      document.getElementById('resultCard').classList.remove('active');
+      recoveredPayload=null;
+
+      try{
+        const response=await jsonpRequest(APPS_SCRIPT_URL+'?action=load_previous_bets&email='+encodeURIComponent(email));
+        if(!response||!response.ok){
+          setStatus(response&&response.error?response.error:'Não foi possível encontrar um palpite para este e-mail.','error');
+          return;
+        }
+
+        recoveredPayload=response.groupStage||response;
+        const data=extractData(response);
+        const participant=Array.isArray(data.participants)&&data.participants.length?data.participants[0]:{};
+        const name=response.name||participant.name||email;
+
+        document.getElementById('resultName').innerText=name;
+        document.getElementById('resultGames').innerText=String(countBets(data));
+        document.getElementById('resultAwards').innerText=String(countAwards(data));
+        document.getElementById('resultText').innerText='Encontramos um palpite para '+name+'. Baixe o arquivo e importe na ficha atualizada.';
+        document.getElementById('resultCard').classList.add('active');
+        setStatus('Palpite encontrado com sucesso.', 'success');
+      }catch(error){
+        setStatus(String(error.message||error),'error');
+      }
+    }
+
+    function downloadRecoveredBet(){
+      if(!recoveredPayload){
+        setStatus('Busque o palpite antes de baixar.', 'notice');
+        return;
+      }
+      const data=extractData(recoveredPayload);
+      const participant=Array.isArray(data.participants)&&data.participants.length?data.participants[0]:{};
+      const name=participant.name||document.getElementById('email').value.trim()||'palpite';
+      const filename='palpite-recuperado-'+slugify(name)+'-'+new Date().toISOString().slice(0,10)+'.json';
+      const blob=new Blob([JSON.stringify(recoveredPayload,null,2)],{type:'application/json;charset=utf-8'});
+      const url=URL.createObjectURL(blob);
+      const a=document.createElement('a');
+      a.href=url;
+      a.download=filename;
+      document.body.appendChild(a);
+      a.click();
+      setTimeout(()=>{a.remove();URL.revokeObjectURL(url)},0);
+      setStatus('Arquivo baixado. Agora abra a ficha atualizada e clique em Importar palpite.', 'success');
+    }
   </script>
 </body>
 </html>
