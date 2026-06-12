@@ -13,14 +13,7 @@
   <div class="container">
     <header><div><h1>🏆 Palpites Copa 2026 <span class="version-pill">Bolão oficial</span></h1><p>Preencha seus palpites da fase de grupos e salve sua ficha do bolão.</p></div></header>
     <section class="card hero"><div class="hero-badge">⚽ Bolão Copa 2026 · Fase de grupos</div><h1>Faça sua aposta</h1><p>Esta página funciona online, direto no navegador. Seus dados ficam salvos apenas neste dispositivo até você baixar o arquivo dos seus palpites.</p><div class="notice">O mata-mata será preenchido em uma segunda etapa, depois que os confrontos oficiais forem definidos.</div></section>
-    <section class="sticky-bar"><div class="sticky-content">
-      <div class="sticky-info"><strong id="stickyTitle">📝 Preenchimento em andamento</strong><span class="small" id="stickyProgressText">0 de 72 jogos preenchidos.</span><div class="progress-wrap"><div class="progress-bar" id="progressBar"></div></div></div>
-      <div class="sticky-actions">
-  <button type="button" onclick="downloadJson()">💾 Baixar meus palpites</button>
-  <button type="button" class="secondary" onclick="openSendModal()">📤 Enviar palpites</button>
-  <a class="button-link secondary" href="./recuperar.html">🔁 Carregar anteriores</a>
-  <a class="button-link secondary" href="./ranking.html">📊 Ver ranking</a>
-</div></div></div></section>
+    <section class="sticky-bar"><div class="sticky-content"><div class="sticky-info"><strong id="stickyTitle">📝 Preenchimento em andamento</strong><span class="small" id="stickyProgressText">0 de 72 jogos preenchidos.</span><div class="progress-wrap"><div class="progress-bar" id="progressBar"></div></div></div><div class="sticky-actions"><button type="button" onclick="downloadJson()">💾 Baixar meus palpites</button><button type="button" class="secondary" onclick="openSendModal()">📤 Enviar palpites</button><a class="button-link secondary" href="./ranking.html">📊 Ver ranking</a></div></div></section>
     <section class="card"><h2>👤 Seus dados</h2><div class="grid"><div><label for="participantName">Nome ou apelido *</label><input id="participantName" placeholder="Ex: Daniel" oninput="saveDraft()" /></div><div><label for="participantEmail">E-mail</label><input id="participantEmail" type="email" placeholder="Ex: voce@email.com" oninput="saveDraft()" /></div></div><p class="small">Use o mesmo nome e e-mail no envio para identificar sua participação.</p></section>
     <section class="card" id="summarySection"><h2>📋 Resumo</h2><div class="summary-grid"><div class="summary-card"><span class="small">Jogos preenchidos</span><strong id="summaryGames">0/72</strong></div><div class="summary-card"><span class="small">Premiações preenchidas</span><strong id="summaryAwards">0/4</strong></div><div class="summary-card"><span class="small">Status</span><strong id="summaryStatus">Rascunho</strong></div></div><div id="summaryMessage" class="notice">Preencha seu nome e seus palpites. Quando terminar, clique em “Baixar meus palpites”.</div></section>
     <section class="card"><h2>🏆 Premiações FIFA 2026</h2><p>Esses palpites também serão usados no ranking quando os vencedores oficiais forem definidos.</p><datalist id="playersList_chuteiraDeOuro"></datalist><datalist id="playersList_bolaDeOuro"></datalist><datalist id="playersList_luvaDeOuro"></datalist><datalist id="playersList_melhorJovem"></datalist><div class="awards-grid" id="awardsArea"></div></section>
@@ -49,113 +42,7 @@
     function updateSummary(){const total=games.length;const filled=Object.values(draft.bets||{}).filter(b=>b&&!b.invalidReason).length;const awardFilled=Object.values(draft.awards||{}).filter(Boolean).length;const percent=total?Math.round((filled/total)*100):0;const name=draft.participant.name||'';const progressText=document.getElementById('stickyProgressText');const progressBar=document.getElementById('progressBar');const stickyTitle=document.getElementById('stickyTitle');if(stickyTitle)stickyTitle.innerText=name?`👤 ${name}`:'📝 Preenchimento em andamento';if(progressText)progressText.innerText=`${filled} de ${total} jogos preenchidos.`;if(progressBar)progressBar.style.width=`${percent}%`;const sg=document.getElementById('summaryGames'),sa=document.getElementById('summaryAwards'),ss=document.getElementById('summaryStatus'),sm=document.getElementById('summaryMessage');if(sg)sg.innerText=`${filled}/${total}`;if(sa)sa.innerText=`${awardFilled}/4`;let status='Rascunho',message='Preencha seu nome e seus palpites. Quando terminar, clique em “Baixar meus palpites”.',cls='notice';if(!name){status='Falta nome';message='Informe seu nome/apelido antes de baixar o JSON.'}else if(filled<total){status='Incompleto';message=`Você já preencheu ${filled} de ${total} jogos. Pode baixar assim mesmo, mas o ideal é completar todos.`}else{status='Pronto';message='Tudo certo. Você já pode baixar seu JSON oficial.';cls='success'}if(ss)ss.innerText=status;if(sm){sm.className=cls;sm.innerText=message}}
     function slugify(v){return String(v||'sem-nome').normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[^a-zA-Z0-9]+/g,'-').replace(/^-+|-+$/g,'').toLowerCase()||'sem-nome'}function buildExportPayload(){const name=draft.participant.name.trim(),email=draft.participant.email.trim(),now=new Date().toISOString(),pid=`p_${slugify(name)}`;const participant={id:pid,name,email,createdAt:draft.createdAt||now,lastSubmissionAt:now,source:'palpites_html_online',sourcePage:location.href};const bets={};bets[pid]={};Object.entries(draft.bets||{}).forEach(([gid,bet])=>{if(!bet||bet.invalidReason)return;bets[pid][gid]={scoreA:Number(bet.scoreA),scoreB:Number(bet.scoreB),updatedAt:bet.updatedAt||now,invalidReason:''}});const awards={};awards[pid]={};Object.entries(draft.awards||{}).forEach(([k,v])=>{if(v)awards[pid][k]=v});return{schemaVersion:APP_VERSION,exportedAt:now,app:'Bolao Copa 2026',version:APP_VERSION,source:'palpites_html_online',data:{participants:[participant],games,bets,awards,settings:{exactScorePoints:3,outcomePoints:1},metadata:{schemaVersion:APP_VERSION,createdAt:draft.createdAt||now,exportedAt:now,source:'palpites_html_online'}}}}function downloadTextFile(filename,content,type='application/json;charset=utf-8'){const blob=new Blob([content],{type});const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download=filename;a.style.display='none';document.body.appendChild(a);a.click();setTimeout(()=>{document.body.removeChild(a);URL.revokeObjectURL(url)},0)}function downloadJson(){saveDraft();const status=document.getElementById('downloadStatus');const name=draft.participant.name.trim();if(!name){alert('Informe seu nome ou apelido antes de baixar o JSON.');document.getElementById('participantName')?.focus();return}const payload=buildExportPayload();const now=new Date();const filename=`palpites-${slugify(name)}-${now.toISOString().slice(0,10)}_${now.toTimeString().slice(0,5).replace(':','-')}.json`;downloadTextFile(filename,JSON.stringify(payload,null,2));if(status){status.className='success';status.innerText=`Bolão baixado com sucesso: ${filename}. Agora envie este arquivo pelo formulário oficial.`}}
     function clearDraft(){if(!confirm('Tem certeza que deseja limpar todos os palpites salvos neste navegador?'))return;localStorage.removeItem(STORAGE_KEY);localStorage.removeItem('bolaoCopa2026PalpitesCollapsedGroups');draft={participant:{name:'',email:''},bets:{},awards:{},createdAt:new Date().toISOString(),updatedAt:''};collapsedGroups={};document.getElementById('participantName').value='';document.getElementById('participantEmail').value='';document.getElementById('gameFilter').value='';renderAwards();renderGames();updateSummary();const status=document.getElementById('downloadStatus');if(status){status.className='notice';status.innerText='Rascunho limpo neste navegador.'}}
-    function restoreDraftToFields(){document.getElementById('participantName').value=draft.participant.name||'';document.getElementById('participantEmail').value=draft.participant.email||''}function openSendModal(){const modal=document.getElementById('sendModal');if(modal)modal.classList.add('active')}function closeSendModal(event){const modal=document.getElementById('sendModal');if(!modal)return;if(event&&event.target!==modal)return;modal.classList.remove('active')}document.addEventListener('keydown',e=>{if(e.key==='Escape'){const modal=document.getElementById('sendModal');if(modal)modal.classList.remove('active')}});function importarPalpitesRecuperadosSeExistir() {
-  const IMPORT_KEY = 'bolaoCopa2026ImportPayloadV1';
-  const raw = sessionStorage.getItem(IMPORT_KEY);
-
-  if (!raw) return;
-
-  try {
-    const imported = JSON.parse(raw);
-    const response = imported && imported.payload ? imported.payload : imported;
-
-    if (!response || !response.ok) return;
-
-    const groupStage = response.groupStage || {};
-    const data = groupStage.data || groupStage.payload || groupStage;
-
-    const participant =
-      Array.isArray(data.participants) && data.participants.length
-        ? data.participants[0]
-        : {};
-
-    const participantId =
-      participant.id ||
-      Object.keys(data.bets || {}).find(key => /^p_/.test(key)) ||
-      '';
-
-    function unwrapParticipantData(map) {
-      if (!map || typeof map !== 'object') return {};
-
-      if (participantId && map[participantId] && typeof map[participantId] === 'object') {
-        return map[participantId];
-      }
-
-      const keys = Object.keys(map);
-
-      if (!keys.length) return {};
-
-      const firstKey = keys[0];
-
-      if (/^m\d{3}$/.test(firstKey)) return map;
-
-      if (/^p_/.test(firstKey) && map[firstKey] && typeof map[firstKey] === 'object') {
-        return map[firstKey];
-      }
-
-      return map;
-    }
-
-    const previousBets = unwrapParticipantData(data.bets || {});
-    const previousAwards = unwrapParticipantData(data.awards || {});
-    const now = new Date().toISOString();
-
-    draft.participant.name =
-      response.name ||
-      participant.name ||
-      draft.participant.name ||
-      '';
-
-    draft.participant.email =
-      response.email ||
-      participant.email ||
-      draft.participant.email ||
-      '';
-
-    draft.bets = {};
-
-    Object.entries(previousBets || {}).forEach(([gameId, bet]) => {
-      if (!bet) return;
-
-      const scoreA = Number(bet.scoreA);
-      const scoreB = Number(bet.scoreB);
-
-      if (!Number.isFinite(scoreA) || !Number.isFinite(scoreB)) return;
-
-      draft.bets[gameId] = {
-        scoreA,
-        scoreB,
-        updatedAt: bet.updatedAt || now,
-        invalidReason: ''
-      };
-    });
-
-    draft.awards = {};
-
-    Object.entries(previousAwards || {}).forEach(([key, value]) => {
-      if (value) draft.awards[key] = value;
-    });
-
-    draft.updatedAt = now;
-
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(draft));
-    sessionStorage.removeItem(IMPORT_KEY);
-
-    alert('Palpites anteriores carregados com sucesso. Revise a ficha antes de enviar novamente.');
-  } catch (error) {
-    console.error('Erro ao importar palpites recuperados:', error);
-    sessionStorage.removeItem(IMPORT_KEY);
-    alert('Não foi possível importar os palpites recuperados. Tente novamente.');
-  }
-}
-   function init() {
-  renderPlayerOptions();
-  importarPalpitesRecuperadosSeExistir();
-  restoreDraftToFields();
-  renderAwards();
-  renderGames();
-  updateSummary();
-}
+    function restoreDraftToFields(){document.getElementById('participantName').value=draft.participant.name||'';document.getElementById('participantEmail').value=draft.participant.email||''}function openSendModal(){const modal=document.getElementById('sendModal');if(modal)modal.classList.add('active')}function closeSendModal(event){const modal=document.getElementById('sendModal');if(!modal)return;if(event&&event.target!==modal)return;modal.classList.remove('active')}document.addEventListener('keydown',e=>{if(e.key==='Escape'){const modal=document.getElementById('sendModal');if(modal)modal.classList.remove('active')}});function init(){renderPlayerOptions();restoreDraftToFields();renderAwards();renderGames();updateSummary()}init();
   </script>
 </body>
 </html>
