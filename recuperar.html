@@ -16,6 +16,7 @@
       <h1>Recuperar palpite</h1>
       <p>Informe o e-mail usado no bolão para buscar o palpite que você já enviou.</p>
       <div class="notice">Depois de recuperar, baixe o arquivo e abra a ficha atualizada para importar o palpite.</div>
+      <a class="button-link secondary" href="index.html">🏠 Voltar para a central</a>
     </section>
 
     <section class="card">
@@ -36,14 +37,15 @@
       </div>
       <div class="grid" style="margin-top:14px">
         <button type="button" onclick="downloadRecoveredBet()">💾 Baixar palpite recuperado</button>
-        <a class="button-link secondary" href="palpites-2.html">📝 Abrir ficha atualizada</a>
+        <a class="button-link secondary" href="palpites-2.html?importar=1">📝 Abrir ficha atualizada</a>
       </div>
-      <div class="notice">Na ficha atualizada, clique em <strong>Importar palpite</strong> e selecione o arquivo baixado aqui.</div>
+      <div class="notice">Ao abrir a ficha atualizada, o seletor de arquivo será exibido. Se ele não abrir automaticamente, clique em <strong>Importar palpite</strong>.</div>
     </section>
 
     <section class="card">
       <h2>Outros caminhos</h2>
       <div class="grid">
+        <a class="button-link secondary" href="index.html">🏠 Voltar para a central</a>
         <a class="button-link secondary" href="palpites-2.html">📝 Ficha atualizada</a>
         <a class="button-link secondary" href="enviar.html">📤 Página de envio</a>
         <a class="button-link secondary" href="ranking.html">📊 Ver ranking</a>
@@ -160,7 +162,7 @@
       document.body.appendChild(a);
       a.click();
       setTimeout(()=>{a.remove();URL.revokeObjectURL(url)},0);
-      setStatus('Arquivo baixado. Agora abra a ficha atualizada e clique em Importar palpite.', 'success');
+      setStatus('Arquivo baixado. Agora abra a ficha atualizada e importe o palpite.', 'success');
     }
   </script>
 </body>
