@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Palpites da Fase de Grupos v2 | Bolão Copa 2026</title>
+  <meta name="description" content="Preencha, importe e salve seus palpites da fase de grupos do Bolão Copa do Mundo 2026." />
+  <style>
+    :root{--bg:#020617;--card:#111827;--card2:#1f2937;--text:#f8fafc;--muted:#94a3b8;--accent:#22c55e;--danger:#ef4444;--warning:#f59e0b;--border:#334155}*{box-sizing:border-box}body{margin:0;font-family:Arial,Helvetica,sans-serif;background:radial-gradient(circle at top left,rgba(34,197,94,.16),transparent 32%),radial-gradient(circle at bottom right,rgba(245,158,11,.14),transparent 30%),linear-gradient(135deg,#020617,#0f172a);color:var(--text)}.container{max-width:1120px;margin:0 auto;padding:24px}h1,h2,h3{margin:0 0 12px}p{color:var(--muted);line-height:1.5}.card{background:rgba(17,24,39,.94);border:1px solid var(--border);border-radius:20px;padding:20px;margin-bottom:18px;box-shadow:0 12px 30px rgba(0,0,0,.25)}.hero{border-top:5px solid var(--accent)}.hero-badge{display:inline-flex;align-items:center;gap:8px;padding:7px 12px;border-radius:999px;background:rgba(34,197,94,.12);border:1px solid rgba(34,197,94,.28);color:#bbf7d0;font-size:13px;font-weight:800;margin-bottom:14px}.hero h1{font-size:clamp(32px,5vw,54px);line-height:1}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px}label{display:block;margin:10px 0 6px;color:var(--muted);font-size:14px}input,select,button{width:100%;border-radius:12px;border:1px solid var(--border);padding:12px;font-size:15px}input,select{background:#020617;color:var(--text)}button,.button-link{background:var(--accent);color:#052e16;font-weight:800;cursor:pointer;border:none;margin-top:12px;text-decoration:none;display:inline-flex;align-items:center;justify-content:center;gap:8px}button.secondary,.button-link.secondary{background:#334155;color:var(--text)}button.danger{background:var(--danger);color:#fff}.small{font-size:13px;color:var(--muted)}.notice,.success,.error{margin-top:14px;padding:14px;border-radius:16px;font-size:14px;line-height:1.45}.notice{border:1px solid rgba(245,158,11,.38);background:rgba(245,158,11,.09);color:#fde68a}.success{border:1px solid rgba(34,197,94,.38);background:rgba(34,197,94,.09);color:#bbf7d0}.error{border:1px solid rgba(239,68,68,.38);background:rgba(239,68,68,.09);color:#fecaca}.sticky-bar{position:sticky;top:0;z-index:20;background:rgba(15,23,42,.96);border:1px solid var(--border);border-radius:18px;padding:14px 16px;margin-bottom:18px;box-shadow:0 12px 28px rgba(0,0,0,.35);backdrop-filter:blur(8px)}.sticky-content{display:flex;gap:14px;justify-content:space-between;align-items:center;flex-wrap:wrap}.sticky-info{flex:1;min-width:240px}.sticky-actions{display:flex;gap:10px;flex-wrap:wrap}.sticky-actions button,.sticky-actions a{width:auto;min-width:175px;margin-top:0}.progress-wrap{margin-top:8px;width:100%;height:10px;background:#020617;border:1px solid var(--border);border-radius:999px;overflow:hidden}.progress-bar{height:100%;width:0%;background:var(--accent);transition:width .25s ease}.summary-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:14px;margin-top:14px}.summary-card{border:1px solid var(--border);border-radius:16px;padding:14px;background:rgba(15,23,42,.74)}.summary-card strong{display:block;color:#bbf7d0;font-size:24px;margin-top:4px}.awards-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:14px}.award-card{background:rgba(15,23,42,.74);border:1px solid var(--border);border-radius:16px;padding:14px}.view-controls{display:flex;gap:10px;align-items:end;flex-wrap:wrap;margin-bottom:14px}.view-controls>div{flex:1;min-width:220px}.group-block{margin:18px 0 26px;border:1px solid var(--border);border-radius:16px;overflow:hidden;background:rgba(15,23,42,.45)}.group-title{margin:0;padding:14px 16px;background:#0f172a;color:#f8fafc;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;gap:10px;align-items:center;flex-wrap:wrap}.match-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:14px;padding:14px}.match-card{border:1px solid var(--border);border-radius:18px;background:rgba(15,23,42,.72);padding:14px}.match-card.bet-complete{border-color:rgba(34,197,94,.55);background:rgba(34,197,94,.07)}.match-top{display:flex;justify-content:space-between;gap:10px;margin-bottom:10px}.match-stage{font-size:12px;color:#cbd5e1;background:#1e293b;border-radius:999px;padding:4px 9px}.match-number{color:var(--muted);font-size:12px}.teams-line{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:10px;margin:12px 0}.team{font-weight:800}.team.away{text-align:right}.versus{color:var(--muted);font-weight:800}.match-meta{display:grid;gap:4px;margin:8px 0 12px;color:var(--muted);font-size:13px}.score-inputs{display:flex;align-items:center;gap:8px;border-top:1px solid var(--border);padding-top:12px}.score-inputs input{max-width:76px;text-align:center}.footer{margin:28px 0 6px;text-align:center;color:var(--muted);font-size:13px}@media(max-width:700px){.container{padding:14px}.sticky-actions{width:100%}.sticky-actions button,.sticky-actions a{width:100%;min-width:0}.teams-line{grid-template-columns:1fr}.team.away{text-align:left}.versus{display:none}}
+  </style>
+</head>
+<body>
+  <div class="container">
+    <section class="card hero">
+      <div class="hero-badge">⚽ Bolão Copa 2026 · Fase de grupos · v2</div>
+      <h1>Faça sua aposta</h1>
+      <p>Preencha seus palpites, importe um JSON anterior ou carregue um arquivo recuperado.</p>
+      <div class="notice">Esta é uma versão paralela para validação. A ficha principal não foi substituída.</div>
+    </section>
+
+    <section class="sticky-bar">
+      <div class="sticky-content">
+        <div class="sticky-info">
+          <strong id="stickyTitle">📝 Preenchimento em andamento</strong>
+          <span class="small" id="stickyProgressText">0 de 72 jogos preenchidos.</span>
+          <div class="progress-wrap"><div class="progress-bar" id="progressBar"></div></div>
+        </div>
+        <div class="sticky-actions">
+          <button type="button" onclick="downloadJson()">💾 Baixar meus palpites</button>
+          <button type="button" class="secondary" onclick="document.getElementById('importJsonInput').click()">🔁 Importar JSON</button>
+          <a class="button-link secondary" href="./recuperar.html">📧 Recuperar por e-mail</a>
+          <a class="button-link secondary" href="./ranking.html">📊 Ranking</a>
+        </div>
+      </div>
+    </section>
+
+    <input id="importJsonInput" type="file" accept="application/json,.json" style="display:none" onchange="importJsonFromFile(event)" />
+
+    <section class="card">
+      <h2>👤 Seus dados</h2>
+      <div class="grid">
+        <div><label for="participantName">Nome ou apelido *</label><input id="participantName" placeholder="Ex: Daniel" oninput="saveDraft()" /></div>
+        <div><label for="participantEmail">E-mail</label><input id="participantEmail" type="email" placeholder="Ex: voce@email.com" oninput="saveDraft()" /></div>
+      </div>
+      <div id="importStatus" class="notice">Você pode preencher do zero ou importar um arquivo JSON de palpites.</div>
+    </section>
+
+    <section class="card">
+      <h2>📋 Resumo</h2>
+      <div class="summary-grid">
+        <div class="summary-card"><span class="small">Jogos preenchidos</span><strong id="summaryGames">0/72</strong></div>
+        <div class="summary-card"><span class="small">Premiações preenchidas</span><strong id="summaryAwards">0/4</strong></div>
+        <div class="summary-card"><span class="small">Status</span><strong id="summaryStatus">Rascunho</strong></div>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>🏆 Premiações FIFA 2026</h2>
+      <div class="awards-grid" id="awardsArea"></div>
+    </section>
+
+    <section class="card">
+      <h2>⚽ Palpites da fase de grupos</h2>
+      <div class="view-controls">
+        <div><label for="gameFilter">Filtrar jogos</label><input id="gameFilter" placeholder="Ex: Brasil, Grupo C, México" oninput="renderGames()" /></div>
+        <div><label for="viewMode">Visualização</label><select id="viewMode" onchange="renderGames()"><option value="group">Por grupo</option><option value="date">Por data</option></select></div>
+      </div>
+      <div id="gamesArea"></div>
+    </section>
+
+    <section class="card">
+      <h2>💾 Finalizar sua aposta</h2>
+      <div class="grid">
+        <button type="button" onclick="downloadJson()">💾 Baixar meus palpites</button>
+        <a class="button-link secondary" href="enviar.html">📤 Abrir página de envio</a>
+        <button type="button" class="danger" onclick="clearDraft()">🗑 Limpar rascunho</button>
+      </div>
+      <div id="downloadStatus"></div>
+    </section>
+
+    <footer class="footer">Desenvolvido por Daniel S. A. Junior · Bolão Copa do Mundo 2026</footer>
+  </div>
+
+  <script>
+    const APP_VERSION = '2.2-palpite-online-v2';
+    const STORAGE_KEY = 'bolaoCopa2026PalpitesOnlineDraftV2';
+    const FIFA_AWARDS = {
+      chuteiraDeOuro: { label: '⚽ Chuteira de Ouro', description: 'Maior artilheiro da Copa', points: 10 },
+      bolaDeOuro: { label: '🏆 Bola de Ouro', description: 'Melhor jogador da Copa', points: 10 },
+      luvaDeOuro: { label: '🧤 Luva de Ouro', description: 'Melhor goleiro da Copa', points: 8 },
+      melhorJovem: { label: '🌟 Melhor Jogador Jovem', description: 'Melhor atleta jovem da Copa', points: 8 }
+    };
+    const games = [
+      ['m001',1,'Grupo A','México','África do Sul','2026-06-11T16:00'],['m002',2,'Grupo A','Coreia do Sul','República Tcheca','2026-06-11T23:00'],['m003',3,'Grupo B','Canadá','Bósnia e Herzegovina','2026-06-12T16:00'],['m004',4,'Grupo D','Estados Unidos','Paraguai','2026-06-12T22:00'],['m005',5,'Grupo B','Catar','Suíça','2026-06-13T16:00'],['m006',6,'Grupo C','Brasil','Marrocos','2026-06-13T19:00'],['m007',7,'Grupo C','Haiti','Escócia','2026-06-13T22:00'],['m008',8,'Grupo D','Austrália','Turquia','2026-06-14T01:00'],['m009',9,'Grupo E','Alemanha','Curaçao','2026-06-14T14:00'],['m010',10,'Grupo F','Holanda','Japão','2026-06-14T17:00'],['m011',11,'Grupo E','Costa do Marfim','Equador','2026-06-14T20:00'],['m012',12,'Grupo F','Suécia','Tunísia','2026-06-14T23:00'],['m013',13,'Grupo H','Espanha','Cabo Verde','2026-06-15T13:00'],['m014',14,'Grupo G','Bélgica','Egito','2026-06-15T16:00'],['m015',15,'Grupo H','Arábia Saudita','Uruguai','2026-06-15T19:00'],['m016',16,'Grupo G','Irã','Nova Zelândia','2026-06-15T22:00'],['m017',17,'Grupo I','França','Senegal','2026-06-16T16:00'],['m018',18,'Grupo I','Iraque','Noruega','2026-06-16T19:00'],['m019',19,'Grupo J','Argentina','Argélia','2026-06-16T22:00'],['m020',20,'Grupo J','Áustria','Jordânia','2026-06-17T01:00'],['m021',21,'Grupo K','Portugal','RD Congo','2026-06-17T14:00'],['m022',22,'Grupo L','Inglaterra','Croácia','2026-06-17T17:00'],['m023',23,'Grupo L','Gana','Panamá','2026-06-17T20:00'],['m024',24,'Grupo K','Uzbequistão','Colômbia','2026-06-17T23:00'],['m025',25,'Grupo A','República Tcheca','África do Sul','2026-06-18T13:00'],['m026',26,'Grupo B','Suíça','Bósnia e Herzegovina','2026-06-18T16:00'],['m027',27,'Grupo B','Canadá','Catar','2026-06-18T19:00'],['m028',28,'Grupo A','México','Coreia do Sul','2026-06-18T22:00'],['m029',29,'Grupo D','Estados Unidos','Austrália','2026-06-19T16:00'],['m030',30,'Grupo C','Escócia','Marrocos','2026-06-19T19:00'],['m031',31,'Grupo C','Brasil','Haiti','2026-06-19T21:30'],['m032',32,'Grupo D','Turquia','Paraguai','2026-06-20T00:00'],['m033',33,'Grupo F','Holanda','Suécia','2026-06-20T14:00'],['m034',34,'Grupo E','Alemanha','Costa do Marfim','2026-06-20T17:00'],['m035',35,'Grupo E','Equador','Curaçao','2026-06-20T21:00'],['m036',36,'Grupo F','Tunísia','Japão','2026-06-21T01:00'],['m037',37,'Grupo H','Espanha','Arábia Saudita','2026-06-21T13:00'],['m038',38,'Grupo G','Bélgica','Irã','2026-06-21T16:00'],['m039',39,'Grupo H','Uruguai','Cabo Verde','2026-06-21T19:00'],['m040',40,'Grupo G','Nova Zelândia','Egito','2026-06-21T22:00'],['m041',41,'Grupo J','Argentina','Áustria','2026-06-22T14:00'],['m042',42,'Grupo I','França','Iraque','2026-06-22T18:00'],['m043',43,'Grupo I','Noruega','Senegal','2026-06-22T21:00'],['m044',44,'Grupo J','Jordânia','Argélia','2026-06-23T00:00'],['m045',45,'Grupo K','Portugal','Uzbequistão','2026-06-23T14:00'],['m046',46,'Grupo L','Inglaterra','Gana','2026-06-23T17:00'],['m047',47,'Grupo L','Panamá','Croácia','2026-06-23T20:00'],['m048',48,'Grupo K','Colômbia','RD Congo','2026-06-23T23:00'],['m049',49,'Grupo B','Suíça','Canadá','2026-06-24T16:00'],['m050',50,'Grupo B','Bósnia e Herzegovina','Catar','2026-06-24T16:00'],['m051',51,'Grupo C','Marrocos','Haiti','2026-06-24T19:00'],['m052',52,'Grupo C','Escócia','Brasil','2026-06-24T19:00'],['m053',53,'Grupo A','África do Sul','Coreia do Sul','2026-06-24T22:00'],['m054',54,'Grupo A','República Tcheca','México','2026-06-24T22:00'],['m055',55,'Grupo E','Curaçao','Costa do Marfim','2026-06-25T17:00'],['m056',56,'Grupo E','Equador','Alemanha','2026-06-25T17:00'],['m057',57,'Grupo F','Tunísia','Holanda','2026-06-25T20:00'],['m058',58,'Grupo F','Japão','Suécia','2026-06-25T20:00'],['m059',59,'Grupo D','Turquia','Estados Unidos','2026-06-25T23:00'],['m060',60,'Grupo D','Paraguai','Austrália','2026-06-25T23:00'],['m061',61,'Grupo I','Noruega','França','2026-06-26T16:00'],['m062',62,'Grupo I','Senegal','Iraque','2026-06-26T16:00'],['m063',63,'Grupo H','Cabo Verde','Arábia Saudita','2026-06-26T21:00'],['m064',64,'Grupo H','Uruguai','Espanha','2026-06-26T21:00'],['m065',65,'Grupo G','Nova Zelândia','Bélgica','2026-06-27T00:00'],['m066',66,'Grupo G','Egito','Irã','2026-06-27T00:00'],['m067',67,'Grupo L','Panamá','Inglaterra','2026-06-27T18:00'],['m068',68,'Grupo L','Croácia','Gana','2026-06-27T18:00'],['m069',69,'Grupo K','Colômbia','Portugal','2026-06-27T20:30'],['m070',70,'Grupo K','RD Congo','Uzbequistão','2026-06-27T20:30'],['m071',71,'Grupo J','Argélia','Áustria','2026-06-27T23:00'],['m072',72,'Grupo J','Jordânia','Argentina','2026-06-27T23:00']
+    ].map(([id,match,stage,teamA,teamB,date])=>({id,match,stage,teamA,teamB,date}));
+    let draft = loadDraft();
+    function defaultDraft(){return {participant:{name:'',email:''},bets:{},awards:{},createdAt:new Date().toISOString(),updatedAt:''}}
+    function loadDraft(){try{const raw=localStorage.getItem(STORAGE_KEY);return raw?{...defaultDraft(),...JSON.parse(raw)}:defaultDraft()}catch(_){return defaultDraft()}}
+    function saveDraft(){draft.participant.name=document.getElementById('participantName')?.value.trim()||draft.participant.name||'';draft.participant.email=document.getElementById('participantEmail')?.value.trim()||draft.participant.email||'';draft.updatedAt=new Date().toISOString();localStorage.setItem(STORAGE_KEY,JSON.stringify(draft));updateSummary()}
+    function escapeHtml(v){return String(v??'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#039;')}
+    function slugify(v){return String(v||'sem-nome').normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[^a-zA-Z0-9]+/g,'-').replace(/^-+|-+$/g,'').toLowerCase()||'sem-nome'}
+    function setImportStatus(message,type='notice'){const el=document.getElementById('importStatus');el.className=type;el.innerText=message}
+    function restoreDraftToFields(){document.getElementById('participantName').value=draft.participant.name||'';document.getElementById('participantEmail').value=draft.participant.email||''}
+    function renderAwards(){const area=document.getElementById('awardsArea');area.innerHTML=Object.entries(FIFA_AWARDS).map(([key,a])=>`<div class="award-card"><strong>${a.label}</strong><p class="small">${a.description} · ${a.points} pontos</p><input id="award_${key}" value="${escapeHtml(draft.awards[key]||'')}" placeholder="Nome do jogador" oninput="saveAward('${key}')" /></div>`).join('')}
+    function saveAward(key){const value=document.getElementById('award_'+key)?.value.trim()||'';if(value)draft.awards[key]=value;else delete draft.awards[key];saveDraft()}
+    function formatDate(value){const d=new Date(value);return d.toLocaleDateString('pt-BR')+' · '+d.toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit'})}
+    function saveBet(id){const a=document.getElementById('bet_'+id+'_A')?.value;const b=document.getElementById('bet_'+id+'_B')?.value;if(a===''&&b===''){delete draft.bets[id];saveDraft();return}if(a===''||b===''){return}const scoreA=Number(a),scoreB=Number(b);if(!Number.isInteger(scoreA)||!Number.isInteger(scoreB)||scoreA<0||scoreB<0)return;draft.bets[id]={scoreA,scoreB,updatedAt:new Date().toISOString(),invalidReason:''};saveDraft();document.getElementById('card_'+id)?.classList.add('bet-complete')}
+    function renderMatch(game){const bet=draft.bets[game.id]||{};return `<article id="card_${game.id}" class="match-card ${bet.scoreA!==undefined?'bet-complete':''}"><div class="match-top"><span class="match-stage">${escapeHtml(game.stage)}</span><span class="match-number">Jogo ${game.match}</span></div><div class="teams-line"><div class="team">${escapeHtml(game.teamA)}</div><span class="versus">x</span><div class="team away">${escapeHtml(game.teamB)}</div></div><div class="match-meta"><span>🕒 ${formatDate(game.date)}</span></div><div class="score-inputs"><input id="bet_${game.id}_A" type="number" min="0" value="${bet.scoreA??''}" oninput="saveBet('${game.id}')" /><span>x</span><input id="bet_${game.id}_B" type="number" min="0" value="${bet.scoreB??''}" oninput="saveBet('${game.id}')" /></div></article>`}
+    function renderGames(){const area=document.getElementById('gamesArea');const filter=(document.getElementById('gameFilter')?.value||'').toLowerCase();const mode=document.getElementById('viewMode')?.value||'group';let list=games.filter(g=>!filter||[g.stage,g.teamA,g.teamB,String(g.match)].join(' ').toLowerCase().includes(filter));if(!list.length){area.innerHTML='<div class="notice">Nenhum jogo encontrado.</div>';return}if(mode==='date'){area.innerHTML='<div class="match-cards">'+list.sort((a,b)=>new Date(a.date)-new Date(b.date)).map(renderMatch).join('')+'</div>';return}const groups={};list.forEach(g=>{groups[g.stage]=groups[g.stage]||[];groups[g.stage].push(g)});area.innerHTML=Object.keys(groups).sort().map(group=>`<div class="group-block"><h3 class="group-title"><strong>${escapeHtml(group)}</strong><span>${groups[group].filter(g=>draft.bets[g.id]).length}/${groups[group].length} preenchidos</span></h3><div class="match-cards">${groups[group].map(renderMatch).join('')}</div></div>`).join('')}
+    function updateSummary(){const filled=Object.values(draft.bets).filter(Boolean).length;const awards=Object.values(draft.awards).filter(Boolean).length;document.getElementById('summaryGames').innerText=filled+'/'+games.length;document.getElementById('summaryAwards').innerText=awards+'/4';document.getElementById('summaryStatus').innerText=draft.participant.name&&filled===games.length?'Pronto':filled?'Em andamento':'Rascunho';document.getElementById('stickyTitle').innerText=draft.participant.name?'👤 '+draft.participant.name:'📝 Preenchimento em andamento';document.getElementById('stickyProgressText').innerText=filled+' de '+games.length+' jogos preenchidos.';document.getElementById('progressBar').style.width=Math.round((filled/games.length)*100)+'%'}
+    function extractData(json){return json?.data||json?.payload||json?.groupStage?.data||json?.groupStage?.payload||json?.groupStage||json||{}}
+    function unwrapMap(map,participantId){if(!map||typeof map!=='object')return {};if(participantId&&map[participantId]&&typeof map[participantId]==='object')return map[participantId];const keys=Object.keys(map);if(!keys.length)return {};if(/^m\d{3}$/.test(keys[0]))return map;if(/^p_/.test(keys[0])&&map[keys[0]]&&typeof map[keys[0]]==='object')return map[keys[0]];return map}
+    function importJsonPayload(json){const data=extractData(json);const participant=Array.isArray(data.participants)&&data.participants.length?data.participants[0]:{};const participantId=participant.id||Object.keys(data.bets||{}).find(k=>/^p_/.test(k))||'';const bets=unwrapMap(data.bets||{},participantId);const awards=unwrapMap(data.awards||{},participantId);draft=defaultDraft();draft.participant.name=participant.name||json.name||'';draft.participant.email=participant.email||json.email||'';Object.entries(bets).forEach(([id,bet])=>{const a=Number(bet.scoreA),b=Number(bet.scoreB);if(/^m\d{3}$/.test(id)&&Number.isFinite(a)&&Number.isFinite(b)){draft.bets[id]={scoreA:a,scoreB:b,updatedAt:bet.updatedAt||new Date().toISOString(),invalidReason:''}}});Object.entries(awards).forEach(([k,v])=>{if(v)draft.awards[k]=v});draft.updatedAt=new Date().toISOString();localStorage.setItem(STORAGE_KEY,JSON.stringify(draft));restoreDraftToFields();renderAwards();renderGames();updateSummary();setImportStatus('JSON importado com sucesso: '+Object.keys(draft.bets).length+' jogos e '+Object.keys(draft.awards).length+' premiações.','success')}
+    function importJsonFromFile(event){const file=event.target.files&&event.target.files[0];if(!file)return;const reader=new FileReader();reader.onload=function(){try{importJsonPayload(JSON.parse(reader.result));event.target.value=''}catch(error){console.error(error);setImportStatus('Não foi possível ler o JSON selecionado.','error')}};reader.readAsText(file,'UTF-8')}
+    function buildExportPayload(){saveDraft();const now=new Date().toISOString();const pid='p_'+slugify(draft.participant.email||draft.participant.name);return{schemaVersion:APP_VERSION,exportedAt:now,app:'Bolao Copa 2026',version:APP_VERSION,source:'palpites_2_html',data:{participants:[{id:pid,name:draft.participant.name,email:draft.participant.email,createdAt:draft.createdAt,lastSubmissionAt:now,source:'palpites_2_html'}],games,bets:{[pid]:draft.bets},awards:{[pid]:draft.awards},settings:{exactScorePoints:3,outcomePoints:1},metadata:{schemaVersion:APP_VERSION,createdAt:draft.createdAt,exportedAt:now}}}}
+    function downloadJson(){if(!draft.participant.name.trim()){alert('Informe seu nome antes de baixar.');return}const payload=buildExportPayload();const filename='palpites-'+slugify(draft.participant.name)+'-'+new Date().toISOString().slice(0,10)+'.json';const blob=new Blob([JSON.stringify(payload,null,2)],{type:'application/json;charset=utf-8'});const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download=filename;document.body.appendChild(a);a.click();setTimeout(()=>{a.remove();URL.revokeObjectURL(url)},0);const s=document.getElementById('downloadStatus');s.className='success';s.innerText='Arquivo baixado: '+filename}
+    function clearDraft(){if(!confirm('Limpar todos os palpites desta versão?'))return;localStorage.removeItem(STORAGE_KEY);draft=defaultDraft();restoreDraftToFields();renderAwards();renderGames();updateSummary();setImportStatus('Rascunho limpo.','notice')}
+    function init(){restoreDraftToFields();renderAwards();renderGames();updateSummary()}init();
+  </script>
+</body>
+</html>
