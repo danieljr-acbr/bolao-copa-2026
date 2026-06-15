@@ -31,7 +31,7 @@
 
       html=html.replace(
         /<section class="sticky-bar">[\s\S]*?<\/section>/,
-        `<section class="sticky-bar"><div class="sticky-content"><div class="sticky-info"><strong id="stickyTitle">📝 Preenchimento em andamento</strong><span class="small" id="stickyProgressText">0 de 72 jogos preenchidos.</span><div class="progress-wrap"><div class="progress-bar" id="progressBar"></div></div></div><div class="sticky-actions"><button type="button" onclick="downloadJson()">💾 Baixar meus palpites</button><button type="button" class="secondary" onclick="openSendModal()">📤 Enviar palpites</button><button type="button" class="secondary" onclick="document.getElementById('importJsonInput').click()">🔁 Importar palpite</button><a class="button-link secondary" href="./recuperar.html">📧 Recuperar por e-mail</a><a class="button-link secondary" href="./ranking.html">📊 Ver ranking</a><a class="button-link secondary" href="./index.html">🏠 Central</a></div></div></section>\n    <input id="importJsonInput" type="file" accept="application/json,.json" style="display:none" onchange="importJsonFromFile(event)" />`
+        `<section class="sticky-bar"><div class="sticky-content"><div class="sticky-info"><strong id="stickyTitle">📝 Preenchimento em andamento</strong><span class="small" id="stickyProgressText">0 de 72 jogos preenchidos.</span><div class="progress-wrap"><div class="progress-bar" id="progressBar"></div></div></div><div class="sticky-actions"><button type="button" onclick="downloadJson()">💾 Baixar meus palpites</button><a class="button-link secondary" href="./enviar.html">📤 Enviar palpites</a><button type="button" class="secondary" onclick="document.getElementById('importJsonInput').click()">🔁 Importar palpite</button><a class="button-link secondary" href="./recuperar.html">📧 Recuperar por e-mail</a><a class="button-link secondary" href="./ranking.html">📊 Ver ranking</a><a class="button-link secondary" href="./index.html">🏠 Central</a></div></div></section>\n    <input id="importJsonInput" type="file" accept="application/json,.json" style="display:none" onchange="importJsonFromFile(event)" />`
       );
 
       html=html.replace(
@@ -48,6 +48,13 @@
       html=html.replace('function buildExportPayload(){', importFunctions+'function buildExportPayload(){');
       html=html.replace("function init(){renderPlayerOptions();restoreDraftToFields();renderAwards();renderGames();updateSummary()}init();", "function init(){renderPlayerOptions();restoreDraftToFields();renderAwards();renderGames();updateSummary();mostrarInstrucaoImportacao()}init();");
       html=html.replace("localStorage.removeItem(STORAGE_KEY);localStorage.removeItem('bolaoCopa2026PalpitesCollapsedGroups');", "localStorage.removeItem(STORAGE_KEY);localStorage.removeItem(LEGACY_STORAGE_KEY);localStorage.removeItem('bolaoCopa2026PalpitesCollapsedGroups');");
+      html=html.replaceAll('href="enviar.html"','href="./enviar.html"');
+      html=html.replaceAll("href='enviar.html'","href='./enviar.html'");
+
+      const stickyAutoHideCss=`<style>@media(max-width:700px){.sticky-bar{transition:transform .25s ease,opacity .25s ease;will-change:transform}.sticky-bar.mobile-sticky-hidden{transform:translateY(calc(-100% - 12px));opacity:0;pointer-events:none}}</style>`;
+      const stickyAutoHideScript=`<script>(function(){let last=window.pageYOffset||document.documentElement.scrollTop||0;let ticking=false;function update(){const sticky=document.querySelector('.sticky-bar');if(!sticky||window.innerWidth>700){if(sticky)sticky.classList.remove('mobile-sticky-hidden');ticking=false;return}const current=window.pageYOffset||document.documentElement.scrollTop||0;const goingDown=current>last;const pastMargin=current>120;if(goingDown&&pastMargin){sticky.classList.add('mobile-sticky-hidden')}else{sticky.classList.remove('mobile-sticky-hidden')}last=Math.max(current,0);ticking=false}window.addEventListener('scroll',function(){if(!ticking){window.requestAnimationFrame(update);ticking=true}},{passive:true});window.addEventListener('resize',update)})();<\/script>`;
+      html=html.replace('</head>',stickyAutoHideCss+'</head>');
+      html=html.replace('</body>',stickyAutoHideScript+'</body>');
       return html;
     }
 
