@@ -53,9 +53,131 @@
 
       const stickyAutoHideCss=`<style>@media(max-width:700px){.sticky-bar{transition:transform .25s ease,opacity .25s ease;will-change:transform}.sticky-bar.mobile-sticky-hidden{transform:translateY(calc(-100% - 12px));opacity:0;pointer-events:none}}</style>`;
       const stickyAutoHideScript=`<script>(function(){let last=window.pageYOffset||document.documentElement.scrollTop||0;let ticking=false;function update(){const sticky=document.querySelector('.sticky-bar');if(!sticky||window.innerWidth>700){if(sticky)sticky.classList.remove('mobile-sticky-hidden');ticking=false;return}const current=window.pageYOffset||document.documentElement.scrollTop||0;const goingDown=current>last;const pastMargin=current>120;if(goingDown&&pastMargin){sticky.classList.add('mobile-sticky-hidden')}else{sticky.classList.remove('mobile-sticky-hidden')}last=Math.max(current,0);ticking=false}window.addEventListener('scroll',function(){if(!ticking){window.requestAnimationFrame(update);ticking=true}},{passive:true});window.addEventListener('resize',update)})();<\/script>`;
-      html=html.replace('</head>',stickyAutoHideCss+'</head>');
-      html=html.replace('</body>',stickyAutoHideScript+'</body>');
-      return html;
+     html=html.replace('</head>',stickyAutoHideCss+'</head>');
+html=html.replace('</body>',stickyAutoHideScript+'</body>');
+
+const flagsCss = `<style>
+.team{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  min-width:0;
+}
+.team.away{
+  justify-content:flex-end;
+  text-align:right;
+}
+.team-name{
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
+.flag-emoji{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  width:28px;
+  height:20px;
+  font-size:22px;
+  line-height:1;
+  flex:0 0 auto;
+}
+@media(max-width:700px){
+  .team.away{
+    justify-content:flex-start;
+    text-align:left;
+  }
+}
+</style>`;
+
+const flagsScript = `<script>
+(function(){
+  const flags = {
+    'México':'🇲🇽',
+    'África do Sul':'🇿🇦',
+    'Coreia do Sul':'🇰🇷',
+    'República Tcheca':'🇨🇿',
+    'Canadá':'🇨🇦',
+    'Bósnia e Herzegovina':'🇧🇦',
+    'Estados Unidos':'🇺🇸',
+    'Paraguai':'🇵🇾',
+    'Catar':'🇶🇦',
+    'Suíça':'🇨🇭',
+    'Brasil':'🇧🇷',
+    'Marrocos':'🇲🇦',
+    'Haiti':'🇭🇹',
+    'Escócia':'🏴',
+    'Austrália':'🇦🇺',
+    'Turquia':'🇹🇷',
+    'Alemanha':'🇩🇪',
+    'Curaçao':'🇨🇼',
+    'Holanda':'🇳🇱',
+    'Japão':'🇯🇵',
+    'Costa do Marfim':'🇨🇮',
+    'Equador':'🇪🇨',
+    'Suécia':'🇸🇪',
+    'Tunísia':'🇹🇳',
+    'Espanha':'🇪🇸',
+    'Cabo Verde':'🇨🇻',
+    'Bélgica':'🇧🇪',
+    'Egito':'🇪🇬',
+    'Arábia Saudita':'🇸🇦',
+    'Uruguai':'🇺🇾',
+    'Irã':'🇮🇷',
+    'Nova Zelândia':'🇳🇿',
+    'França':'🇫🇷',
+    'Senegal':'🇸🇳',
+    'Iraque':'🇮🇶',
+    'Noruega':'🇳🇴',
+    'Argentina':'🇦🇷',
+    'Argélia':'🇩🇿',
+    'Áustria':'🇦🇹',
+    'Jordânia':'🇯🇴',
+    'Portugal':'🇵🇹',
+    'RD Congo':'🇨🇩',
+    'Inglaterra':'🏴',
+    'Croácia':'🇭🇷',
+    'Gana':'🇬🇭',
+    'Panamá':'🇵🇦',
+    'Uzbequistão':'🇺🇿',
+    'Colômbia':'🇨🇴'
+  };
+
+  function aplicarBandeiras(){
+    document.querySelectorAll('.team').forEach(function(el){
+      if(el.dataset.flagged === '1') return;
+
+      const nome = String(el.textContent || '').trim();
+      const bandeira = flags[nome];
+
+      if(!bandeira) return;
+
+      el.dataset.flagged = '1';
+      el.textContent = '';
+
+      const flag = document.createElement('span');
+      flag.className = 'flag-emoji';
+      flag.setAttribute('aria-hidden','true');
+      flag.textContent = bandeira;
+
+      const name = document.createElement('span');
+      name.className = 'team-name';
+      name.textContent = nome;
+
+      el.appendChild(flag);
+      el.appendChild(name);
+    });
+  }
+
+  aplicarBandeiras();
+  window.addEventListener('load', aplicarBandeiras);
+  setInterval(aplicarBandeiras, 700);
+})();
+<\/script>`;
+
+html=html.replace('</head>',flagsCss+'</head>');
+html=html.replace('</body>',flagsScript+'</body>');
+
+return html;
     }
 
     fetch(BASE_HTML_URL,{cache:'no-store'})
