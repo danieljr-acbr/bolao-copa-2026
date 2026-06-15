@@ -53,7 +53,7 @@
 
       const stickyAutoHideCss=`<style>@media(max-width:700px){.sticky-bar{transition:transform .25s ease,opacity .25s ease;will-change:transform}.sticky-bar.mobile-sticky-hidden{transform:translateY(calc(-100% - 12px));opacity:0;pointer-events:none}}</style>`;
       const stickyAutoHideScript=`<script>(function(){let last=window.pageYOffset||document.documentElement.scrollTop||0;let ticking=false;function update(){const sticky=document.querySelector('.sticky-bar');if(!sticky||window.innerWidth>700){if(sticky)sticky.classList.remove('mobile-sticky-hidden');ticking=false;return}const current=window.pageYOffset||document.documentElement.scrollTop||0;const goingDown=current>last;const pastMargin=current>120;if(goingDown&&pastMargin){sticky.classList.add('mobile-sticky-hidden')}else{sticky.classList.remove('mobile-sticky-hidden')}last=Math.max(current,0);ticking=false}window.addEventListener('scroll',function(){if(!ticking){window.requestAnimationFrame(update);ticking=true}},{passive:true});window.addEventListener('resize',update)})();<\/script>`;
-      const flagsScript=`<script src="./js/palpites-flags.js?v=1"><\/script>`;
+      const flagsScript=`<script src="./js/palpites-flags.js?v=2"><\/script>`;
       html=html.replace('</head>',stickyAutoHideCss+'</head>');
       html=html.replace('</body>',stickyAutoHideScript+flagsScript+'</body>');
 
