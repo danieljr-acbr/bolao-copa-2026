@@ -4,15 +4,14 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="robots" content="noindex,nofollow" />
-  <meta name="description" content="Auditoria de palpites inválidos do Bolão Copa 2026." />
-  <title>Auditoria de Palpites | Bolão Copa 2026</title>
+  <title>Checagem de Palpites | Bolão Copa 2026</title>
 
   <style>
     :root {
       --bg: #020617;
       --bg2: #0f172a;
       --card: rgba(15, 23, 42, .92);
-      --card2: rgba(30, 41, 59, .78);
+      --card2: rgba(30, 41, 59, .82);
       --text: #f8fafc;
       --muted: #94a3b8;
       --line: #334155;
@@ -20,7 +19,7 @@
       --yellow: #facc15;
       --orange: #f59e0b;
       --red: #ef4444;
-      --red2: #fecaca;
+      --blue: #38bdf8;
     }
 
     * {
@@ -29,23 +28,58 @@
 
     body {
       margin: 0;
+      min-height: 100vh;
       font-family: Arial, Helvetica, sans-serif;
       color: var(--text);
-      min-height: 100vh;
       background:
-        radial-gradient(circle at top left, rgba(239, 68, 68, .16), transparent 30rem),
-        radial-gradient(circle at top right, rgba(250, 204, 21, .12), transparent 28rem),
+        radial-gradient(circle at top left, rgba(34, 197, 94, .13), transparent 30rem),
+        radial-gradient(circle at top right, rgba(56, 189, 248, .13), transparent 28rem),
         linear-gradient(135deg, var(--bg), var(--bg2));
-    }
-
-    a {
-      color: inherit;
     }
 
     .container {
       width: min(1180px, calc(100% - 32px));
       margin: 0 auto;
-      padding: 28px 0 42px;
+      padding: 28px 0 46px;
+    }
+
+    .hero {
+      position: relative;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: 30px;
+      padding: clamp(26px, 4.5vw, 54px);
+      background:
+        radial-gradient(circle at 86% 20%, rgba(34, 197, 94, .14), transparent 18rem),
+        linear-gradient(135deg, rgba(15, 23, 42, .96), rgba(2, 6, 23, .84));
+      box-shadow: 0 18px 42px rgba(0, 0, 0, .32);
+    }
+
+    .hero:after {
+      content: "✅";
+      position: absolute;
+      right: clamp(18px, 7vw, 86px);
+      top: 24px;
+      font-size: clamp(70px, 13vw, 150px);
+      opacity: .075;
+      transform: rotate(-10deg);
+      pointer-events: none;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 7px 12px;
+      border-radius: 999px;
+      background: rgba(34, 197, 94, .13);
+      border: 1px solid rgba(134, 239, 172, .25);
+      color: #bbf7d0;
+      font-size: 12px;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: .08em;
+      margin-bottom: 14px;
     }
 
     h1, h2, h3 {
@@ -60,7 +94,7 @@
 
     h2 {
       font-size: clamp(23px, 3vw, 34px);
-      margin-bottom: 12px;
+      margin-bottom: 10px;
     }
 
     p {
@@ -69,49 +103,8 @@
       margin: 10px 0 0;
     }
 
-    .hero,
-    .card,
-    .metric,
-    .audit-card,
-    .invalid-item {
-      border: 1px solid var(--line);
-      background: var(--card);
-      box-shadow: 0 18px 42px rgba(0, 0, 0, .28);
-    }
-
-    .hero {
-      border-radius: 30px;
-      padding: clamp(26px, 4.5vw, 54px);
-      background:
-        radial-gradient(circle at 86% 20%, rgba(239, 68, 68, .18), transparent 18rem),
-        linear-gradient(135deg, rgba(15, 23, 42, .95), rgba(2, 6, 23, .80));
-      overflow: hidden;
-      position: relative;
-    }
-
-    .hero:after {
-      content: "🔎";
-      position: absolute;
-      right: clamp(20px, 7vw, 86px);
-      top: 26px;
-      font-size: clamp(70px, 13vw, 150px);
-      opacity: .075;
-      transform: rotate(-10deg);
-      pointer-events: none;
-    }
-
-    .eyebrow {
-      display: inline-flex;
-      padding: 7px 12px;
-      border-radius: 999px;
-      background: rgba(239, 68, 68, .13);
-      border: 1px solid rgba(254, 202, 202, .25);
-      color: var(--red2);
-      font-size: 12px;
-      font-weight: 900;
-      text-transform: uppercase;
-      letter-spacing: .08em;
-      margin-bottom: 14px;
+    a {
+      color: inherit;
     }
 
     .actions {
@@ -125,12 +118,11 @@
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      gap: 8px;
       min-height: 46px;
       padding: 12px 17px;
       border-radius: 999px;
       text-decoration: none;
-      border: 1px solid rgba(255, 255, 255, .10);
+      border: 1px solid rgba(255, 255, 255, .11);
       background: #1e293b;
       color: #e2e8f0;
       font-weight: 900;
@@ -139,13 +131,13 @@
     }
 
     .btn.primary {
-      background: var(--red);
-      color: #fff;
-    }
-
-    .btn.green {
       background: var(--green);
       color: #052e16;
+    }
+
+    .btn.blue {
+      background: var(--blue);
+      color: #082f49;
     }
 
     .metrics {
@@ -156,10 +148,12 @@
     }
 
     .metric {
+      border: 1px solid var(--line);
       border-radius: 22px;
       padding: 18px;
       background: var(--card2);
-      min-height: 115px;
+      min-height: 112px;
+      box-shadow: 0 18px 42px rgba(0, 0, 0, .22);
     }
 
     .metric-label {
@@ -189,50 +183,77 @@
     }
 
     .card {
+      border: 1px solid var(--line);
       border-radius: 26px;
       padding: clamp(20px, 3vw, 30px);
+      background: var(--card);
+      box-shadow: 0 18px 42px rgba(0, 0, 0, .28);
     }
 
-    .notice,
-    .success,
-    .error {
+    .controls {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 12px;
+      align-items: end;
+      margin-top: 16px;
+    }
+
+    label {
+      display: block;
+      margin: 0 0 6px;
+      color: var(--muted);
+      font-size: 13px;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: .06em;
+    }
+
+    input {
+      width: 100%;
+      border-radius: 14px;
+      border: 1px solid var(--line);
+      padding: 13px 14px;
+      background: #020617;
+      color: var(--text);
+      font-size: 15px;
+    }
+
+    .status {
       margin-top: 14px;
       padding: 14px 16px;
       border-radius: 18px;
       line-height: 1.45;
-    }
-
-    .notice {
-      background: rgba(245, 158, 11, .10);
       border: 1px solid rgba(245, 158, 11, .34);
+      background: rgba(245, 158, 11, .10);
       color: #fde68a;
     }
 
-    .success {
+    .status.ok {
+      border-color: rgba(34, 197, 94, .34);
       background: rgba(34, 197, 94, .10);
-      border: 1px solid rgba(34, 197, 94, .34);
       color: #bbf7d0;
     }
 
-    .error {
+    .status.error {
+      border-color: rgba(239, 68, 68, .34);
       background: rgba(239, 68, 68, .10);
-      border: 1px solid rgba(239, 68, 68, .34);
       color: #fecaca;
     }
 
-    .audit-list {
+    .list {
       display: grid;
       gap: 14px;
       margin-top: 16px;
     }
 
-    .audit-card {
+    .participant {
+      border: 1px solid var(--line);
       border-radius: 22px;
       padding: 18px;
-      background: rgba(2, 6, 23, .44);
+      background: rgba(2, 6, 23, .48);
     }
 
-    .audit-head {
+    .participant-head {
       display: flex;
       align-items: flex-start;
       justify-content: space-between;
@@ -240,13 +261,13 @@
       flex-wrap: wrap;
     }
 
-    .audit-player {
+    .participant-name {
       font-size: 21px;
       font-weight: 950;
       overflow-wrap: anywhere;
     }
 
-    .audit-email {
+    .participant-email {
       display: block;
       color: var(--muted);
       font-size: 13px;
@@ -256,15 +277,23 @@
     .badge {
       display: inline-flex;
       align-items: center;
-      gap: 6px;
       padding: 7px 10px;
       border-radius: 999px;
-      background: rgba(239, 68, 68, .14);
-      border: 1px solid rgba(239, 68, 68, .38);
-      color: #fecaca;
       font-size: 12px;
       font-weight: 950;
       white-space: nowrap;
+    }
+
+    .badge.ok {
+      background: rgba(34, 197, 94, .14);
+      border: 1px solid rgba(34, 197, 94, .38);
+      color: #bbf7d0;
+    }
+
+    .badge.error {
+      background: rgba(239, 68, 68, .14);
+      border: 1px solid rgba(239, 68, 68, .38);
+      color: #fecaca;
     }
 
     .invalid-grid {
@@ -274,9 +303,10 @@
     }
 
     .invalid-item {
+      border: 1px solid var(--line);
       border-radius: 16px;
       padding: 14px;
-      background: rgba(15, 23, 42, .74);
+      background: rgba(15, 23, 42, .76);
     }
 
     .invalid-top {
@@ -287,12 +317,6 @@
       align-items: flex-start;
     }
 
-    .match-title {
-      font-weight: 950;
-      font-size: 16px;
-      line-height: 1.35;
-    }
-
     .match-id {
       color: var(--muted);
       font-size: 12px;
@@ -300,6 +324,12 @@
       text-transform: uppercase;
       letter-spacing: .06em;
       margin-bottom: 4px;
+    }
+
+    .match-title {
+      font-weight: 950;
+      font-size: 16px;
+      line-height: 1.35;
     }
 
     .score {
@@ -342,34 +372,6 @@
       color: #fecaca;
       font-size: 13px;
       line-height: 1.45;
-    }
-
-    .controls {
-      display: grid;
-      grid-template-columns: 1fr auto;
-      gap: 12px;
-      align-items: end;
-      margin-top: 14px;
-    }
-
-    label {
-      display: block;
-      margin: 0 0 6px;
-      color: var(--muted);
-      font-size: 13px;
-      font-weight: 900;
-      text-transform: uppercase;
-      letter-spacing: .06em;
-    }
-
-    input {
-      width: 100%;
-      border-radius: 14px;
-      border: 1px solid var(--line);
-      padding: 13px 14px;
-      background: #020617;
-      color: var(--text);
-      font-size: 15px;
     }
 
     footer {
@@ -421,36 +423,38 @@
 <body>
   <div class="container">
     <header class="hero">
-      <span class="eyebrow">🔎 Auditoria oculta</span>
-      <h1>Auditoria de Palpites</h1>
+      <span class="eyebrow">✅ Checagem técnica</span>
+
+      <h1>Checagem de Palpites</h1>
+
       <p>
-        Esta página mostra os palpites desconsiderados por terem sido salvos após o início do jogo.
-        Ela não precisa aparecer nos menus públicos do bolão.
+        Página técnica para conferir se existem palpites desconsiderados por horário.
+        Ela usa o mesmo consolidado do bolão e compara os palpites registrados com as informações disponíveis no retorno do Apps Script.
       </p>
 
       <div class="actions">
-        <button class="btn primary" type="button" onclick="carregarAuditoria()">🔄 Atualizar auditoria</button>
+        <button class="btn primary" type="button" onclick="carregarChecagem()">🔄 Atualizar checagem</button>
         <a class="btn" href="ranking.html">📊 Ranking</a>
-        <a class="btn green" href="index.html">🏠 Central</a>
+        <a class="btn blue" href="index.html">🏠 Central</a>
       </div>
 
       <div class="metrics">
         <div class="metric">
-          <div class="metric-label">Participantes auditados</div>
+          <div class="metric-label">Participantes</div>
           <div class="metric-value" id="metricParticipantes">0</div>
-          <div class="metric-sub">com dados no consolidado</div>
+          <div class="metric-sub">encontrados no consolidado</div>
         </div>
 
         <div class="metric">
-          <div class="metric-label">Com palpites inválidos</div>
-          <div class="metric-value" id="metricComInvalidos">0</div>
-          <div class="metric-sub">participantes com alerta</div>
+          <div class="metric-label">Com alerta</div>
+          <div class="metric-value" id="metricComAlerta">0</div>
+          <div class="metric-sub">participantes com itens inválidos</div>
         </div>
 
         <div class="metric">
           <div class="metric-label">Palpites inválidos</div>
           <div class="metric-value" id="metricInvalidos">0</div>
-          <div class="metric-sub">desconsiderados por horário</div>
+          <div class="metric-sub">marcados no retorno da API</div>
         </div>
 
         <div class="metric">
@@ -463,52 +467,57 @@
 
     <main>
       <section class="card">
-        <h2>⚠️ Palpites inválidos por horário</h2>
+        <h2>⚠️ Resultado da checagem</h2>
+
         <p>
-          Para valer pontos, o palpite precisa ter sido salvo antes do início da partida.
-          A lista abaixo compara a data de salvamento do palpite com a data de início do jogo.
+          Se não houver nenhum item listado, significa que o consolidado atual não trouxe palpites inválidos.
+          Caso existam alertas, eles aparecerão separados por participante.
         </p>
 
         <div class="controls">
           <div>
-            <label for="filtro">Filtrar por participante, jogo ou motivo</label>
-            <input id="filtro" placeholder="Ex: Daniel, Brasil, m006" oninput="renderAuditoria()" />
+            <label for="filtro">Filtrar</label>
+            <input id="filtro" placeholder="Ex: Daniel, Brasil, m006, horário" oninput="renderChecagem()" />
           </div>
 
           <button class="btn" type="button" onclick="limparFiltro()">Limpar filtro</button>
         </div>
 
-        <div id="status" class="notice">Carregando auditoria...</div>
-        <div id="lista" class="audit-list"></div>
+        <div id="status" class="status">Carregando dados...</div>
+        <div id="lista" class="list"></div>
       </section>
     </main>
 
     <footer>
-      Bolão Copa do Mundo 2026 · Página técnica de auditoria
+      Bolão Copa do Mundo 2026 · Página técnica de checagem
     </footer>
   </div>
 
   <script>
-    const URL = 'https://script.google.com/macros/s/AKfycbzSBTdEtcguwXwkP1JrlwMII_1UON048l9BXc0iFZ62lfuyzFsl_5zBdE4l0qkbz2vjwg/exec';
+    const URL_APPS_SCRIPT = 'https://script.google.com/macros/s/AKfycbzSBTdEtcguwXwkP1JrlwMII_1UON048l9BXc0iFZ62lfuyzFsl_5zBdE4l0qkbz2vjwg/exec';
 
-    let auditoriaData = [];
+    let dadosChecagem = [];
 
-    const esc = value => String(value ?? '')
-      .replace(/&/g, '&amp;')
-      .replace(/</g, '&lt;')
-      .replace(/>/g, '&gt;')
-      .replace(/"/g, '&quot;')
-      .replace(/'/g, '&#039;');
+    function escapeHtml(value) {
+      return String(value ?? '')
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#039;');
+    }
 
-    const setText = (id, value) => {
+    function setText(id, value) {
       const el = document.getElementById(id);
       if (el) el.textContent = value;
-    };
+    }
 
-    const normalizeText = value => String(value || '')
-      .normalize('NFD')
-      .replace(/[\u0300-\u036f]/g, '')
-      .toLowerCase();
+    function normalizeText(value) {
+      return String(value || '')
+        .normalize('NFD')
+        .replace(/[\u0300-\u036f]/g, '')
+        .toLowerCase();
+    }
 
     function getParticipants(data) {
       if (Array.isArray(data?.participants)) return data.participants;
@@ -528,32 +537,44 @@
       return {};
     }
 
-    function getParticipantName(p) {
-      return p?.name || p?.nome || p?.apelido || 'Participante sem nome';
+    function getParticipantName(participant) {
+      return participant?.name || participant?.nome || participant?.apelido || 'Participante sem nome';
     }
 
-    function getParticipantEmail(p) {
-      return p?.email || '';
+    function getParticipantEmail(participant) {
+      return participant?.email || '';
     }
 
-    function getParticipantId(p) {
-      return String(p?.id || p?.email || p?.nome || '').trim();
+    function getParticipantId(participant) {
+      return String(
+        participant?.id ||
+        participant?.participantId ||
+        participant?.email ||
+        participant?.nome ||
+        ''
+      ).trim();
     }
 
-    function getGameId(g) {
-      return String(g?.id || g?.matchId || g?.codigo || '').trim();
+    function getGameId(game) {
+      return String(
+        game?.id ||
+        game?.matchId ||
+        game?.codigo ||
+        game?.jogoId ||
+        ''
+      ).trim();
     }
 
-    function getGameDate(g) {
-      return g?.date || g?.data || g?.startDate || g?.kickoff || g?.inicio || '';
+    function getTeamA(game) {
+      return game?.teamA || game?.timeA || game?.mandante || game?.homeTeam || game?.casa || 'Time A';
     }
 
-    function getTeamA(g) {
-      return g?.teamA || g?.mandante || g?.homeTeam || g?.casa || g?.timeA || 'Time A';
+    function getTeamB(game) {
+      return game?.teamB || game?.timeB || game?.visitante || game?.awayTeam || game?.fora || 'Time B';
     }
 
-    function getTeamB(g) {
-      return g?.teamB || g?.visitante || g?.awayTeam || g?.fora || g?.timeB || 'Time B';
+    function getGameDate(game) {
+      return game?.date || game?.data || game?.startDate || game?.kickoff || game?.inicio || '';
     }
 
     function getBetUpdatedAt(bet) {
@@ -584,15 +605,6 @@
       });
     }
 
-    function gameMap(data) {
-      const map = {};
-      getGames(data).forEach(game => {
-        const id = getGameId(game);
-        if (id) map[id] = game;
-      });
-      return map;
-    }
-
     function betScore(bet) {
       if (!bet) return '-';
 
@@ -607,20 +619,31 @@
       return `${nA} x ${nB}`;
     }
 
-    function invalidsFromParticipant(participant) {
+    function buildGameMap(data) {
+      const map = {};
+
+      getGames(data).forEach(game => {
+        const id = getGameId(game);
+        if (id) map[id] = game;
+      });
+
+      return map;
+    }
+
+    function getInvalidsFromParticipant(participant) {
       if (Array.isArray(participant?.invalidBets)) return participant.invalidBets;
       if (Array.isArray(participant?.palpitesInvalidos)) return participant.palpitesInvalidos;
       if (Array.isArray(participant?.invalidos)) return participant.invalidos;
       return [];
     }
 
-    function fallbackInvalidsFromBets(data, participant, gamesById) {
+    function getInvalidsFromBets(data, participant, gamesById) {
       const participantId = getParticipantId(participant);
       const allBets = getBets(data);
       const participantBets = allBets[participantId] || {};
 
       return Object.entries(participantBets)
-        .filter(([_, bet]) => {
+        .filter(([matchId, bet]) => {
           return String(
             bet?.invalidReason ||
             bet?.motivoInvalido ||
@@ -644,15 +667,15 @@
         });
     }
 
-    function buildAuditoria(data) {
-      const gamesById = gameMap(data);
+    function buildChecagem(data) {
+      const gamesById = buildGameMap(data);
       const bets = getBets(data);
 
       return getParticipants(data).map(participant => {
-        let invalids = invalidsFromParticipant(participant);
+        let invalids = getInvalidsFromParticipant(participant);
 
         if (!invalids.length) {
-          invalids = fallbackInvalidsFromBets(data, participant, gamesById);
+          invalids = getInvalidsFromBets(data, participant, gamesById);
         }
 
         invalids = invalids.map(item => {
@@ -661,7 +684,7 @@
           const game = gamesById[matchId] || {};
           const bet = bets?.[participantId]?.[matchId] || {};
 
-          const itemScore = item.score !== undefined
+          const score = item.score !== undefined
             ? item.score
             : item.scoreA !== undefined
               ? `${item.scoreA} x ${item.scoreB}`
@@ -677,7 +700,7 @@
             teamB: item.teamB || item.timeB || getTeamB(game),
             gameDate: item.gameDate || item.dataJogo || getGameDate(game),
             betUpdatedAt: item.betUpdatedAt || item.salvoEm || getBetUpdatedAt(bet),
-            score: itemScore,
+            score,
             reason: item.reason || item.motivo || bet.invalidReason || bet.motivoInvalido || 'Palpite salvo após o início do jogo.'
           };
         });
@@ -689,14 +712,14 @@
       });
     }
 
-    function renderAuditoria() {
+    function renderChecagem() {
       const lista = document.getElementById('lista');
       const status = document.getElementById('status');
       const filtro = normalizeText(document.getElementById('filtro')?.value || '');
 
       if (!lista || !status) return;
 
-      const filtrados = auditoriaData
+      const filtrados = dadosChecagem
         .map(group => {
           const participantText = normalizeText([
             getParticipantName(group.participant),
@@ -728,26 +751,27 @@
       lista.innerHTML = '';
 
       if (!filtrados.length) {
-        status.className = 'success';
+        status.className = 'status ok';
         status.textContent = filtro
-          ? 'Nenhum palpite inválido encontrado para esse filtro.'
-          : 'Nenhum palpite inválido encontrado no JSON consolidado atual.';
+          ? 'Nenhum alerta encontrado para esse filtro.'
+          : 'Nenhum palpite inválido encontrado no consolidado atual.';
         return;
       }
 
       const totalFiltrado = filtrados.reduce((sum, group) => sum + group.invalids.length, 0);
 
-      status.className = 'error';
+      status.className = 'status error';
       status.textContent = `${totalFiltrado} palpite(s) inválido(s) encontrado(s).`;
 
       lista.innerHTML = filtrados.map(group => `
-        <article class="audit-card">
-          <div class="audit-head">
+        <article class="participant">
+          <div class="participant-head">
             <div>
-              <div class="audit-player">${esc(getParticipantName(group.participant))}</div>
-              <span class="audit-email">${esc(getParticipantEmail(group.participant) || 'E-mail não informado')}</span>
+              <div class="participant-name">${escapeHtml(getParticipantName(group.participant))}</div>
+              <span class="participant-email">${escapeHtml(getParticipantEmail(group.participant) || 'E-mail não informado')}</span>
             </div>
-            <span class="badge">${group.invalids.length} inválido(s)</span>
+
+            <span class="badge error">${group.invalids.length} alerta(s)</span>
           </div>
 
           <div class="invalid-grid">
@@ -756,30 +780,31 @@
                 <div class="invalid-top">
                   <div>
                     <div class="match-id">
-                      ${esc(item.matchId || 'Jogo')}
-                      ${item.match ? ` · Jogo ${esc(item.match)}` : ''}
+                      ${escapeHtml(item.matchId || 'Jogo')}
+                      ${item.match ? ` · Jogo ${escapeHtml(item.match)}` : ''}
                     </div>
+
                     <div class="match-title">
-                      ${esc(item.teamA || 'Time A')} x ${esc(item.teamB || 'Time B')}
+                      ${escapeHtml(item.teamA || 'Time A')} x ${escapeHtml(item.teamB || 'Time B')}
                     </div>
                   </div>
 
-                  <div class="score">${esc(item.score || '-')}</div>
+                  <div class="score">${escapeHtml(item.score || '-')}</div>
                 </div>
 
                 <div class="date-grid">
                   <div class="date-box">
                     <div class="date-label">Início do jogo</div>
-                    <div class="date-value">${esc(formatDate(item.gameDate))}</div>
+                    <div class="date-value">${escapeHtml(formatDate(item.gameDate))}</div>
                   </div>
 
                   <div class="date-box">
                     <div class="date-label">Palpite salvo em</div>
-                    <div class="date-value">${esc(formatDate(item.betUpdatedAt))}</div>
+                    <div class="date-value">${escapeHtml(formatDate(item.betUpdatedAt))}</div>
                   </div>
                 </div>
 
-                <div class="reason">${esc(item.reason)}</div>
+                <div class="reason">${escapeHtml(item.reason)}</div>
               </div>
             `).join('')}
           </div>
@@ -790,19 +815,19 @@
     function limparFiltro() {
       const el = document.getElementById('filtro');
       if (el) el.value = '';
-      renderAuditoria();
+      renderChecagem();
     }
 
-    async function carregarAuditoria() {
+    async function carregarChecagem() {
       const status = document.getElementById('status');
 
       if (status) {
-        status.className = 'notice';
-        status.textContent = 'Carregando auditoria...';
+        status.className = 'status';
+        status.textContent = 'Carregando dados...';
       }
 
       try {
-        const response = await fetch(URL + '?refresh=1&auditoria=1', {
+        const response = await fetch(URL_APPS_SCRIPT + '?refresh=1&auditoria=1', {
           cache: 'no-store'
         });
 
@@ -812,29 +837,29 @@
 
         const data = await response.json();
 
-        auditoriaData = buildAuditoria(data);
+        dadosChecagem = buildChecagem(data);
 
         const totalParticipants = getParticipants(data).length;
-        const groupsWithInvalids = auditoriaData.filter(group => group.invalids.length).length;
-        const totalInvalids = auditoriaData.reduce((sum, group) => sum + group.invalids.length, 0);
+        const groupsWithInvalids = dadosChecagem.filter(group => group.invalids.length).length;
+        const totalInvalids = dadosChecagem.reduce((sum, group) => sum + group.invalids.length, 0);
 
         setText('metricParticipantes', totalParticipants);
-        setText('metricComInvalidos', groupsWithInvalids);
+        setText('metricComAlerta', groupsWithInvalids);
         setText('metricInvalidos', totalInvalids);
         setText('metricAtualizacao', formatDate(data.generatedAt || data.atualizadoEm || new Date().toISOString()));
 
-        renderAuditoria();
+        renderChecagem();
       } catch (error) {
         if (status) {
-          status.className = 'error';
-          status.textContent = 'Não foi possível carregar a auditoria: ' + String(error.message || error);
+          status.className = 'status error';
+          status.textContent = 'Não foi possível carregar a checagem: ' + String(error.message || error);
         }
 
         setText('metricAtualizacao', '-');
       }
     }
 
-    carregarAuditoria();
+    carregarChecagem();
   </script>
 </body>
 </html>
