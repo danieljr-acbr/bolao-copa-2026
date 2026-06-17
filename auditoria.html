@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex,nofollow" />
+  <meta name="description" content="Auditoria de palpites inválidos do Bolão Copa 2026." />
+  <title>Auditoria de Palpites | Bolão Copa 2026</title>
+  <style>
+    :root{--bg:#020617;--bg2:#0f172a;--card:rgba(15,23,42,.9);--card2:rgba(30,41,59,.76);--text:#f8fafc;--muted:#94a3b8;--line:#334155;--green:#22c55e;--green2:#86efac;--yellow:#facc15;--orange:#f59e0b;--red:#ef4444;--red2:#fecaca}*{box-sizing:border-box}body{margin:0;font-family:Arial,Helvetica,sans-serif;color:var(--text);min-height:100vh;background:radial-gradient(circle at top left,rgba(239,68,68,.16),transparent 30rem),radial-gradient(circle at top right,rgba(250,204,21,.12),transparent 28rem),linear-gradient(135deg,var(--bg),var(--bg2))}a{color:inherit}.container{width:min(1180px,calc(100% - 32px));margin:0 auto;padding:28px 0 42px}h1,h2,h3{margin:0;line-height:1.1}h1{font-size:clamp(34px,5.4vw,62px);letter-spacing:-1.3px}h2{font-size:clamp(23px,3vw,34px);margin-bottom:12px}h3{font-size:19px;margin-bottom:8px}p{color:var(--muted);line-height:1.62;margin:10px 0 0}.hero,.card,.metric,.audit-card,.invalid-item{border:1px solid var(--line);background:var(--card);box-shadow:0 18px 42px rgba(0,0,0,.28)}.hero{border-radius:30px;padding:clamp(26px,4.5vw,54px);background:radial-gradient(circle at 86% 20%,rgba(239,68,68,.18),transparent 18rem),linear-gradient(135deg,rgba(15,23,42,.95),rgba(2,6,23,.80));overflow:hidden;position:relative}.hero:after{content:"🔎";position:absolute;right:clamp(20px,7vw,86px);top:26px;font-size:clamp(70px,13vw,150px);opacity:.075;transform:rotate(-10deg);pointer-events:none}.eyebrow{display:inline-flex;padding:7px 12px;border-radius:999px;background:rgba(239,68,68,.13);border:1px solid rgba(254,202,202,.25);color:var(--red2);font-size:12px;font-weight:900;text-transform:uppercase;letter-spacing:.08em;margin-bottom:14px}.actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:22px}.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:46px;padding:12px 17px;border-radius:999px;text-decoration:none;border:1px solid rgba(255,255,255,.10);background:#1e293b;color:#e2e8f0;font-weight:900;cursor:pointer}.btn.primary{background:var(--red);color:#fff}.btn.green{background:var(--green);color:#052e16}.metrics{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;margin-top:22px}.metric{border-radius:22px;padding:18px;background:var(--card2);min-height:115px}.metric-label{color:var(--muted);font-size:12px;text-transform:uppercase;letter-spacing:.07em;font-weight:900}.metric-value{font-size:clamp(24px,3vw,35px);font-weight:950;margin-top:9px}.metric-sub{color:var(--muted);font-size:13px;margin-top:7px}main{display:grid;gap:18px;margin-top:22px}.card{border-radius:26px;padding:clamp(20px,3vw,30px)}.notice{margin-top:14px;padding:14px 16px;border-radius:18px;background:rgba(245,158,11,.10);border:1px solid rgba(245,158,11,.34);color:#fde68a;line-height:1.45}.success{margin-top:14px;padding:14px 16px;border-radius:18px;background:rgba(34,197,94,.10);border:1px solid rgba(34,197,94,.34);color:#bbf7d0;line-height:1.45}.error{margin-top:14px;padding:14px 16px;border-radius:18px;background:rgba(239,68,68,.10);border:1px solid rgba(239,68,68,.34);color:#fecaca;line-height:1.45}.audit-list{display:grid;gap:14px;margin-top:16px}.audit-card{border-radius:22px;padding:18px;background:rgba(2,6,23,.44)}.audit-head{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;flex-wrap:wrap}.audit-player{font-size:21px;font-weight:950;overflow-wrap:anywhere}.audit-email{display:block;color:var(--muted);font-size:13px;margin-top:5px}.badge{display:inline-flex;align-items:center;gap:6px;padding:7px 10px;border-radius:999px;background:rgba(239,68,68,.14);border:1px solid rgba(239,68,68,.38);color:#fecaca;font-size:12px;font-weight:950;white-space:nowrap}.invalid-grid{display:grid;gap:10px;margin-top:14px}.invalid-item{border-radius:16px;padding:14px;background:rgba(15,23,42,.74)}.invalid-top{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;align-items:flex-start}.match-title{font-weight:950;font-size:16px;line-height:1.35}.match-id{color:var(--muted);font-size:12px;font-weight:900;text-transform:uppercase;letter-spacing:.06em}.score{font-size:22px;font-weight:950;color:#fde68a;white-space:nowrap}.date-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-top:12px}.date-box{border:1px solid rgba(51,65,85,.82);background:rgba(2,6,23,.38);border-radius:14px;padding:11px}.date-label{font-size:11px;color:var(--muted);font-weight:900;text-transform:uppercase;letter-spacing:.06em}.date-value{font-size:15px;font-weight:900;margin-top:5px}.reason{margin-top:11px;color:#fecaca;font-size:13px;line-height:1.45}.controls{display:grid;grid-template-columns:1fr auto;gap:12px;align-items:end;margin-top:14px}label{display:block;margin:0 0 6px;color:var(--muted);font-size:13px;font-weight:900;text-transform:uppercase;letter-spacing:.06em}input{width:100%;border-radius:14px;border:1px solid var(--line);padding:13px 14px;background:#020617;color:var(--text);font-size:15px}.muted{color:var(--muted)}footer{text-align:center;color:var(--muted);padding:24px 0 4px}.hidden{display:none}@media(max-width:900px){.metrics{grid-template-columns:repeat(2,minmax(0,1fr))}.date-grid{grid-template-columns:1fr}}@media(max-width:700px){.container{width:min(100% - 22px,1180px);padding-top:12px}.metrics{grid-template-columns:1fr}.actions .btn,.controls .btn{width:100%}.controls{grid-template-columns:1fr}.score{font-size:18px}.hero:after{display:none}}
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header class="hero">
+      <span class="eyebrow">🔎 Auditoria oculta</span>
+      <h1>Auditoria de Palpites</h1>
+      <p>Esta página mostra os palpites desconsiderados por terem sido salvos após o início do jogo. Ela não está listada nos menus públicos do bolão.</p>
+      <div class="actions">
+        <button class="btn primary" type="button" onclick="carregarAuditoria()">🔄 Atualizar auditoria</button>
+        <a class="btn" href="ranking.html">📊 Ranking</a>
+        <a class="btn green" href="index.html">🏠 Central</a>
+      </div>
+      <div class="metrics">
+        <div class="metric"><div class="metric-label">Participantes auditados</div><div class="metric-value" id="metricParticipantes">0</div><div class="metric-sub">com dados no consolidado</div></div>
+        <div class="metric"><div class="metric-label">Com palpites inválidos</div><div class="metric-value" id="metricComInvalidos">0</div><div class="metric-sub">participantes com alerta</div></div>
+        <div class="metric"><div class="metric-label">Palpites inválidos</div><div class="metric-value" id="metricInvalidos">0</div><div class="metric-sub">desconsiderados por horário</div></div>
+        <div class="metric"><div class="metric-label">Atualizado em</div><div class="metric-value" id="metricAtualizacao">-</div><div class="metric-sub">horário local</div></div>
+      </div>
+    </header>
+
+    <main>
+      <section class="card">
+        <h2>⚠️ Palpites inválidos por horário</h2>
+        <p>Para valer pontos, o palpite precisa ter sido salvo antes do início da partida. A lista abaixo compara a data de salvamento do palpite com a data de início do jogo.</p>
+        <div class="controls">
+          <div>
+            <label for="filtro">Filtrar por participante, jogo ou motivo</label>
+            <input id="filtro" placeholder="Ex: Daniel, Brasil, m006" oninput="renderAuditoria()" />
+          </div>
+          <button class="btn" type="button" onclick="limparFiltro()">Limpar filtro</button>
+        </div>
+        <div id="status" class="notice">Carregando auditoria...</div>
+        <div id="lista" class="audit-list"></div>
+      </section>
+    </main>
+
+    <footer>Bolão Copa do Mundo 2026 · Página técnica de auditoria</footer>
+  </div>
+
+  <script>
+    const URL='https://script.google.com/macros/s/AKfycbzSBTdEtcguwXwkP1JrlwMII_1UON048l9BXc0iFZ62lfuyzFsl_5zBdE4l0qkbz2vjwg/exec';
+    let auditoriaData=[];
+
+    const esc=v=>String(v??'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#039;');
+    const set=(id,v)=>{const el=document.getElementById(id);if(el)el.textContent=v};
+    const participants=d=>Array.isArray(d?.participants)?d.participants:[];
+    const games=d=>Array.isArray(d?.games)?d.games:[];
+    const name=p=>p.name||p.nome||p.apelido||'Participante sem nome';
+    const email=p=>p.email||'';
+    const id=p=>String(p.id||'').trim();
+
+    function formatDate(value){
+      if(!value)return '-';
+      const text=String(value).trim();
+      let date;
+      if(/[zZ]|[+-]\d{2}:?\d{2}$/.test(text)){
+        date=new Date(text);
+      }else{
+        date=new Date(text+'-03:00');
+      }
+      if(Number.isNaN(date.getTime()))return text;
+      return date.toLocaleString('pt-BR',{dateStyle:'short',timeStyle:'short'});
+    }
+
+    function gameMap(data){
+      const map={};
+      games(data).forEach(g=>{if(g&&g.id)map[String(g.id)]=g});
+      return map;
+    }
+
+    function betScore(bet){
+      if(!bet)return '-';
+      const a=Number(bet.scoreA),b=Number(bet.scoreB);
+      if(!Number.isFinite(a)||!Number.isFinite(b))return '-';
+      return `${a} x ${b}`;
+    }
+
+    function normalizeText(value){
+      return String(value||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase();
+    }
+
+    function invalidsFromParticipant(p){
+      if(Array.isArray(p?.invalidBets))return p.invalidBets;
+      return [];
+    }
+
+    function fallbackInvalidsFromBets(data,p,gmap){
+      const participantId=id(p);
+      const allBets=data?.bets||{};
+      const participantBets=allBets[participantId]||{};
+      return Object.entries(participantBets)
+        .filter(([_,bet])=>String(bet?.invalidReason||'').trim())
+        .map(([matchId,bet])=>{
+          const g=gmap[matchId]||{};
+          return {
+            matchId,
+            match:g.match||'',
+            teamA:g.teamA||'',
+            teamB:g.teamB||'',
+            gameDate:g.date||'',
+            betUpdatedAt:bet.updatedAt||'',
+            scoreA:bet.scoreA,
+            scoreB:bet.scoreB,
+            reason:bet.invalidReason||'Palpite inválido por horário.'
+          };
+        });
+    }
+
+    function buildAuditoria(data){
+      const gmap=gameMap(data);
+      return participants(data).map(p=>{
+        let invalids=invalidsFromParticipant(p);
+        if(!invalids.length)invalids=fallbackInvalidsFromBets(data,p,gmap);
+        invalids=invalids.map(item=>{
+          const matchId=String(item.matchId||item.id||'').trim();
+          const g=gmap[matchId]||{};
+          const bet=(data?.bets||{})[id(p)]?.[matchId]||{};
+          return {
+            participantId:id(p),
+            participantName:name(p),
+            participantEmail:email(p),
+            matchId,
+            match:item.match||g.match||'',
+            teamA:item.teamA||g.teamA||'',
+            teamB:item.teamB||g.teamB||'',
+            gameDate:item.gameDate||g.date||'',
+            betUpdatedAt:item.betUpdatedAt||bet.updatedAt||'',
+            score:item.scoreA!==undefined?`${item.scoreA} x ${item.scoreB}`:betScore(bet),
+            reason:item.reason||bet.invalidReason||'Palpite salvo após o início do jogo.'
+          };
+        });
+        return {participant:p,invalids};
+      });
+    }
+
+    function renderAuditoria(){
+      const lista=document.getElementById('lista');
+      const status=document.getElementById('status');
+      const filtro=normalizeText(document.getElementById('filtro')?.value||'');
+      if(!lista||!status)return;
+
+      const filtrados=auditoriaData.map(group=>{
+        const textGroup=normalizeText([name(group.participant),email(group.participant)].join(' '));
+        const invalids=group.invalids.filter(item=>{
+          const hay=normalizeText([textGroup,item.matchId,item.teamA,item.teamB,item.reason,item.gameDate,item.betUpdatedAt].join(' '));
+          return !filtro||hay.includes(filtro);
+        });
+        return {...group,invalids};
+      }).filter(group=>group.invalids.length);
+
+      lista.innerHTML='';
+
+      if(!filtrados.length){
+        status.className='success';
+        status.textContent=filtro?'Nenhum palpite inválido encontrado para esse filtro.':'Nenhum palpite inválido encontrado no JSON consolidado atual.';
+        return;
+      }
+
+      status.className='error';
+      status.textContent=`${filtrados.reduce((sum,g)=>sum+g.invalids.length,0)} palpite(s) inválido(s) encontrado(s).`;
+
+      lista.innerHTML=filtrados.map(group=>`
+        <article class="audit-card">
+          <div class="audit-head">
+            <div>
+              <div class="audit-player">${esc(name(group.participant))}</div>
+              <span class="audit-email">${esc(email(group.participant)||'E-mail não informado')}</span>
+            </div>
+            <span class="badge">${group.invalids.length} inválido(s)</span>
+          </div>
+          <div class="invalid-grid">
+            ${group.invalids.map(item=>`
+              <div class="invalid-item">
+                <div class="invalid-top">
+                  <div>
+                    <div class="match-id">${esc(item.matchId||'Jogo')} ${item.match?`· Jogo ${esc(item.match)}`:''}</div>
+                    <div class="match-title">${esc(item.teamA||'Time A')} x ${esc(item.teamB||'Time B')}</div>
+                  </div>
+                  <div class="score">${esc(item.score)}</div>
+                </div>
+                <div class="date-grid">
+                  <div class="date-box"><div class="date-label">Início do jogo</div><div class="date-value">${esc(formatDate(item.gameDate))}</div></div>
+                  <div class="date-box"><div class="date-label">Palpite salvo em</div><div class="date-value">${esc(formatDate(item.betUpdatedAt))}</div></div>
+                </div>
+                <div class="reason">${esc(item.reason)}</div>
+              </div>
+            `).join('')}
+          </div>
+        </article>
+      `).join('');
+    }
+
+    function limparFiltro(){
+      const el=document.getElementById('filtro');
+      if(el)el.value='';
+      renderAuditoria();
+    }
+
+    async function carregarAuditoria(){
+      const status=document.getElementById('status');
+      if(status){status.className='notice';status.textContent='Carregando auditoria...'}
+      try{
+        const response=await fetch(URL+'?refresh=1&auditoria=1',{cache:'no-store'});
+        if(!response.ok)throw new Error('HTTP '+response.status);
+        const data=await response.json();
+        auditoriaData=buildAuditoria(data);
+        const totalParticipants=participants(data).length;
+        const groupsWithInvalids=auditoriaData.filter(g=>g.invalids.length).length;
+        const totalInvalids=auditoriaData.reduce((sum,g)=>sum+g.invalids.length,0);
+        set('metricParticipantes',totalParticipants);
+        set('metricComInvalidos',groupsWithInvalids);
+        set('metricInvalidos',totalInvalids);
+        set('metricAtualizacao',formatDate(data.generatedAt||new Date().toISOString()));
+        renderAuditoria();
+      }catch(error){
+        if(status){status.className='error';status.textContent='Não foi possível carregar a auditoria: '+String(error.message||error)}
+      }
+    }
+
+    carregarAuditoria();
+  </script>
+</body>
+</html>
